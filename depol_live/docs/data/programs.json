@@ -1,0 +1,254 @@
+{
+  "topics": [
+    {
+      "id": "frihed",
+      "label": "Frihed"
+    },
+    {
+      "id": "velfaerd",
+      "label": "Velfærd"
+    },
+    {
+      "id": "statens_rolle",
+      "label": "Statens rolle"
+    },
+    {
+      "id": "klima_miljoe",
+      "label": "Klima og miljø"
+    }
+  ],
+  "parties": [
+    {
+      "id": "S",
+      "name": "Socialdemokratiet"
+    },
+    {
+      "id": "V",
+      "name": "Venstre"
+    },
+    {
+      "id": "K",
+      "name": "Det Konservative Folkeparti"
+    }
+  ],
+  "programs": [
+    {
+      "id": "S_2004",
+      "partyId": "S",
+      "year": 2004,
+      "title": "Hånden på Hjertet",
+      "sourceFile": "S_2004_Hånden på Hjertet.docx",
+      "externalUrl": "",
+      "context": "Vedtaget i 2004 som Socialdemokratiets principprogram i en periode, hvor partiet forsøgte at formulere sine kerneværdier i en ny tid. Programmet holder fast i frihed, lighed og solidaritet, men kobler dem tydeligt til velfærdsstatens institutioner og solidarisk finansiering.",
+      "topics": [
+        {
+          "topicId": "statens_rolle",
+          "excerpts": [
+            {
+              "id": "S_2004_stat_1",
+              "text": "Mennesker skal have frihed til at skabe en tilværelse ud fra deres egne drømme og evner. Men friheden er kun ægte, hvis den er for alle. Derfor skal vi sikre frihed for alle gennem fællesskabet. Frihed handler først og fremmest om livsmuligheder. For os er fællesskabet og de muligheder, fællesskabet giver os, den eneste vej til at sikre det enkelte menneske frihed til at forfølge sine drømme og udnytte sine evner."
+            }
+          ]
+        },
+        {
+          "topicId": "velfaerd",
+          "excerpts": [
+            {
+              "id": "S_2004_velfaerd_1",
+              "text": "Vores velfærd bygger på, at man har adgang til de grundlæggende ydelser alene i kraft af, at man er borger i samfundet. Det er så vitale velfærdsydelser, at vi ikke ønsker, at pengepungen skal være afgørende."
+            },
+            {
+              "id": "S_2004_velfaerd_2",
+              "text": "Vores velfærdsmodel afhænger af viljen til solidarisk finansiering af velfærdssamfundet over skatterne. Socialdemokraterne ønsker at fastholde den solidariske finansiering af de grundlæggende velfærdsydelser og skattesystemets progressivitet."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S_2017",
+      "partyId": "S",
+      "year": 2017,
+      "title": "Fælles om Danmark",
+      "sourceFile": "S_2017_Fælles om Danmark.docx",
+      "externalUrl": "https://www.socialdemokratiet.dk/media/ws1fxjky/socialdemokratiets-principprogram-faelles-om-danmark.pdf",
+      "context": "Vedtaget i 2017. Programmet blev til i årene efter formandsskiftet i 2015, hvor Mette Frederiksen satte arbejdet med et nyt principprogram i gang. I den trykte udgave står Dan Jørgensen som formand for principprogramudvalget sammen med Mette Frederiksen.",
+      "topics": [
+        {
+          "topicId": "velfaerd",
+          "excerpts": [
+            {
+              "id": "S_2017_velfaerd_1",
+              "text": "Danmark er et velfærdssamfund. Det betyder, at fællesskabet søger at give tryghed og velfærd til alle. Velfærdssamfundet og fællesskabets institutioner er den bedste lighedsmotor, historien har set. Det er herigennem, vi skal sikre reelle og lige muligheder for alle i vores samfund."
+            },
+            {
+              "id": "S_2017_velfaerd_2",
+              "text": "Socialdemokratiet ønsker en stærk offentlig sektor, hvor vi i fællesskab har indflydelse på og kontrol over udviklingen af de centrale velfærdsområder. Den offentlige sektor i Danmark kan ikke reduceres til tal i et regneark. Den består af mennesker med engagement, flid og faglighed."
+            }
+          ]
+        },
+        {
+          "topicId": "klima_miljoe",
+          "excerpts": [
+            {
+              "id": "S_2017_klima_1",
+              "text": "Den største trussel er klimaforandringerne. Afbrændingen af fossile brændstoffer og udledningen af drivhusgasser medfører, at temperaturen stiger, og at klimaet ændrer sig. Det har allerede nu alvorlige konsekvenser."
+            },
+            {
+              "id": "S_2017_klima_2",
+              "text": "Det presser vores natur og miljø. Derfor må vi handle. Socialdemokratiet har vist, at miljøkrav og vækst ikke er hinandens modsætninger. Ganske som vores velfærdssamfund styrer markedet nationalt, skal fællesskabet i EU gøre det internationalt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V_2006",
+      "partyId": "V",
+      "year": 2006,
+      "title": "Fremtid i frihed og fællesskab",
+      "sourceFile": "V_2006_Fremtid i Frihed og Fællesskab.docx",
+      "externalUrl": "",
+      "context": "Vedtaget i 2006 i forlængelse af Venstres regeringsår i 00'erne. Programmet fastholder et klassisk liberalt fokus på frihed, personligt ansvar og valgfrihed, men kobler det samtidig til et velfungerende samfund og en moderniseret offentlig sektor.",
+      "topics": [
+        {
+          "topicId": "frihed",
+          "excerpts": [
+            {
+              "id": "V_2006_frihed_1",
+              "text": "Når det enkelte menneske får størst mulig frihed til at forme sit eget liv, får det bedste muligheder for at udfolde sine evner og lade sine resultater komme fællesskabet til gode. Der er ikke nogen modsætning mellem frihed og fællesskab. De stærkeste fællesskaber er netop de fællesskaber, menneskene frivilligt slutter sig til."
+            },
+            {
+              "id": "V_2006_frihed_2",
+              "text": "Mennesket har ret til at leve sit liv i frihed og gå sine egne veje, så længe det ikke krænker noget andet menneskes tilsvarende frihed. Statens opgave er at håndhæve de individuelle frihedsrettigheder, så ingen bliver undertrykt af andre."
+            }
+          ]
+        },
+        {
+          "topicId": "statens_rolle",
+          "excerpts": [
+            {
+              "id": "V_2006_stat_1",
+              "text": "Kan opgaver på privat initiativ løses af den enkelte person, af familien, af private virksomheder eller af private organisationer, er det at foretrække uden statslig indblanding."
+            },
+            {
+              "id": "V_2006_stat_2",
+              "text": "En effektiv og serviceorienteret offentlig sektor er afgørende for et velfungerende samfund. De offentlige serviceopgaver skal moderniseres på grundlag af princippet om frit valg for borgerne mellem offentlige og private leverandører."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "V_2025",
+      "partyId": "V",
+      "year": 2025,
+      "title": "Principprogram",
+      "sourceFile": "V_2025_Principprogram.docx",
+      "externalUrl": "https://www.venstre.dk/politik/principprogram",
+      "context": "Vedtaget i 2025 som Venstres nye principprogram. Teksten formulerer partiets liberale grundlag i et nutidigt sprog med stærk vægt på frivillige fællesskaber, civilsamfund, personlig frihed og et velfærdssamfund frem for en velfærdsstat.",
+      "topics": [
+        {
+          "topicId": "frihed",
+          "excerpts": [
+            {
+              "id": "V_2025_frihed_1",
+              "text": "I Venstre mener vi, at den enkelte er bedst til at bestemme over sit eget liv. Retten til at træffe sine egne valg og bestemme over sin egen livsbane er central for Venstre. Derfor er det statens vigtigste opgave at sikre de grundlæggende frihedsrettigheder, så man hver især kan skabe den tilværelse og det liv, man ønsker."
+            },
+            {
+              "id": "V_2025_frihed_2",
+              "text": "Frivillige fællesskaber er fundamentet i et velfungerende samfund. Et fællesskab får større værdi, hvis det er udformet i frihed, og friheden bliver hurtigt meningsløs, hvis ikke den kan nydes i fællesskab med andre. Derfor mener vi, at frihed og fællesskab er uløseligt forbundet."
+            }
+          ]
+        },
+        {
+          "topicId": "velfaerd",
+          "excerpts": [
+            {
+              "id": "V_2025_velfaerd_1",
+              "text": "Venstre ønsker et velfærdssamfund og ikke en velfærdsstat. Velfærdssamfundet er baseret på frihed, ansvar og selvbestemmelse. Velfærdssamfundets vigtigste opgave er at være sikkerhedsnettet, der sikrer, at dem, der ikke kan selv, får hjælp til et værdigt liv."
+            },
+            {
+              "id": "V_2025_velfaerd_2",
+              "text": "Valgfrihed giver ejerskab over eget liv. Derfor er det essentielt, at danskerne frit kan vælge de velfærdstilbud, der passer bedst, og at private aktører og civilsamfundsorganisationer får bedre muligheder for at levere disse tilbud."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K_2000",
+      "partyId": "K",
+      "year": 2000,
+      "title": "Fornuft og fornyelse",
+      "sourceFile": "K_2000_Fornuft og fornyelse.docx",
+      "externalUrl": "",
+      "context": "Vedtaget i 2000. Programmet kombinerer konservative friheds- og ansvarsforestillinger med en tydelig åbning mod markedsløsninger, udlicitering og valgfrihed i den offentlige service.",
+      "topics": [
+        {
+          "topicId": "frihed",
+          "excerpts": [
+            {
+              "id": "K_2000_frihed_1",
+              "text": "Det Konservative Folkepartis grundholdning bygger på respekt for det enkelte menneskes frihed. I et samfund, hvor det enkelte menneske respekteres, vil privatlivets fred, den private ejendomsret og retssikkerheden altid være centrale begreber. Staten skal sikre, at det enkelte individ har frihed til at udfolde sig, men skal samtidig være garant for, at ingen krænker andres frihed."
+            },
+            {
+              "id": "K_2000_frihed_2",
+              "text": "Privat ejendomsret og økonomisk frihed er både forudsætninger for personlig frihed og for velstand og mangfoldighed. Det Konservative Folkeparti ønsker at fremme friheden til selv at eje og høste frugterne af eget arbejde."
+            }
+          ]
+        },
+        {
+          "topicId": "statens_rolle",
+          "excerpts": [
+            {
+              "id": "K_2000_stat_1",
+              "text": "Hvis den personlige og økonomiske frihed skal respekteres, skal der være klare grænser for den offentlige sektors skatteopkrævning og dermed også for den offentlige sektors størrelse og omfanget af de offentlige ydelser."
+            },
+            {
+              "id": "K_2000_stat_2",
+              "text": "Selvom ansvaret for en serviceydelse påhviler den offentlige sektor, betyder det ikke, at opgaven behøver at blive udført af det offentlige. Opgaver, der kan udføres af private, skal i størst muligt omfang udliciteres."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K_2024",
+      "partyId": "K",
+      "year": 2024,
+      "title": "Stærke rødder i en omskiftelig tid",
+      "sourceFile": "K_2024_Stærke rødder i en omskiftelig tid.docx",
+      "externalUrl": "https://konservative.dk/partiprogram/",
+      "context": "Vedtaget den 22. september 2024 på partiets landsråd i Herning. Programmet blev vedtaget få måneder efter Mona Juul blev partiformand, og det viderefører et stærkt fokus på familie, ansvar, nationalt fællesskab, forsvar og grøn omstilling.",
+      "topics": [
+        {
+          "topicId": "velfaerd",
+          "excerpts": [
+            {
+              "id": "K_2024_velfaerd_1",
+              "text": "For os går frihed og ansvar hånd i hånd. Alle mennesker skal have mulighed for at klare sig selv uden at skulle være afhængig af det offentlige. Derfor er en omfattende velfærdsstat med til at fremme egoisme, fordi der skabes en afhængighed af staten, som fortrænger de nære relationer i form af familie, venner eller lokalsamfundet."
+            },
+            {
+              "id": "K_2024_velfaerd_2",
+              "text": "Desværre findes der også tilfælde, hvor de nære relationer ikke i tilstrækkelig grad kan løfte opgaven med at hjælpe nogle af de svageste i vores samfund. Der skal det offentlige træde til med hjælp og støtte af høj kvalitet. Enhver dansker skal have ret til hjælp fra det offentlige, når der er behov for det."
+            }
+          ]
+        },
+        {
+          "topicId": "klima_miljoe",
+          "excerpts": [
+            {
+              "id": "K_2024_klima_1",
+              "text": "Generationskontraktens kerne er, at vi skal tage ansvar for vores efterkommeres muligheder for at leve et godt og indholdsrigt liv og sikre dem mindst lige så gode muligheder, som vi selv har haft. Det forudsætter aktive politiske indsatser for at reducere CO2-udslippet og for at beskytte og udbygge vores natur."
+            },
+            {
+              "id": "K_2024_klima_2",
+              "text": "Det Konservative Folkeparti arbejder for en ambitiøs grøn omstilling med respekt for demokratiske principper, grundlovssikrede rettigheder og økonomisk ansvarlighed. Vi ønsker at anvise en vej for, hvordan vækst, velstand og en effektiv klima- og miljøpolitik kan gå hånd i hånd."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
