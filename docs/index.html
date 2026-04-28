@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>De politiske principper</title>
+    <meta
+      name="description"
+      content="Læs og sammenlign danske partiers principprogrammer på tværs af emner og over tid."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <p class="eyebrow">Offentlig kildesite</p>
+      <h1>De politiske principper</h1>
+      <p class="lead">
+        Læs partiernes egne formuleringer. Sammenlign på tværs. Følg udviklingen over tid.
+      </p>
+      <div class="intro-note">
+        <p>
+          Første offentlige version er bygget som et fundament, der kan udvides med flere programmer,
+          flere partier og nye funktioner uden at starte forfra.
+        </p>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="panel hero-panel">
+        <div class="hero-grid">
+          <article>
+            <p class="section-kicker">Tre måder at bruge sitet på</p>
+            <h2>Vælg en funktion</h2>
+            <p class="hero-copy">
+              Sitet er opdelt i tre læsemåder: sammenlign partier om et emne, følg ét partis
+              formuleringer over tid, eller gå ind på en partiside og få et samlet overblik over
+              programmets historie.
+            </p>
+          </article>
+          <nav class="mode-switch" aria-label="Hovedfunktioner">
+            <button class="mode-button is-active" data-mode="compare">Sammenlign partier</button>
+            <button class="mode-button" data-mode="timeline">Følg et parti over tid</button>
+            <button class="mode-button" data-mode="party">Partisider</button>
+          </nav>
+        </div>
+      </section>
+
+      <section id="mode-compare" class="mode-panel is-active" aria-labelledby="compare-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Filtre for sammenligning">
+            <h2 id="compare-title">Sammenlign partier</h2>
+            <p class="panel-intro">
+              Vælg et emne og sammenlign, hvordan partierne formulerer sig i de programmer, der er
+              lagt ind.
+            </p>
+
+            <label for="compare-topic-select">Emne</label>
+            <select id="compare-topic-select"></select>
+
+            <fieldset>
+              <legend>Partier</legend>
+              <div id="compare-party-checkboxes" class="party-grid"></div>
+            </fieldset>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Sammenligning på tværs af partier</h2>
+              <p id="compare-summary"></p>
+            </div>
+            <div id="compare-view" class="card-grid"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="mode-timeline" class="mode-panel" aria-labelledby="timeline-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Filtre for udvikling over tid">
+            <h2 id="timeline-title">Følg et parti over tid</h2>
+            <p class="panel-intro">
+              Vælg ét parti og ét emne for at se, hvordan formuleringerne udvikler sig program for
+              program.
+            </p>
+
+            <label for="timeline-party-select">Parti</label>
+            <select id="timeline-party-select"></select>
+
+            <label for="timeline-topic-select">Emne</label>
+            <select id="timeline-topic-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Udvikling over tid</h2>
+              <p id="timeline-summary"></p>
+            </div>
+            <div id="timeline-view" class="timeline"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="mode-party" class="mode-panel" aria-labelledby="party-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Partioversigt">
+            <h2 id="party-title">Partisider</h2>
+            <p class="panel-intro">
+              Gå ind på et parti og få et samlet overblik over de programmer, der er lagt ind, deres
+              rækkefølge i tid og hvilke emner der allerede er kurateret.
+            </p>
+
+            <label for="party-overview-select">Parti</label>
+            <select id="party-overview-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Partioversigt</h2>
+              <p id="party-summary"></p>
+            </div>
+            <div id="party-view" class="party-overview"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Kildesite i første version. Nye programmer, emner, partier og funktioner kan tilføjes løbende.</p>
+    </footer>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
