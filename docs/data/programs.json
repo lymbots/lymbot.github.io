@@ -33,11 +33,45 @@
   ],
   "programs": [
     {
+      "id": "S_1961",
+      "partyId": "S",
+      "year": 1961,
+      "title": "Vejen frem",
+      "sourceFile": "S_1961_Vejen frem.docx",
+      "fullTextPath": "./data/full_texts/S_1961.txt",
+      "externalUrl": "",
+      "context": "Socialdemokratiets principprogram fra 1961. Programmet ligger før projektets hovedperiode og fungerer som historisk sammenligningspunkt for partiets senere programmer.",
+      "topics": []
+    },
+    {
+      "id": "S_1977",
+      "partyId": "S",
+      "year": 1977,
+      "title": "Solidaritet Lighed og Trivsel",
+      "sourceFile": "S_1977_Solidaritet Lighed og Trivsel.docx",
+      "fullTextPath": "./data/full_texts/S_1977.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1977 i en periode præget af oliekriser, økonomisk usikkerhed og debat om økonomisk demokrati.",
+      "topics": []
+    },
+    {
+      "id": "S_1992",
+      "partyId": "S",
+      "year": 1992,
+      "title": "Det Ny Århundrede",
+      "sourceFile": "S_1992_Det Ny Århundrede.docx",
+      "fullTextPath": "./data/full_texts/S_1992.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1992 efter Den Kolde Krigs afslutning og i en periode, hvor Socialdemokratiet formulerede sig ind i en ny international og europæisk virkelighed.",
+      "topics": []
+    },
+    {
       "id": "S_2004",
       "partyId": "S",
       "year": 2004,
       "title": "Hånden på Hjertet",
       "sourceFile": "S_2004_Hånden på Hjertet.docx",
+      "fullTextPath": "./data/full_texts/S_2004.txt",
       "externalUrl": "",
       "context": "Vedtaget i 2004 som Socialdemokratiets principprogram i en periode, hvor partiet forsøgte at formulere sine kerneværdier i en ny tid. Programmet holder fast i frihed, lighed og solidaritet, men kobler dem tydeligt til velfærdsstatens institutioner og solidarisk finansiering.",
       "topics": [
@@ -71,6 +105,7 @@
       "year": 2017,
       "title": "Fælles om Danmark",
       "sourceFile": "S_2017_Fælles om Danmark.docx",
+      "fullTextPath": "./data/full_texts/S_2017.txt",
       "externalUrl": "https://www.socialdemokratiet.dk/media/ws1fxjky/socialdemokratiets-principprogram-faelles-om-danmark.pdf",
       "context": "Vedtaget i 2017. Programmet blev til i årene efter formandsskiftet i 2015, hvor Mette Frederiksen satte arbejdet med et nyt principprogram i gang. I den trykte udgave står Dan Jørgensen som formand for principprogramudvalget sammen med Mette Frederiksen.",
       "topics": [
@@ -103,13 +138,58 @@
       ]
     },
     {
+      "id": "V_1970",
+      "partyId": "V",
+      "year": 1970,
+      "title": "Frem mod år 2000",
+      "sourceFile": "V_1970_Frem mod år 2000.docx",
+      "fullTextPath": "./data/full_texts/V_1970.txt",
+      "externalUrl": "",
+      "context": "Venstres principprogram fra 1970. Programmet ligger før projektets hovedperiode og fungerer som historisk sammenligningspunkt for partiets senere programmer.",
+      "topics": []
+    },
+    {
+      "id": "V_1979",
+      "partyId": "V",
+      "year": 1979,
+      "title": "Det mener Venstre",
+      "sourceFile": "V_1979_Det mener Venstre.docx",
+      "fullTextPath": "./data/full_texts/V_1979.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i slutningen af 1970’erne efter jordskredsvalget og oliekriserne. Programmet indgår som Venstres første program i projektets hovedperiode.",
+      "topics": []
+    },
+    {
+      "id": "V_1986",
+      "partyId": "V",
+      "year": 1986,
+      "title": "Et trygt liv i frihed",
+      "sourceFile": "V_1986_Et trygt liv i frihed.docx",
+      "fullTextPath": "./data/full_texts/V_1986.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1986 under Schlüter-perioden. Programmet indgår i en periode præget af økonomisk genopretning og borgerlig regeringsførelse.",
+      "topics": []
+    },
+    {
+      "id": "V_1995",
+      "partyId": "V",
+      "year": 1995,
+      "title": "Mennesket frem for systemet",
+      "sourceFile": "V_1995_Mennesket frem for systemet.docx",
+      "fullTextPath": "./data/full_texts/V_1995.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1995 i en periode præget af europæisk integration, værdipolitiske forskydninger og ny positionering af Venstre.",
+      "topics": []
+    },
+    {
       "id": "V_2006",
       "partyId": "V",
       "year": 2006,
-      "title": "Fremtid i frihed og fællesskab",
+      "title": "Fremtid i Frihed og Fællesskab",
       "sourceFile": "V_2006_Fremtid i Frihed og Fællesskab.docx",
+      "fullTextPath": "./data/full_texts/V_2006.txt",
       "externalUrl": "",
-      "context": "Vedtaget i 2006 i forlængelse af Venstres regeringsår i 00'erne. Programmet fastholder et klassisk liberalt fokus på frihed, personligt ansvar og valgfrihed, men kobler det samtidig til et velfungerende samfund og en moderniseret offentlig sektor.",
+      "context": "Vedtaget i 2006, mens Venstre havde statsministerposten. Programmet formulerer partiets principper efter VKO-periodens etablering og velfærdsstatens nye centrale rolle i partiets politiske profil.",
       "topics": [
         {
           "topicId": "frihed",
@@ -145,8 +225,9 @@
       "year": 2025,
       "title": "Principprogram",
       "sourceFile": "V_2025_Principprogram.docx",
+      "fullTextPath": "./data/full_texts/V_2025.txt",
       "externalUrl": "https://www.venstre.dk/politik/principprogram",
-      "context": "Vedtaget i 2025 som Venstres nye principprogram. Teksten formulerer partiets liberale grundlag i et nutidigt sprog med stærk vægt på frivillige fællesskaber, civilsamfund, personlig frihed og et velfærdssamfund frem for en velfærdsstat.",
+      "context": "Venstres nyeste principprogram i materialet. Programmet markerer partiets aktuelle formulering af liberalisme, velfærdssamfund, fællesskaber og ansvar.",
       "topics": [
         {
           "topicId": "frihed",
@@ -177,11 +258,45 @@
       ]
     },
     {
+      "id": "K_1970",
+      "partyId": "K",
+      "year": 1970,
+      "title": "70'ernes folkeparti",
+      "sourceFile": "K_1970_70'ernes folkeparti.docx",
+      "fullTextPath": "./data/full_texts/K_1970.txt",
+      "externalUrl": "",
+      "context": "Det Konservative Folkepartis program fra 1970. Programmet ligger før projektets hovedperiode og fungerer som historisk sammenligningspunkt for partiets senere programmer.",
+      "topics": []
+    },
+    {
+      "id": "K_1981",
+      "partyId": "K",
+      "year": 1981,
+      "title": "En fremtid i frihed",
+      "sourceFile": "K_1981_En fremtid i frihed.docx",
+      "fullTextPath": "./data/full_texts/K_1981.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1981 i en periode præget af økonomisk krise, energipolitiske udfordringer og den sene kolde krigs sikkerhedspolitiske spændinger.",
+      "topics": []
+    },
+    {
+      "id": "K_1992",
+      "partyId": "K",
+      "year": 1992,
+      "title": "Frihed i fællesskab",
+      "sourceFile": "K_1992_Frihed i fællesskab.docx",
+      "fullTextPath": "./data/full_texts/K_1992.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 1992 efter Den Kolde Krigs afslutning. Programmet formulerer konservative principper i en ny international situation.",
+      "topics": []
+    },
+    {
       "id": "K_2000",
       "partyId": "K",
       "year": 2000,
       "title": "Fornuft og fornyelse",
       "sourceFile": "K_2000_Fornuft og fornyelse.docx",
+      "fullTextPath": "./data/full_texts/K_2000.txt",
       "externalUrl": "",
       "context": "Vedtaget i 2000. Programmet kombinerer konservative friheds- og ansvarsforestillinger med en tydelig åbning mod markedsløsninger, udlicitering og valgfrihed i den offentlige service.",
       "topics": [
@@ -214,11 +329,23 @@
       ]
     },
     {
+      "id": "K_2012",
+      "partyId": "K",
+      "year": 2012,
+      "title": "Giv ansvaret tilbage til borgerne",
+      "sourceFile": "K_2012_Giv ansvaret tilbage til borgerne.docx",
+      "fullTextPath": "./data/full_texts/K_2012.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 2012 efter partiets lange regeringsdeltagelse fra 2001 til 2011. Programmet lægger vægt på ansvar, familie, civilsamfund og en mindre detailregulerende stat.",
+      "topics": []
+    },
+    {
       "id": "K_2024",
       "partyId": "K",
       "year": 2024,
       "title": "Stærke rødder i en omskiftelig tid",
       "sourceFile": "K_2024_Stærke rødder i en omskiftelig tid.docx",
+      "fullTextPath": "./data/full_texts/K_2024.txt",
       "externalUrl": "https://konservative.dk/partiprogram/",
       "context": "Vedtaget den 22. september 2024 på partiets landsråd i Herning. Programmet blev vedtaget få måneder efter Mona Juul blev partiformand, og det viderefører et stærkt fokus på familie, ansvar, nationalt fællesskab, forsvar og grøn omstilling.",
       "topics": [
