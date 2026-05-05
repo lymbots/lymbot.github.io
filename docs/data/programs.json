@@ -33,6 +33,10 @@
     {
       "id": "SF",
       "name": "Socialistisk Folkeparti"
+    },
+    {
+      "id": "RV",
+      "name": "Radikale Venstre"
     }
   ],
   "programs": [
@@ -445,6 +449,39 @@
       "fullTextPath": "./data/full_texts/SF_2012.txt",
       "externalUrl": "",
       "context": "Vedtaget på SF's landsmøde i 2012. Programmet beskriver partiets socialistiske værdigrundlag og politiske hovedretning i en nyere periode.",
+      "topics": []
+    },
+    {
+      "id": "RV_1955",
+      "partyId": "RV",
+      "year": 1955,
+      "title": "Det Radikale Venstres program af 1955",
+      "sourceFile": "RV_1955.rtf",
+      "fullTextPath": "./data/full_texts/RV_1955.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på landsmødet i Odense i 1955. Programmet markerer en tidlig socialliberal formulering af frihed, folkestyre og internationalt samarbejde.",
+      "topics": []
+    },
+    {
+      "id": "RV_1997",
+      "partyId": "RV",
+      "year": 1997,
+      "title": "Principprogram 1997",
+      "sourceFile": "RV_1976.rtf",
+      "fullTextPath": "./data/full_texts/RV_1976.txt",
+      "externalUrl": "",
+      "context": "Dette dokument indeholder Radikale Venstres principprogram med fokus på menneske og fællesskab, bæredygtighed, folkestyre og international forpligtelse.",
+      "topics": []
+    },
+    {
+      "id": "RV_1977",
+      "partyId": "RV",
+      "year": 1977,
+      "title": "Princip-program",
+      "sourceFile": "RV_1977.txt",
+      "fullTextPath": "./data/full_texts/RV_1977.txt",
+      "externalUrl": "",
+      "context": "Principtekst for Radikale Venstre med vægt på åndsfrihed, ligestilling, ikke-vold og sociale reformmål.",
       "topics": []
     }
   ]
