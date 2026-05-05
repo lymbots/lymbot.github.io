@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>De politiske principper</title>
+    <meta
+      name="description"
+      content="Læs og sammenlign danske partiers principprogrammer på tværs af emner og over tid."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <p class="eyebrow">Offentlig kildesite</p>
+      <h1>De politiske principper</h1>
+      <p class="lead">
+        En digital kildeside for danske partiers principprogrammer. Læs kilderne, sammenlign
+        formuleringer på tværs, og følg udviklingen over tid.
+      </p>
+      <div class="intro-note">
+        <p>
+          Dette er en public beta med de første tre partier. Formålet er at gøre originale
+          principprogrammer gennemsigtige, sammenlignelige og citerbare i én samlet løsning.
+        </p>
+      </div>
+      <div class="status-strip" aria-label="Datastatus">
+        <p><strong id="status-parties">0</strong> partier</p>
+        <p><strong id="status-programs">0</strong> programmer</p>
+        <p><strong id="status-topics">0</strong> emner</p>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="panel hero-panel">
+        <div class="hero-grid">
+          <article>
+            <p class="section-kicker">Tre måder at bruge sitet på</p>
+            <h2>Vælg en funktion</h2>
+            <p class="hero-copy">
+              Vælg mellem tre læsemåder: sammenlign partier om et emne, følg ét partis formuleringer
+              fra program til program, eller gå ind på en partiside med fuldt overblik over kilder,
+              tidslinje og emnedækning.
+            </p>
+          </article>
+          <nav class="mode-switch" aria-label="Hovedfunktioner">
+            <button class="mode-button is-active" data-mode="compare">Sammenlign partier</button>
+            <button class="mode-button" data-mode="timeline">Følg et parti over tid</button>
+            <button class="mode-button" data-mode="party">Partisider</button>
+          </nav>
+        </div>
+      </section>
+
+      <section class="panel method-panel" aria-labelledby="method-title">
+        <h2 id="method-title">Om kilder og metode</h2>
+        <p>
+          Sitet samler partiernes principprogrammer i en ensartet struktur, så formuleringer kan
+          læses og sammenlignes på tværs af tid og partier.
+        </p>
+        <p>
+          Emneuddrag er redaktionelt kurateret og skal læses sammen med den fulde programtekst på
+          den tilhørende kildeside. Originale kildehenvisninger fremgår for hvert program.
+        </p>
+      </section>
+
+      <section id="mode-compare" class="mode-panel is-active" aria-labelledby="compare-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Filtre for sammenligning">
+            <h2 id="compare-title">Sammenlign partier</h2>
+            <p class="panel-intro">
+              Vælg et emne og se partiernes egne formuleringer side om side. Hvert uddrag peger
+              videre til den konkrete kildeside for programmet.
+            </p>
+
+            <label for="compare-topic-select">Emne</label>
+            <select id="compare-topic-select"></select>
+
+            <fieldset>
+              <legend>Partier</legend>
+              <div id="compare-party-checkboxes" class="party-grid"></div>
+            </fieldset>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Sammenligning på tværs af partier</h2>
+              <p id="compare-summary"></p>
+            </div>
+            <div id="compare-view" class="card-grid"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="mode-timeline" class="mode-panel" aria-labelledby="timeline-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Filtre for udvikling over tid">
+            <h2 id="timeline-title">Følg et parti over tid</h2>
+            <p class="panel-intro">
+              Vælg et parti og et emne for at læse formuleringerne kronologisk og se, hvordan
+              positioner forskydes over tid.
+            </p>
+
+            <label for="timeline-party-select">Parti</label>
+            <select id="timeline-party-select"></select>
+
+            <label for="timeline-topic-select">Emne</label>
+            <select id="timeline-topic-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Udvikling over tid</h2>
+              <p id="timeline-summary"></p>
+            </div>
+            <div id="timeline-view" class="timeline"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="mode-party" class="mode-panel" aria-labelledby="party-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Partioversigt">
+            <h2 id="party-title">Partisider</h2>
+            <p class="panel-intro">
+              Se den samlede programhistorik for et parti, med kildehenvisninger, tidsrækkefølge og
+              oversigt over hvilke emner der allerede er kurateret.
+            </p>
+
+            <label for="party-overview-select">Parti</label>
+            <select id="party-overview-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Partioversigt</h2>
+              <p id="party-summary"></p>
+            </div>
+            <div id="party-view" class="party-overview"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Alle uddrag er redaktionelt udvalgt og skal læses i sammenhæng med den fulde programtekst.
+        Sitet udbygges løbende med flere partier, flere emner og mere kildeapparat.
+      </p>
+    </footer>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

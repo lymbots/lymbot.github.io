@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Programkilde</title>
+    <meta
+      name="description"
+      content="Kildeside for et principprogram med metadata, emneuddrag og fuldtekst."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
+    <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
+
+    <main class="shell source-shell">
+      <section class="panel source-panel">
+        <a class="source-back-link" href="./index.html">← Tilbage til oversigten</a>
+        <div id="program-source-root" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="./program.js" type="module"></script>
+  </body>
+</html>
