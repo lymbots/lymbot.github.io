@@ -98,6 +98,11 @@ h1 { margin: 0.4rem 0 0; font-size: clamp(2rem, 4vw, 3.1rem); }
   flex-wrap: wrap;
   gap: 0.9rem;
 }
+.site-credit {
+  margin: 0.85rem 0 0;
+  font-weight: 700;
+  color: #1a4335;
+}
 .status-strip p {
   margin: 0;
   border: 1px solid var(--line);
@@ -278,6 +283,11 @@ fieldset {
 }
 
 .site-footer { padding-bottom: 2.5rem; color: var(--muted); }
+.site-credit-footer {
+  margin-top: 0.6rem;
+  font-weight: 700;
+  color: #305548;
+}
 a { color: var(--accent); font-weight: 700; }
 
 .source-shell {
