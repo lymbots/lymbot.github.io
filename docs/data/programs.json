@@ -483,6 +483,17 @@
       "externalUrl": "",
       "context": "Principtekst for Radikale Venstre med vægt på åndsfrihed, ligestilling, ikke-vold og sociale reformmål.",
       "topics": []
+    },
+    {
+      "id": "RV_2022",
+      "partyId": "RV",
+      "year": 2022,
+      "title": "Principprogram 2022",
+      "sourceFile": "RV_2022.txt",
+      "fullTextPath": "./data/full_texts/RV_2022.txt",
+      "externalUrl": "",
+      "context": "Vedtaget i 2022. Programmet formulerer Radikale Venstres aktuelle socialliberale linje med fokus på frihed, fællesskab, ligestilling, grøn omstilling og internationalt samarbejde.",
+      "topics": []
     }
   ]
 }
