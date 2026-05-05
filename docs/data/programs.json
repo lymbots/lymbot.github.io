@@ -29,6 +29,10 @@
     {
       "id": "K",
       "name": "Det Konservative Folkeparti"
+    },
+    {
+      "id": "SF",
+      "name": "Socialistisk Folkeparti"
     }
   ],
   "programs": [
@@ -376,6 +380,72 @@
           ]
         }
       ]
+    },
+    {
+      "id": "SF_1963",
+      "partyId": "SF",
+      "year": 1963,
+      "title": "Politik her og nu",
+      "sourceFile": "SF_1963.rtf",
+      "fullTextPath": "./data/full_texts/SF_1963.txt",
+      "externalUrl": "",
+      "context": "SF's arbejdsprogram vedtaget på partiets 3. kongres i 1963. Teksten fungerer som tidligt referencepunkt for partiets principielle og handlingsorienterede linje.",
+      "topics": []
+    },
+    {
+      "id": "SF_1980",
+      "partyId": "SF",
+      "year": 1980,
+      "title": "Princip- og handlingsprogram",
+      "sourceFile": "SF_1980.rtf",
+      "fullTextPath": "./data/full_texts/SF_1980.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på SF's ekstraordinære landsmøde i 1980. Programmet samler analyse, målsætninger og strategi for partiets politiske kurs i 1980'erne.",
+      "topics": []
+    },
+    {
+      "id": "SF_1991",
+      "partyId": "SF",
+      "year": 1991,
+      "title": "Mod nye tider",
+      "sourceFile": "SF_1991.rtf",
+      "fullTextPath": "./data/full_texts/SF_1991.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på SF's ekstraordinære landsmøde i 1991. Programmet markerer en fornyelse af partiets princip- og handlingsgrundlag i 1990'erne.",
+      "topics": []
+    },
+    {
+      "id": "SF_1999",
+      "partyId": "SF",
+      "year": 1999,
+      "title": "Fagligt principprogram",
+      "sourceFile": "SF_1999.rtf",
+      "fullTextPath": "./data/full_texts/SF_1999.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på SF's landsmøde i 1999. Programmet retter sig mod fagbevægelsens rolle som social reformkraft og SF's fagpolitiske linje.",
+      "topics": []
+    },
+    {
+      "id": "SF_2003",
+      "partyId": "SF",
+      "year": 2003,
+      "title": "Princip- og perspektivprogram",
+      "sourceFile": "SF_2003.rtf",
+      "fullTextPath": "./data/full_texts/SF_2003.txt",
+      "externalUrl": "",
+      "context": "Vedtaget af SF's landsmøde i 2003. Programmet formulerer SF som et socialistisk og grønt parti med vægt på demokrati, lighed og bæredygtighed.",
+      "topics": []
+    },
+    {
+      "id": "SF_2012",
+      "partyId": "SF",
+      "year": 2012,
+      "title": "Principprogram",
+      "sourceFile": "SF_2012.rtf",
+      "fullTextPath": "./data/full_texts/SF_2012.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på SF's landsmøde i 2012. Programmet beskriver partiets socialistiske værdigrundlag og politiske hovedretning i en nyere periode.",
+      "topics": []
     }
   ]
 }
