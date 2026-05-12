@@ -37,6 +37,30 @@
     {
       "id": "RV",
       "name": "Radikale Venstre"
+    },
+    {
+      "id": "DF",
+      "name": "Dansk Folkeparti"
+    },
+    {
+      "id": "EL",
+      "name": "Enhedslisten"
+    },
+    {
+      "id": "Z",
+      "name": "Fremskridtspartiet"
+    },
+    {
+      "id": "LA",
+      "name": "Liberal Alliance"
+    },
+    {
+      "id": "KrF",
+      "name": "Kristeligt Folkeparti"
+    },
+    {
+      "id": "VS",
+      "name": "Venstresocialisterne"
     }
   ],
   "programs": [
@@ -468,7 +492,7 @@
       "year": 1997,
       "title": "Principprogram 1997",
       "sourceFile": "RV_1976.rtf",
-      "fullTextPath": "./data/full_texts/RV_1976.txt",
+      "fullTextPath": "./data/full_texts/RV_1997.txt",
       "externalUrl": "",
       "context": "Dette dokument indeholder Radikale Venstres principprogram med fokus på menneske og fællesskab, bæredygtighed, folkestyre og international forpligtelse.",
       "topics": []
@@ -493,6 +517,72 @@
       "fullTextPath": "./data/full_texts/RV_2022.txt",
       "externalUrl": "",
       "context": "Vedtaget i 2022. Programmet formulerer Radikale Venstres aktuelle socialliberale linje med fokus på frihed, fællesskab, ligestilling, grøn omstilling og internationalt samarbejde.",
+      "topics": []
+    },
+    {
+      "id": "DF_1997",
+      "partyId": "DF",
+      "year": 1997,
+      "title": "Principprogram",
+      "sourceFile": "DF_1997.rtf",
+      "fullTextPath": "./data/full_texts/DF_1997.txt",
+      "externalUrl": "",
+      "context": "Dansk Folkepartis første principprogram fra 1997. Programmet formulerer partiets nationale selvforståelse, syn på folkestyre og vægt på suverænitet, familie og velfærd.",
+      "topics": []
+    },
+    {
+      "id": "EL_2003",
+      "partyId": "EL",
+      "year": 2003,
+      "title": "Kapitalisme og socialisme i det 21. århundrede",
+      "sourceFile": "EL_2003.rtf",
+      "fullTextPath": "./data/full_texts/EL_2003.txt",
+      "externalUrl": "",
+      "context": "Enhedslistens principprogram vedtaget i 2003 med miljøkapitlet tilføjet i 2004. Programmet placerer frihed, solidaritet, socialisme og naturhensyn som bærende principper.",
+      "topics": []
+    },
+    {
+      "id": "Z_1973",
+      "partyId": "Z",
+      "year": 1973,
+      "title": "Afvikling af indkomstskatterne",
+      "sourceFile": "Z_1973.rtf",
+      "fullTextPath": "./data/full_texts/Z_1973.txt",
+      "externalUrl": "",
+      "context": "Fremskridtspartiets programskrift fra 1973 med fokus på skatteafvikling, nedbrydning af papirvælde og en markant kritik af den offentlige sektor og det etablerede partisystem.",
+      "topics": []
+    },
+    {
+      "id": "LA_2013",
+      "partyId": "LA",
+      "year": 2013,
+      "title": "Liberal Alliance tror på dig",
+      "sourceFile": "LA_2013.rtf",
+      "fullTextPath": "./data/full_texts/LA_2013.txt",
+      "externalUrl": "",
+      "context": "Liberal Alliances principprogram fra 2013. Programmet lægger vægt på personlig frihed, frisind, mindre stat, privat ansvar og et åbent samfund.",
+      "topics": []
+    },
+    {
+      "id": "KrF_1973",
+      "partyId": "KrF",
+      "year": 1973,
+      "title": "Principprogram",
+      "sourceFile": "KF_1973.rtf",
+      "fullTextPath": "./data/full_texts/KrF_1973.txt",
+      "externalUrl": "",
+      "context": "Kristeligt Folkepartis program fra 1973. Programmet bygger sin politiske linje på kristen etik, næstekærlighed, familiepolitik og et socialliberalt syn på samfundsansvar.",
+      "topics": []
+    },
+    {
+      "id": "VS_1969",
+      "partyId": "VS",
+      "year": 1969,
+      "title": "Principprogram for Venstresocialisterne",
+      "sourceFile": "VS_1969.rtf",
+      "fullTextPath": "./data/full_texts/VS_1969.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på partiets 2. kongres i 1969. Programmet forbinder analyse, strategi og socialistisk målsætning i Venstresocialisternes første samlede programskrift.",
       "topics": []
     }
   ]
