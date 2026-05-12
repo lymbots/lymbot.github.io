@@ -575,6 +575,28 @@
       "topics": []
     },
     {
+      "id": "KrF_1996",
+      "partyId": "KrF",
+      "year": 1996,
+      "title": "Værdier for fremtiden",
+      "sourceFile": "KF_1996.txt",
+      "fullTextPath": "./data/full_texts/KrF_1996.txt",
+      "externalUrl": "",
+      "context": "Kristeligt Folkepartis principprogram fra 1996. Programmet formulerer partiets kristne værdigrundlag i et opgør med materialisme og normløshed og kobler det til sociale, familiemæssige og globale spørgsmål.",
+      "topics": []
+    },
+    {
+      "id": "KrF_2008",
+      "partyId": "KrF",
+      "year": 2008,
+      "title": "Politik til tiden, politik i tiden",
+      "sourceFile": "KF_2008.txt",
+      "fullTextPath": "./data/full_texts/KrF_2008.txt",
+      "externalUrl": "",
+      "context": "Vedtaget på landsmødet den 25. oktober 2008. Programmet beskriver kristendemokratisk ideologi med vægt på personalisme, subsidiaritet, næstekærlighed, civilsamfund og social ansvarlighed.",
+      "topics": []
+    },
+    {
       "id": "VS_1969",
       "partyId": "VS",
       "year": 1969,
@@ -583,6 +605,17 @@
       "fullTextPath": "./data/full_texts/VS_1969.txt",
       "externalUrl": "",
       "context": "Vedtaget på partiets 2. kongres i 1969. Programmet forbinder analyse, strategi og socialistisk målsætning i Venstresocialisternes første samlede programskrift.",
+      "topics": []
+    },
+    {
+      "id": "VS_1980",
+      "partyId": "VS",
+      "year": 1980,
+      "title": "Program og love for Venstresocialisterne",
+      "sourceFile": "VS_1980.txt",
+      "fullTextPath": "./data/full_texts/VS_1980.txt",
+      "externalUrl": "",
+      "context": "Venstresocialisternes programtekst fra 1980. Dokumentet fastholder partiets revolutionært socialistiske målsætning og forbinder marxistisk analyse med partiets organisatoriske og politiske grundlag.",
       "topics": []
     }
   ]
