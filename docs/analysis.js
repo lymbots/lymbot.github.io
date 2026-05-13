@@ -10,7 +10,7 @@ const resultsSummary = document.getElementById("analysis-results-summary");
 const filterTitle = document.getElementById("analysis-filter-title");
 const filterSummary = document.getElementById("analysis-filter-summary");
 const statusTopics = document.getElementById("analysis-status-topics");
-const statusChunks = document.getElementById("analysis-status-chunks");
+const statusTexts = document.getElementById("analysis-status-texts");
 const statusPrograms = document.getElementById("analysis-status-programs");
 
 let state = {
@@ -51,13 +51,13 @@ async function init() {
 function renderStatusStrip() {
   const programCount = new Set(state.suggestions.map((item) => item.program_id)).size;
   statusTopics.textContent = String(state.topics.length);
-  statusChunks.textContent = String(state.suggestions.length);
+  statusTexts.textContent = String(state.suggestions.length);
   statusPrograms.textContent = String(programCount);
 }
 
 function renderTopicOptions() {
   topicSelect.innerHTML = [
-    '<option value="all" selected>Alle arbejdsemner</option>',
+    '<option value="all" selected>Alle emner</option>',
     ...state.topics.map((topic) => `<option value="${topic.id}">${topic.label}</option>`),
   ].join("");
 }
@@ -84,7 +84,7 @@ function renderTopicCards() {
       return `
         <article class="overview-card">
           <h3>${topic.label}</h3>
-          <p class="meta">${count} chunks</p>
+          <p class="meta">${count} tekststykker</p>
           <p class="context">${topic.description}</p>
           <div class="tag-row">
             ${topic.keywords.slice(0, 5).map((keyword) => `<span class="tag">${keyword}</span>`).join("")}
@@ -122,17 +122,17 @@ function renderAll() {
   const selectedParty = partySelect.value;
   const selectedStatus = statusSelect.value;
 
-  const topicLabel = selectedTopic === "all" ? "Alle arbejdsemner" : getTopicLabel(selectedTopic);
+  const topicLabel = selectedTopic === "all" ? "Alle emner" : getTopicLabel(selectedTopic);
   const partyLabel = selectedParty === "all" ? "alle partier" : selectedParty;
   const statusLabel =
-    selectedStatus === "all" ? "alle review-statusser" : statusSelect.selectedOptions[0].textContent;
+    selectedStatus === "all" ? "alle gennemgange" : statusSelect.selectedOptions[0].textContent;
 
   filterTitle.textContent = topicLabel;
-  filterSummary.textContent = `Viser ${items.length} chunks for ${partyLabel} med ${statusLabel}.`;
+  filterSummary.textContent = `Viser ${items.length} tekststykker for ${partyLabel} med ${statusLabel}.`;
   resultsSummary.textContent = `Viser ${items.length} forslag. Primært emne vises først, sekundært emne som hjælpespor.`;
 
   if (items.length === 0) {
-    resultsView.innerHTML = '<div class="empty">Ingen chunks matcher den aktuelle filtrering.</div>';
+    resultsView.innerHTML = '<div class="empty">Ingen tekststykker matcher den aktuelle filtrering.</div>';
     return;
   }
 
@@ -144,7 +144,7 @@ function renderAll() {
           <div class="analysis-card-head">
             <div>
               <h3>${item.party_name} · ${item.year}</h3>
-              <p class="meta">${item.title} · ${item.chunk_id}</p>
+              <p class="meta">${item.title} · Tekst-id ${item.chunk_id}</p>
             </div>
             <div class="analysis-badges">
               <span class="tag">${item.primary_topic_label}</span>

@@ -67,7 +67,7 @@ function renderTopicBlocks(programId, topics, suggestions) {
           (suggestion) => `
             <div class="excerpt-block">
               <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-              <p class="meta">${escapeHtml(suggestion.chunk_id)} · ${escapeHtml(
+              <p class="meta">Tekst-id ${escapeHtml(suggestion.chunk_id)} · ${escapeHtml(
             suggestion.primary_topic_label
           )}</p>
             </div>
@@ -78,7 +78,7 @@ function renderTopicBlocks(programId, topics, suggestions) {
       return `
         <section class="source-topic">
           <h3>${escapeHtml(topicEntry.label)}</h3>
-          <p class="meta">${topicEntry.suggestions.length} chunk(s) matcher dette emne.</p>
+          <p class="meta">${topicEntry.suggestions.length} tekststykker matcher dette emne.</p>
           ${excerpts}
         </section>
       `;
@@ -176,14 +176,14 @@ async function init() {
 
   root.innerHTML = `
     <header class="source-header">
-      <p class="section-kicker">Kildeside</p>
+      <p class="section-kicker">Programtekst</p>
       <h1>${escapeHtml(program.title)}</h1>
       <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(
     program,
     data.programs
   )}</p>
       <p class="context">${escapeHtml(program.context || "")}</p>
-      <p class="meta">Kildearkiv: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>
+      <p class="meta">Kildefil: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>
       ${
         program.externalUrl
           ? `<p class="meta"><a href="${program.externalUrl}" target="_blank" rel="noreferrer">Officiel programside</a></p>`

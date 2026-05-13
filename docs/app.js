@@ -208,7 +208,7 @@ function renderExcerpts(suggestions, topicId, limit = 2) {
       (suggestion) => `
         <div class="excerpt-block">
           <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-          <p class="meta">${escapeHtml(topicLabel)} · ${escapeHtml(suggestion.chunk_id)}</p>
+          <p class="meta">${escapeHtml(topicLabel)} · Tekst-id ${escapeHtml(suggestion.chunk_id)}</p>
         </div>
       `
     )
@@ -292,7 +292,7 @@ function renderCompare(topicId, partyIds) {
     })
     .join("");
 
-  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} parti(er) med analysebaserede uddrag.`;
+  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} partier med foreløbige analyseuddrag.`;
   compareView.innerHTML = cards;
 }
 
@@ -351,7 +351,8 @@ function renderPartyOverview(partyId) {
     .filter((program) => program.partyId === partyId)
     .sort((a, b) => a.year - b.year);
 
-  partySummary.textContent = `${getPartyName(partyId)} · ${programs.length} program(mer) er lagt ind i denne version.`;
+  const programLabel = programs.length === 1 ? "program" : "programmer";
+  partySummary.textContent = `${getPartyName(partyId)} · ${programs.length} ${programLabel} er lagt ind i denne version.`;
 
   if (programs.length === 0) {
     partyView.innerHTML = '<div class="empty">Ingen programmer lagt ind for dette parti endnu.</div>';

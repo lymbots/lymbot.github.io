@@ -6,7 +6,7 @@
     <title>Emneanalyse</title>
     <meta
       name="description"
-      content="Arbejdsside for emneanalyse af principprogrammer med taksonomi, filtre og første chunk-forslag."
+      content="Analysevisning for emneklassifikation af principprogrammer med taksonomi, filtre og tekstforslag."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,25 +21,25 @@
     <div class="bg-shape bg-shape-b" aria-hidden="true"></div>
 
     <header class="site-header">
-      <p class="eyebrow">Analyselab</p>
-      <h1>Første emneforslag</h1>
+      <p class="eyebrow">Emneanalyse</p>
+      <h1>Emnematrix</h1>
       <p class="lead">
-        Denne side viser den første emnetaksonomi og de tilhørende chunk-forslag på tværs af
+        Denne side viser emnetaksonomien og de tilhørende tekstforslag på tværs af
         principprogrammerne.
       </p>
       <div class="intro-note">
         <p>
-          Emnerne er lavet som et første arbejdslag med automatisk chunking, topic modelling og en
-          samlet redaktionel taksonomi. De kan godkendes, omskrives, opdeles eller slås sammen
-          senere.
+          Emnerne er dannet med automatisk tekstopdeling, topic modelling og en samlet
+          redaktionel taksonomi. De fungerer som navigationshjælp til at finde relevante passager
+          i de fulde programtekster.
         </p>
       </div>
       <p class="site-credit">
         <a href="./index.html">Tilbage til kildesitet</a>
       </p>
       <div class="status-strip" aria-label="Analysestatus">
-        <p><strong id="analysis-status-topics">0</strong> arbejdsemner</p>
-        <p><strong id="analysis-status-chunks">0</strong> chunks</p>
+        <p><strong id="analysis-status-topics">0</strong> emner</p>
+        <p><strong id="analysis-status-texts">0</strong> tekststykker</p>
         <p><strong id="analysis-status-programs">0</strong> programmer</p>
       </div>
     </header>
@@ -48,12 +48,12 @@
       <section class="panel method-panel" aria-labelledby="analysis-method-title">
         <h2 id="analysis-method-title">Sådan læses siden</h2>
         <p>
-          Hvert chunk har et primært emneforslag og eventuelt et sekundært forslag. Hovedsitet
+          Hvert tekststykke har et primært emneforslag og eventuelt et sekundært forslag. Hovedsitet
           bruger de primære emner, mens denne analysevisning også viser de sekundære signaler.
         </p>
         <p>
-          Målet er ikke at låse en endelig klassifikation fast, men at gøre det nemt at gennemgå,
-          rette og senere føre de bedste uddrag tilbage ind i sitets gennemgåede emner.
+          Klassifikationen er maskinelt foreslået og skal læses som en indgang til kilderne,
+          ikke som en endelig fortolkning af partiernes politik.
         </p>
       </section>
 
@@ -61,16 +61,16 @@
         <aside class="panel controls" aria-label="Filtre for analyse">
           <h2>Filtre</h2>
           <p class="panel-intro">
-            Vælg emne, parti og status for at se hvilke chunks den første analyse har placeret hvor.
+            Vælg emne, parti og status for at se hvordan den første analyse fordeler teksterne.
           </p>
 
-          <label for="analysis-topic-select">Arbejdsemne</label>
+          <label for="analysis-topic-select">Emne</label>
           <select id="analysis-topic-select"></select>
 
           <label for="analysis-party-select">Parti</label>
           <select id="analysis-party-select"></select>
 
-          <label for="analysis-status-select">Review-status</label>
+          <label for="analysis-status-select">Gennemgang</label>
           <select id="analysis-status-select">
             <option value="all" selected>Alle</option>
             <option value="needs_review">Behøver gennemgang</option>
@@ -88,14 +88,14 @@
           <div class="view-header">
             <h2>Emnetaksonomi</h2>
             <p>
-              Oversigten nedenfor viser de arbejdsemner, som analysen fordeler chunks efter i denne
+              Oversigten nedenfor viser de emner, som analysen fordeler tekststykker efter i denne
               første version.
             </p>
           </div>
           <div id="analysis-topic-cards" class="overview-grid"></div>
 
           <div class="view-header analysis-section-head">
-            <h2>Chunk-forslag</h2>
+            <h2>Tekstforslag</h2>
             <p id="analysis-results-summary"></p>
           </div>
           <div id="analysis-results" class="analysis-results"></div>
@@ -105,8 +105,8 @@
 
     <footer class="site-footer">
       <p>
-        Analysevisningen bygger på automatisk chunking, topic modelling og første emneforslag. Den
-        fungerer som et arbejdsrum før manuel finpudsning.
+        Analysevisningen dokumenterer den automatiske tekstopdeling, topic modelling og de
+        emneforslag, der bruges som læsehjælp på sitet.
       </p>
     </footer>
 
