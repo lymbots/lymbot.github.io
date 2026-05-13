@@ -1,4 +1,6 @@
 const dataUrl = "./data/programs.json";
+const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
+const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 const root = document.getElementById("program-source-root");
 
 function getProgramIdFromUrl() {
@@ -15,21 +17,42 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function renderTopicBlocks(program, topics) {
-  if (!program.topics || program.topics.length === 0) {
-    return '<p class="meta">Ingen kuraterede emneuddrag endnu.</p>';
+function renderTopicBlocks(programId, topics, suggestions) {
+  const programSuggestions = suggestions.filter((item) => item.program_id === programId);
+
+  if (programSuggestions.length === 0) {
+    return '<p class="meta">Ingen emneforslag endnu.</p>';
   }
 
-  return program.topics
+  const grouped = topics
+    .map((topic) => ({
+      ...topic,
+      suggestions: programSuggestions.filter(
+        (item) => item.primary_topic_id === topic.id || item.secondary_topic_id === topic.id
+      ),
+    }))
+    .filter((topic) => topic.suggestions.length > 0);
+
+  return grouped
     .map((topicEntry) => {
-      const topicLabel = topics.find((topic) => topic.id === topicEntry.topicId)?.label ?? topicEntry.topicId;
-      const excerpts = topicEntry.excerpts
-        .map((excerpt) => `<p class="excerpt">${escapeHtml(excerpt.text)}</p>`)
+      const excerpts = topicEntry.suggestions
+        .slice(0, 4)
+        .map(
+          (suggestion) => `
+            <div class="excerpt-block">
+              <p class="excerpt">${escapeHtml(suggestion.text)}</p>
+              <p class="meta">${escapeHtml(suggestion.chunk_id)} · ${escapeHtml(
+            suggestion.primary_topic_label
+          )}</p>
+            </div>
+          `
+        )
         .join("");
 
       return `
         <section class="source-topic">
-          <h3>${escapeHtml(topicLabel)}</h3>
+          <h3>${escapeHtml(topicEntry.label)}</h3>
+          <p class="meta">${topicEntry.suggestions.length} chunk(s) matcher dette emne.</p>
           ${excerpts}
         </section>
       `;
@@ -96,12 +119,19 @@ async function init() {
     return;
   }
 
-  const response = await fetch(dataUrl);
-  if (!response.ok) {
-    throw new Error(`Kunne ikke hente datafilen: ${response.status}`);
+  const [dataResponse, taxonomyResponse, suggestionsResponse] = await Promise.all([
+    fetch(dataUrl),
+    fetch(taxonomyUrl),
+    fetch(suggestionsUrl),
+  ]);
+
+  if (!dataResponse.ok || !taxonomyResponse.ok || !suggestionsResponse.ok) {
+    throw new Error("Kunne ikke hente alle datafiler.");
   }
 
-  const data = await response.json();
+  const data = await dataResponse.json();
+  const taxonomy = await taxonomyResponse.json();
+  const suggestions = await suggestionsResponse.json();
   const program = data.programs.find((item) => item.id === programId);
   if (!program) {
     root.innerHTML = '<div class="empty">Programmet blev ikke fundet.</div>';
@@ -133,8 +163,8 @@ async function init() {
     </header>
 
     <section class="source-section">
-      <h2>Kuraterede emneuddrag</h2>
-      ${renderTopicBlocks(program, data.topics)}
+      <h2>Emneforslag fra analysen</h2>
+      ${renderTopicBlocks(program.id, taxonomy.topics, suggestions)}
     </section>
 
     <section class="source-section">

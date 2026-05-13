@@ -1,4 +1,6 @@
 const dataUrl = "./data/programs.json";
+const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
+const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
 const compareTopicSelect = document.getElementById("compare-topic-select");
 const comparePartyCheckboxes = document.getElementById("compare-party-checkboxes");
@@ -22,15 +24,29 @@ let state = {
   topics: [],
   parties: [],
   programs: [],
+  suggestions: [],
 };
 
 async function init() {
-  const response = await fetch(dataUrl);
-  if (!response.ok) {
-    throw new Error(`Kunne ikke hente datafilen: ${response.status}`);
+  const [dataResponse, taxonomyResponse, suggestionsResponse] = await Promise.all([
+    fetch(dataUrl),
+    fetch(taxonomyUrl),
+    fetch(suggestionsUrl),
+  ]);
+
+  if (!dataResponse.ok || !taxonomyResponse.ok || !suggestionsResponse.ok) {
+    throw new Error("Kunne ikke hente alle datafiler.");
   }
 
-  state = await response.json();
+  const data = await dataResponse.json();
+  const taxonomy = await taxonomyResponse.json();
+  const suggestions = await suggestionsResponse.json();
+
+  state = {
+    ...data,
+    topics: taxonomy.topics,
+    suggestions,
+  };
   renderStatusStrip();
 
   renderTopicOptions(compareTopicSelect);
@@ -72,7 +88,7 @@ function renderTopicOptions(selectElement) {
   selectElement.innerHTML = state.topics
     .map((topic, index) => {
       const selected = index === 0 ? "selected" : "";
-      return `<option value="${topic.id}" ${selected}>${topic.label}</option>`;
+      return `<option value="${escapeHtml(topic.id)}" ${selected}>${escapeHtml(topic.label)}</option>`;
     })
     .join("");
 }
@@ -81,7 +97,7 @@ function renderPartyOptions(selectElement) {
   selectElement.innerHTML = state.parties
     .map((party, index) => {
       const selected = index === 0 ? "selected" : "";
-      return `<option value="${party.id}" ${selected}>${party.name}</option>`;
+      return `<option value="${escapeHtml(party.id)}" ${selected}>${escapeHtml(party.name)}</option>`;
     })
     .join("");
 }
@@ -91,8 +107,8 @@ function renderPartyCheckboxes() {
     .map(
       (party, index) => `
       <label>
-        <input type="checkbox" value="${party.id}" ${index < 3 ? "checked" : ""} />
-        <span>${party.name}</span>
+        <input type="checkbox" value="${escapeHtml(party.id)}" ${index < 3 ? "checked" : ""} />
+        <span>${escapeHtml(party.name)}</span>
       </label>
     `
     )
@@ -113,13 +129,38 @@ function getPartyName(partyId) {
   return state.parties.find((party) => party.id === partyId)?.name ?? partyId;
 }
 
-function topicEntriesForProgram(program, topicId) {
-  return program.topics.find((topic) => topic.topicId === topicId);
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function getProgramTopicSuggestions(programId, topicId) {
+  return state.suggestions
+    .filter(
+      (item) =>
+        item.program_id === programId &&
+        (item.primary_topic_id === topicId || item.secondary_topic_id === topicId)
+    )
+    .sort((a, b) => {
+      if (a.primary_topic_id === topicId && b.primary_topic_id !== topicId) return -1;
+      if (a.primary_topic_id !== topicId && b.primary_topic_id === topicId) return 1;
+      return a.chunk_id.localeCompare(b.chunk_id, "da");
+    });
 }
 
 function getTopicLabelsForProgram(program) {
-  return program.topics
-    .map((topic) => getTopicLabel(topic.topicId))
+  const topicIds = new Set(
+    state.suggestions
+      .filter((item) => item.program_id === program.id)
+      .map((item) => item.primary_topic_id)
+  );
+
+  return Array.from(topicIds)
+    .map((topicId) => getTopicLabel(topicId))
     .sort((a, b) => a.localeCompare(b, "da"));
 }
 
@@ -136,22 +177,36 @@ function renderFullTextLink(program) {
 
 function renderContext(program) {
   if (!program.context) return "";
-  return `<p class="context">${program.context}</p>`;
+  return `<p class="context">${escapeHtml(program.context)}</p>`;
 }
 
-function renderExcerpts(topicEntry) {
-  return topicEntry.excerpts
-    .map((excerpt) => `<p class="excerpt">${excerpt.text}</p>`)
+function renderExcerpts(suggestions, limit = 2) {
+  return suggestions
+    .slice(0, limit)
+    .map((suggestion) => {
+      const sourceLabel =
+        suggestion.primary_topic_id === suggestion.secondary_topic_id || !suggestion.secondary_topic_id
+          ? "Primært emneforslag"
+          : suggestion.primary_topic_label;
+
+      return `
+        <div class="excerpt-block">
+          <p class="excerpt">${escapeHtml(suggestion.text)}</p>
+          <p class="meta">${escapeHtml(sourceLabel)} · ${escapeHtml(suggestion.chunk_id)}</p>
+        </div>
+      `;
+    })
     .join("");
 }
 
 function renderTopicTags(program) {
   const labels = getTopicLabelsForProgram(program);
-  if (labels.length === 0) return '<p class="meta">Ingen kuraterede emner endnu.</p>';
+  if (labels.length === 0) return '<p class="meta">Ingen emneforslag endnu.</p>';
 
   return `
     <div class="tag-row">
-      ${labels.map((label) => `<span class="tag">${label}</span>`).join("")}
+      ${labels.slice(0, 8).map((label) => `<span class="tag">${escapeHtml(label)}</span>`).join("")}
+      ${labels.length > 8 ? `<span class="tag analysis-tag-alt">+${labels.length - 8} emner</span>` : ""}
     </div>
   `;
 }
@@ -183,16 +238,16 @@ function renderCompare(topicId, partyIds) {
         .filter((program) => program.partyId === partyId)
         .map((program) => ({
           ...program,
-          topicEntry: topicEntriesForProgram(program, topicId),
+          topicSuggestions: getProgramTopicSuggestions(program.id, topicId),
         }))
-        .filter((program) => program.topicEntry && program.topicEntry.excerpts.length > 0)
+        .filter((program) => program.topicSuggestions.length > 0)
         .sort((a, b) => a.year - b.year);
 
       if (programs.length === 0) {
         return `
         <article class="party-card">
-          <h3>${getPartyName(partyId)}</h3>
-          <p class="empty">Ingen kuraterede uddrag endnu for emnet ${getTopicLabel(topicId)}.</p>
+          <h3>${escapeHtml(getPartyName(partyId))}</h3>
+          <p class="empty">Ingen emneforslag endnu for emnet ${escapeHtml(getTopicLabel(topicId))}.</p>
         </article>
       `;
       }
@@ -200,10 +255,10 @@ function renderCompare(topicId, partyIds) {
       const programBlocks = programs
         .map((program) => `
           <section class="program-block">
-            <p class="meta"><strong>${program.year}</strong> · ${program.title}</p>
+            <p class="meta"><strong>${program.year}</strong> · ${escapeHtml(program.title)}</p>
             ${renderContext(program)}
-            ${renderExcerpts(program.topicEntry)}
-            <p class="meta">Kilde: ${program.sourceFile}</p>
+            ${renderExcerpts(program.topicSuggestions, 2)}
+            <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
             ${renderSourceLink(program)}
             ${renderFullTextLink(program)}
           </section>
@@ -212,14 +267,14 @@ function renderCompare(topicId, partyIds) {
 
       return `
       <article class="party-card">
-        <h3>${getPartyName(partyId)}</h3>
+        <h3>${escapeHtml(getPartyName(partyId))}</h3>
         ${programBlocks}
       </article>
     `;
     })
     .join("");
 
-  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} parti(er).`;
+  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} parti(er) med analysebaserede uddrag.`;
   compareView.innerHTML = cards;
 }
 
@@ -236,15 +291,15 @@ function renderTimeline(topicId, partyId) {
     .filter((program) => program.partyId === partyId)
     .map((program) => ({
       ...program,
-      topicEntry: topicEntriesForProgram(program, topicId),
+      topicSuggestions: getProgramTopicSuggestions(program.id, topicId),
     }))
-    .filter((program) => program.topicEntry && program.topicEntry.excerpts.length > 0)
+    .filter((program) => program.topicSuggestions.length > 0)
     .sort((a, b) => a.year - b.year);
 
   timelineSummary.textContent = `Parti: ${getPartyName(partyId)} · Emne: ${getTopicLabel(topicId)}`;
 
   if (programs.length === 0) {
-    timelineView.innerHTML = '<div class="empty">Ingen kuraterede uddrag for valgt emne/parti endnu.</div>';
+    timelineView.innerHTML = '<div class="empty">Ingen emneforslag for valgt emne/parti endnu.</div>';
     return;
   }
 
@@ -253,10 +308,10 @@ function renderTimeline(topicId, partyId) {
       <article class="timeline-item">
         <div class="timeline-marker" aria-hidden="true"></div>
         <div class="timeline-content">
-          <h3>${program.year} · ${program.title}</h3>
+          <h3>${program.year} · ${escapeHtml(program.title)}</h3>
           ${renderContext(program)}
-          ${renderExcerpts(program.topicEntry)}
-          <p class="meta">Kilde: ${program.sourceFile}</p>
+          ${renderExcerpts(program.topicSuggestions, 3)}
+          <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
           ${renderSourceLink(program)}
             ${renderFullTextLink(program)}
         </div>
@@ -292,7 +347,7 @@ function renderPartyOverview(partyId) {
           (program) => `
           <div class="mini-timeline-item">
             <span class="mini-year">${program.year}</span>
-            <span class="mini-title">${program.title}</span>
+            <span class="mini-title">${escapeHtml(program.title)}</span>
           </div>
         `
         )
@@ -305,11 +360,11 @@ function renderPartyOverview(partyId) {
       (program) => `
       <article class="overview-card">
         <div class="overview-head">
-          <h3>${program.year} · ${program.title}</h3>
+          <h3>${program.year} · ${escapeHtml(program.title)}</h3>
         </div>
         ${renderContext(program)}
         ${renderTopicTags(program)}
-        <p class="meta">Kilde: ${program.sourceFile}</p>
+        <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
         ${renderSourceLink(program)}
             ${renderFullTextLink(program)}
       </article>
