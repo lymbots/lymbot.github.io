@@ -54,7 +54,7 @@ function renderTopicBlocks(programId, topics, suggestions) {
     .map((topic) => ({
       ...topic,
       suggestions: programSuggestions.filter(
-        (item) => item.primary_topic_id === topic.id || item.secondary_topic_id === topic.id
+        (item) => item.primary_topic_id === topic.id
       ),
     }))
     .filter((topic) => topic.suggestions.length > 0);

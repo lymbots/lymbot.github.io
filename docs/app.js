@@ -164,13 +164,9 @@ function getProgramTopicSuggestions(programId, topicId) {
     .filter(
       (item) =>
         item.program_id === programId &&
-        (item.primary_topic_id === topicId || item.secondary_topic_id === topicId)
+        item.primary_topic_id === topicId
     )
-    .sort((a, b) => {
-      if (a.primary_topic_id === topicId && b.primary_topic_id !== topicId) return -1;
-      if (a.primary_topic_id !== topicId && b.primary_topic_id === topicId) return 1;
-      return a.chunk_id.localeCompare(b.chunk_id, "da");
-    });
+    .sort((a, b) => a.chunk_id.localeCompare(b.chunk_id, "da"));
 }
 
 function getTopicLabelsForProgram(program) {
@@ -201,22 +197,19 @@ function renderContext(program) {
   return `<p class="context">${escapeHtml(program.context)}</p>`;
 }
 
-function renderExcerpts(suggestions, limit = 2) {
+function renderExcerpts(suggestions, topicId, limit = 2) {
+  const topicLabel = getTopicLabel(topicId);
+
   return suggestions
     .slice(0, limit)
-    .map((suggestion) => {
-      const sourceLabel =
-        suggestion.primary_topic_id === suggestion.secondary_topic_id || !suggestion.secondary_topic_id
-          ? "Primært emneforslag"
-          : suggestion.primary_topic_label;
-
-      return `
+    .map(
+      (suggestion) => `
         <div class="excerpt-block">
           <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-          <p class="meta">${escapeHtml(sourceLabel)} · ${escapeHtml(suggestion.chunk_id)}</p>
+          <p class="meta">${escapeHtml(topicLabel)} · ${escapeHtml(suggestion.chunk_id)}</p>
         </div>
-      `;
-    })
+      `
+    )
     .join("");
 }
 
@@ -280,7 +273,7 @@ function renderCompare(topicId, partyIds) {
           program
         )}</p>
             ${renderContext(program)}
-            ${renderExcerpts(program.topicSuggestions, 2)}
+            ${renderExcerpts(program.topicSuggestions, topicId, 2)}
             <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
             ${renderSourceLink(program)}
             ${renderFullTextLink(program)}
@@ -333,7 +326,7 @@ function renderTimeline(topicId, partyId) {
         <div class="timeline-content">
           <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
           ${renderContext(program)}
-          ${renderExcerpts(program.topicSuggestions, 3)}
+          ${renderExcerpts(program.topicSuggestions, topicId, 3)}
           <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
           ${renderSourceLink(program)}
             ${renderFullTextLink(program)}
