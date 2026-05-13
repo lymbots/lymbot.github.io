@@ -150,6 +150,10 @@ function renderProgramStatus(program) {
   return `<span class="program-status program-status-${status}">${getProgramStatusLabel(program)}</span>`;
 }
 
+function getProgramUrl(program) {
+  return `./program.html?program=${encodeURIComponent(program.id)}`;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -187,9 +191,7 @@ function renderSourceLink(program) {
 }
 
 function renderFullTextLink(program) {
-  return `<p class="meta"><a href="./program.html?program=${encodeURIComponent(
-    program.id
-  )}">Åbn kildeside for program</a></p>`;
+  return `<p class="meta"><a href="${getProgramUrl(program)}">Åbn fuld programtekst</a></p>`;
 }
 
 function renderContext(program) {
@@ -357,18 +359,24 @@ function renderPartyOverview(partyId) {
   }
 
   const timelineNav = `
-    <div class="mini-timeline" aria-label="Programmer i tid">
+    <div class="program-nav" aria-label="Programmer i tid">
+      <div class="program-nav-head">
+        <p class="section-kicker">Programlinje</p>
+        <p class="meta">Klik på et program for at åbne den fulde tekst.</p>
+      </div>
+      <div class="mini-timeline">
       ${programs
         .map(
           (program) => `
-          <div class="mini-timeline-item">
+          <a class="mini-timeline-item" href="${getProgramUrl(program)}">
             <span class="mini-year">${program.year}</span>
             <span class="mini-title">${escapeHtml(program.title)}</span>
             ${renderProgramStatus(program)}
-          </div>
+          </a>
         `
         )
         .join("")}
+      </div>
     </div>
   `;
 
@@ -389,7 +397,17 @@ function renderPartyOverview(partyId) {
     )
     .join("");
 
-  partyView.innerHTML = `${timelineNav}<div class="overview-grid">${cards}</div>`;
+  partyView.innerHTML = `
+    ${timelineNav}
+    <div class="program-detail-section">
+      <div class="program-detail-head">
+        <p class="section-kicker">Programmer og emneforslag</p>
+        <h3>Programkort</h3>
+        <p class="meta">Her vises hvert programs kontekst, kilde og de emner, som analysen har fundet.</p>
+      </div>
+      <div class="overview-grid">${cards}</div>
+    </div>
+  `;
 }
 
 init().catch((error) => {
