@@ -274,6 +274,31 @@ fieldset {
   font-weight: 700;
 }
 
+.program-status {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.program-status-current {
+  background: #163f31;
+  color: #fff;
+}
+
+.program-status-historical {
+  background: #eef3ef;
+  color: #4f5f56;
+  border: 1px solid #cfd8d2;
+}
+
 .empty {
   padding: 0.8rem;
   border-radius: 10px;

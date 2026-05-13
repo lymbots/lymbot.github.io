@@ -129,6 +129,27 @@ function getPartyName(partyId) {
   return state.parties.find((party) => party.id === partyId)?.name ?? partyId;
 }
 
+function getLatestProgramYear(partyId) {
+  const years = state.programs
+    .filter((program) => program.partyId === partyId)
+    .map((program) => Number(program.year));
+
+  return Math.max(...years);
+}
+
+function getProgramStatus(program) {
+  return Number(program.year) === getLatestProgramYear(program.partyId) ? "current" : "historical";
+}
+
+function getProgramStatusLabel(program) {
+  return getProgramStatus(program) === "current" ? "Aktuelt program" : "Historisk program";
+}
+
+function renderProgramStatus(program) {
+  const status = getProgramStatus(program);
+  return `<span class="program-status program-status-${status}">${getProgramStatusLabel(program)}</span>`;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -255,7 +276,9 @@ function renderCompare(topicId, partyIds) {
       const programBlocks = programs
         .map((program) => `
           <section class="program-block">
-            <p class="meta"><strong>${program.year}</strong> · ${escapeHtml(program.title)}</p>
+            <p class="meta"><strong>${program.year}</strong> · ${escapeHtml(program.title)} ${renderProgramStatus(
+          program
+        )}</p>
             ${renderContext(program)}
             ${renderExcerpts(program.topicSuggestions, 2)}
             <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
@@ -308,7 +331,7 @@ function renderTimeline(topicId, partyId) {
       <article class="timeline-item">
         <div class="timeline-marker" aria-hidden="true"></div>
         <div class="timeline-content">
-          <h3>${program.year} · ${escapeHtml(program.title)}</h3>
+          <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
           ${renderContext(program)}
           ${renderExcerpts(program.topicSuggestions, 3)}
           <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
@@ -348,6 +371,7 @@ function renderPartyOverview(partyId) {
           <div class="mini-timeline-item">
             <span class="mini-year">${program.year}</span>
             <span class="mini-title">${escapeHtml(program.title)}</span>
+            ${renderProgramStatus(program)}
           </div>
         `
         )
@@ -360,7 +384,7 @@ function renderPartyOverview(partyId) {
       (program) => `
       <article class="overview-card">
         <div class="overview-head">
-          <h3>${program.year} · ${escapeHtml(program.title)}</h3>
+          <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
         </div>
         ${renderContext(program)}
         ${renderTopicTags(program)}

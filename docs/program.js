@@ -9,12 +9,38 @@ function getProgramIdFromUrl() {
 }
 
 function escapeHtml(value) {
-  return value
+  return String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function getLatestProgramYear(programs, partyId) {
+  const years = programs
+    .filter((program) => program.partyId === partyId)
+    .map((program) => Number(program.year));
+
+  return Math.max(...years);
+}
+
+function getProgramStatus(program, programs) {
+  return Number(program.year) === getLatestProgramYear(programs, program.partyId)
+    ? "current"
+    : "historical";
+}
+
+function getProgramStatusLabel(program, programs) {
+  return getProgramStatus(program, programs) === "current" ? "Aktuelt program" : "Historisk program";
+}
+
+function renderProgramStatus(program, programs) {
+  const status = getProgramStatus(program, programs);
+  return `<span class="program-status program-status-${status}">${getProgramStatusLabel(
+    program,
+    programs
+  )}</span>`;
 }
 
 function renderTopicBlocks(programId, topics, suggestions) {
@@ -152,7 +178,10 @@ async function init() {
     <header class="source-header">
       <p class="section-kicker">Kildeside</p>
       <h1>${escapeHtml(program.title)}</h1>
-      <p class="lead">${escapeHtml(partyName)} · ${program.year}</p>
+      <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(
+    program,
+    data.programs
+  )}</p>
       <p class="context">${escapeHtml(program.context || "")}</p>
       <p class="meta">Kildearkiv: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>
       ${
