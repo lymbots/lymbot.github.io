@@ -1,0 +1,90 @@
+{
+  "topics": [
+    {
+      "id": "ideologi_systemkritik",
+      "label": "Ideologi og systemkritik",
+      "description": "Overordnede ideologiske positioner, samfundsanalyse, socialisme, liberalisme, kapitalismekritik og principielle systemopgør.",
+      "keywords": ["kapitalisme", "socialisme", "ideologi", "klassekamp", "liberalisme", "borgerskabet", "markedsøkonomi"]
+    },
+    {
+      "id": "demokrati_retsstat",
+      "label": "Demokrati og retsstat",
+      "description": "Folkestyre, rettigheder, ytringsfrihed, magtens deling, grundlov, forfatning og demokratisk deltagelse.",
+      "keywords": ["demokrati", "folkestyre", "retsstat", "grundlov", "ytringsfrihed", "rettigheder", "magtens tredeling"]
+    },
+    {
+      "id": "stat_marked_oekonomi",
+      "label": "Stat, marked og økonomi",
+      "description": "Forholdet mellem offentligt og privat, skatter, erhvervsliv, virksomheder, konkurrence, vækst og økonomisk styring.",
+      "keywords": ["offentlige", "private", "virksomheder", "økonomi", "skat", "marked", "vækst", "erhvervsliv"]
+    },
+    {
+      "id": "velfaerd_socialpolitik",
+      "label": "Velfærd og socialpolitik",
+      "description": "Sociale ydelser, sundhed, ældre, udsatte, behandling, lighed, tryghed og den sociale kontrakt.",
+      "keywords": ["velfærd", "sundhed", "ældre", "behandling", "sociale", "tryghed", "udsatte", "psykiatri"]
+    },
+    {
+      "id": "arbejde_fagbevaegelse",
+      "label": "Arbejde og fagbevægelse",
+      "description": "Arbejdsliv, arbejdsmarked, fagbevægelse, overenskomster, lønmodtagere, organisering og arbejdsvilkår.",
+      "keywords": ["fagbevægelsen", "arbejdsmarked", "lønmodtagere", "overenskomst", "arbejdsliv", "arbejdsgivere", "faglige"]
+    },
+    {
+      "id": "uddannelse_dannelse",
+      "label": "Uddannelse og dannelse",
+      "description": "Skole, uddannelse, undervisning, elever, studerende, dannelse og viden.",
+      "keywords": ["uddannelse", "uddannelser", "folkeskolen", "undervisning", "skoler", "elever", "dannelse"]
+    },
+    {
+      "id": "internationalt_europa",
+      "label": "Internationalt samarbejde og Europa",
+      "description": "EU, internationale relationer, bistand, fred, samarbejde mellem lande og globale spørgsmål.",
+      "keywords": ["europa", "eu", "internationale", "samarbejde", "lande", "fred", "udviklingsbistand", "verden"]
+    },
+    {
+      "id": "klima_miljoe_energi",
+      "label": "Klima, miljø og energi",
+      "description": "Klima, natur, miljø, økologi, energi, bæredygtighed og ressourceforbrug.",
+      "keywords": ["klima", "miljø", "økologisk", "energi", "bæredygtighed", "natur", "vedvarende"]
+    },
+    {
+      "id": "familie_kultur_vaerdier",
+      "label": "Familie, kultur og værdier",
+      "description": "Familie, kultur, tradition, menneskesyn, værdier, religion og civilsamfund.",
+      "keywords": ["familien", "kultur", "værdier", "menneskesyn", "kristne", "traditioner", "civilsamfund"]
+    },
+    {
+      "id": "nation_udlaendinge",
+      "label": "Nation, udlændinge og identitet",
+      "description": "National identitet, indfødsret, grænser, indvandring, danskhed og suverænitet.",
+      "keywords": ["dansk folkeparti", "danske", "udlændinge", "indfødsret", "grænser", "danskhed", "suverænitet"]
+    },
+    {
+      "id": "forsvar_sikkerhed",
+      "label": "Forsvar og sikkerhed",
+      "description": "Forsvar, sikkerhedspolitik, Nato, militær, beredskab og national sikkerhed.",
+      "keywords": ["forsvar", "sikkerhed", "nato", "militær", "hjemmeværnet", "beredskab"]
+    },
+    {
+      "id": "parti_organisation",
+      "label": "Parti og organisation",
+      "description": "Partiorganisation, vedtægter, kongres, hovedbestyrelse, medlemskab og interne regler.",
+      "keywords": ["partiet", "hovedbestyrelsen", "kongres", "medlemmer", "partiafdeling", "vedtægter"]
+    }
+  ],
+  "cluster_topic_map": {
+    "0": "ideologi_systemkritik",
+    "1": "internationalt_europa",
+    "2": "stat_marked_oekonomi",
+    "3": "arbejde_fagbevaegelse",
+    "4": "uddannelse_dannelse",
+    "5": "familie_kultur_vaerdier",
+    "6": "velfaerd_socialpolitik",
+    "7": "demokrati_retsstat",
+    "8": "nation_udlaendinge",
+    "9": "parti_organisation",
+    "10": "familie_kultur_vaerdier",
+    "11": "klima_miljoe_energi"
+  }
+}

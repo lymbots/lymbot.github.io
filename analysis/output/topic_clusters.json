@@ -1,0 +1,906 @@
+{
+  "meta": {
+    "cluster_count": 12,
+    "chunk_count": 1064,
+    "feature_count": 18103,
+    "silhouette_score": 0.0031205583132273406
+  },
+  "clusters": {
+    "0": {
+      "cluster_id": 0,
+      "size": 150,
+      "top_terms": [
+        "kapitalistiske",
+        "kapitalismen",
+        "socialistiske",
+        "politiske",
+        "mellem",
+        "disse",
+        "arbejderklassen",
+        "økonomiske",
+        "socialismen",
+        "socialistisk",
+        "borgerskabet",
+        "kapitalens"
+      ],
+      "party_distribution": {
+        "Socialistisk Folkeparti": 69,
+        "Venstresocialisterne": 34,
+        "Enhedslisten": 28,
+        "Socialdemokratiet": 10,
+        "Venstre": 4,
+        "Det Konservative Folkeparti": 3,
+        "Radikale Venstre": 1,
+        "Liberal Alliance": 1
+      },
+      "year_range": [
+        1955,
+        2017
+      ],
+      "median_year": 1980,
+      "representative_chunks": [
+        {
+          "chunk_id": "SF_1980_chunk_055",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1980,
+          "title": "Princip- og handlingsprogram",
+          "word_count": 307,
+          "preview": "Dette indebærer, at de vigtigste produktionsmidler overgår til samfundsmæssig fælleseje, og at den borgerlige stat erstattes af en ny demokratisk statsmagt, der fuldt og helt kontrolleres af det altovervejende befolkningsflertal. En socialistisk revolution forudsætter, at kapitalismen er afgørende svækket - politisk, ideologisk og socialt. Men skal denne krise afløses af en socialistisk samfundsomvæltning, må arbejde"
+        },
+        {
+          "chunk_id": "EL_2003_chunk_053",
+          "party_name": "Enhedslisten",
+          "year": 2003,
+          "title": "Kapitalisme og socialisme i det 21. århundrede",
+          "word_count": 252,
+          "preview": "Hertil kommer, at liberalismen har spredt den illusion, at kapitalismen kan give det enkelte menneske mulighed for at udfolde sig frit både som producent og forbruger. Modsæt-ningen mellem disse illusioner og virkeligheden giver også gode muligheder for at udvikle socialistiske visioner. Socialistisk økonomi Socialisme er et samfundssystem, hvor der produceres for at dække menneskelige behov og ikke for at opnå en pr"
+        },
+        {
+          "chunk_id": "EL_2003_chunk_002",
+          "party_name": "Enhedslisten",
+          "year": 2003,
+          "title": "Kapitalisme og socialisme i det 21. århundrede",
+          "word_count": 229,
+          "preview": "Vi er helt uenige. Det er kapitalismen, der indirekte eller direkte skaber krigene, aggressiviteten og egoismen, og den står under alle omstændigheder i vejen for deres forsvinden. Vi tror ikke på, at den såkaldte menneskelige natur udgør en hindring for skabelsen af et retfærdigt og solidarisk samfund. Vi mener tværtimod, at vores handlinger først og fremmest bliver formet af den måde samfundet er organiseret og fun"
+        },
+        {
+          "chunk_id": "SF_1980_chunk_022",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1980,
+          "title": "Princip- og handlingsprogram",
+          "word_count": 209,
+          "preview": "Borgerskabet består først og fremmest af de direkte kapitalejere, der i kraft af kapital kan tilegne sig profit. Derudover består borgerskabet af dem, der i kraft af det kapitalistiske samfund indtager en stilling, der gør, at de har en klar interesse i at bevare det kapitalistiske system. Indenfor det private erhvervsliv består borgerskabet af direktører og arbejdsledere på højere niveau, og indenfor staten af leden"
+        },
+        {
+          "chunk_id": "SF_1980_chunk_015",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1980,
+          "title": "Princip- og handlingsprogram",
+          "word_count": 272,
+          "preview": "Kapitalmagten er blevet monopoliseret på forholdsvis få hænder. Den har antaget karakter af monopolkapitalisme. Samtidig har staten fået større betydning i den kapitalistiske økonomi gennem varetagelse af en række nye opgaver. Dette forhold udtrykkes bl.a. gennem en kraftig vækst i den offentlige sektor og i de offentlige udgifter. Hoveddrivkraften i kapitalismen og således også i denne udvikling er profitten, som ka"
+        }
+      ]
+    },
+    "1": {
+      "cluster_id": 1,
+      "size": 131,
+      "top_terms": [
+        "lande",
+        "danmark",
+        "samarbejde",
+        "europa",
+        "internationale",
+        "fælles",
+        "europæiske",
+        "dansk",
+        "mellem",
+        "fred",
+        "bør",
+        "verden"
+      ],
+      "party_distribution": {
+        "Det Konservative Folkeparti": 35,
+        "Socialistisk Folkeparti": 31,
+        "Venstre": 20,
+        "Kristeligt Folkeparti": 15,
+        "Radikale Venstre": 12,
+        "Socialdemokratiet": 11,
+        "Enhedslisten": 3,
+        "Venstresocialisterne": 2,
+        "Fremskridtspartiet": 1,
+        "Dansk Folkeparti": 1
+      },
+      "year_range": [
+        1955,
+        2025
+      ],
+      "median_year": 1991,
+      "representative_chunks": [
+        {
+          "chunk_id": "K_1981_chunk_003",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1981,
+          "title": "En fremtid i frihed",
+          "word_count": 313,
+          "preview": "Danmarks geografiske placering ved Østersøens udløb forbinder vores sikkerhedspolitiske situation nøje med vores nærmeste naboers. En svækkelse af det danske forsvar vil unddrage os forpligtelser over for alliancen og kan medføre besættelse, før allierede kan komme til hjælp. Et effektivt dansk totalforsvar er derfor nødvendigt, med overvågning af dansk interesseområde, håndhævelse af suveræniteten og evne til at mod"
+        },
+        {
+          "chunk_id": "K_1992_chunk_012",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1992,
+          "title": "Frihed i fællesskab",
+          "word_count": 308,
+          "preview": "Princippet om “hjælp til selvhjælp” må i videst muligt omfang præge den danske indsats, og skabelsen af et lokalt selvbærende erhvervsliv i u-landene skal være en væsentlig målsætning for vor u-landspolitik. Direkte dansk bistand uden om store internationale bureaukratier er generelt den mest effektive hjælpeform. Europa, som to gange i dette århundrede har oplevet økonomisk og politisk ruin ved krige i vor verdensde"
+        },
+        {
+          "chunk_id": "KrF_1973_chunk_008",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 1973,
+          "title": "Principprogram",
+          "word_count": 224,
+          "preview": "Udviklingsbistanden bør ske både som tosidig og flersidig bistand. Da den skal fungere som hjælp til selvhjælp, bør den fortrinsvis ydes til nationer, der viser politisk vilje til at hjælpe sig selv. Udviklingsbistanden må bl.a. omfatte et udstrakt handelspolitisk og produktionsmæssigt samarbejde med udviklingslandene, der i særlig grad tilgodeser udviklingslandenes interesser. Dette gælder også, selvom det medfører"
+        },
+        {
+          "chunk_id": "S_1961_chunk_009",
+          "party_name": "Socialdemokratiet",
+          "year": 1961,
+          "title": "Vejen frem",
+          "word_count": 286,
+          "preview": "En bevidst og stærk udvikling af alle samarbejdsformer og en bekæmpelse af særinteresser må fremmes, såvel imellem landene som mellem befolkningsgrupperne i det enkelte land. Den tekniske udvikling vil betyde dybt indgribende ændringer i samfund og arbejdsliv; uden økonomisk demokrati vil den yderligere forstærke den igangværende udvikling hen imod produktionens centralisation og uden kontrol medføre monopolisering o"
+        },
+        {
+          "chunk_id": "RV_1955_chunk_003",
+          "party_name": "Radikale Venstre",
+          "year": 1955,
+          "title": "Det Radikale Venstres program af 1955",
+          "word_count": 228,
+          "preview": "Folkene er her igennem blevet forbundet i fællesskab på godt og ondt, der gør det nødvendigt, at de opfylder deres forpligtelser ifølge Forenede Nationers pagt til at afstå fra krig og løser stridsspørgsmål ad forhandlingens vej eller ved retsafgørelse. 1. Mellemfolkelig retsorden og samvirke. Danmark bør deltage aktivt i de mellemfolkelige organisationer og navnlig arbejde for en styrkelse og udbygning af Forenede N"
+        }
+      ]
+    },
+    "2": {
+      "cluster_id": 2,
+      "size": 135,
+      "top_terms": [
+        "bør",
+        "offentlige",
+        "større",
+        "sikres",
+        "mellem",
+        "private",
+        "støtte",
+        "mulighed",
+        "virksomheder",
+        "muligt",
+        "økonomiske",
+        "gennemføres"
+      ],
+      "party_distribution": {
+        "Det Konservative Folkeparti": 45,
+        "Socialistisk Folkeparti": 27,
+        "Venstre": 25,
+        "Kristeligt Folkeparti": 12,
+        "Radikale Venstre": 11,
+        "Socialdemokratiet": 10,
+        "Enhedslisten": 3,
+        "Fremskridtspartiet": 2
+      },
+      "year_range": [
+        1955,
+        2008
+      ],
+      "median_year": 1973,
+      "representative_chunks": [
+        {
+          "chunk_id": "V_1979_chunk_008",
+          "party_name": "Venstre",
+          "year": 1979,
+          "title": "Det mener Venstre",
+          "word_count": 223,
+          "preview": "Økonomien: Den økonomiske politik skal bygge på det liberale markedsøkonomiske system, fordi dette er bedst egnet til at skabe økonomisk fremgang og sikre det frie forbrugsvalg. Målet for den økonomiske politik skal være at sikre fuld beskæftigelse og en økonomisk vækst, der muliggør øgede udfoldelsesmuligheder. Den private opsparing bør stimuleres, såvel hos lønmodtagerne som i erhvervslivet. Tilskud til erhvervsliv"
+        },
+        {
+          "chunk_id": "K_1981_chunk_012",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1981,
+          "title": "En fremtid i frihed",
+          "word_count": 240,
+          "preview": "Et frit og produktivt erhvervsliv er forudsætningen for vækst. Herfra hentes grundlaget for de offentlige aktiviteter. Politik skal derfor skabe erhvervsvenlige rammer, så lønsomheden øges i handel, håndværk, industri, landbrug, skibsfart og fiskeri. Det private initiativ og den frie konkurrence skal sikre forbrugerne og eksportmarkederne gode varer til konkurrencedygtige priser. Statslige indgreb og offentlig styrin"
+        },
+        {
+          "chunk_id": "RV_1955_chunk_012",
+          "party_name": "Radikale Venstre",
+          "year": 1955,
+          "title": "Det Radikale Venstres program af 1955",
+          "word_count": 251,
+          "preview": "Nybyggeri bør være skattefrit, og den på bestående bygninger og forbedringer hvilende ejendomsskyld afvikles gradvis. 2. Indkomst- og kommunebeskatningen. Indkomstbeskatningen skal tage vidtgående hensyn til skatteevne, herunder særligt til forsørgerbyrder. Børnetilskudssystemet reformeres og afpasses, således at børnefradragene i den skattepligtige indtægt erstattes af børnetilskud. Ved hustruers og enlige forsørger"
+        },
+        {
+          "chunk_id": "V_1979_chunk_011",
+          "party_name": "Venstre",
+          "year": 1979,
+          "title": "Det mener Venstre",
+          "word_count": 287,
+          "preview": "Erhvervslivet: Erhvervslivet må bygge på den private ejendomsret og det private initiativ, fordi det bedst sikrer teknologisk udvikling, indtjening, ressource­parsommelighed og menneskeligt miljø. Subsidier i form af tilskud, støtteordninger og selektiv rentepolitik erstattes af en generel forbedring af erhvervslivets vilkår. Offentlige restriktioner indskrænkes. Omkostningsniveauet bør holdes stabilt, så det er muli"
+        },
+        {
+          "chunk_id": "RV_1955_chunk_011",
+          "party_name": "Radikale Venstre",
+          "year": 1955,
+          "title": "Det Radikale Venstres program af 1955",
+          "word_count": 229,
+          "preview": "Arbejdet med besparende byggemetoder og materialer bør fremmes, hvorved også ufaglærte i stigende grad kan anvendes. Monopolpriser på byggematerialer må hindres. Det må undgås, at for strenge byggeforskrifter eller langsom administration medfører unødvendig fordyrelse af byggeriet, og ansvaret for at byggebudgetterne overholdes, bør skærpes. Lovgivningen bør kalde på det private håndværkerinitiativ og på den enkeltes"
+        }
+      ]
+    },
+    "3": {
+      "cluster_id": 3,
+      "size": 97,
+      "top_terms": [
+        "fagbevægelsen",
+        "demokrati",
+        "faglige",
+        "fagbevægelsens",
+        "sektor",
+        "derfor",
+        "internationale",
+        "sociale",
+        "indflydelse",
+        "aftaler",
+        "beslutninger",
+        "politiske"
+      ],
+      "party_distribution": {
+        "Socialistisk Folkeparti": 62,
+        "Enhedslisten": 18,
+        "Venstresocialisterne": 7,
+        "Venstre": 3,
+        "Fremskridtspartiet": 3,
+        "Kristeligt Folkeparti": 2,
+        "Radikale Venstre": 1,
+        "Socialdemokratiet": 1
+      },
+      "year_range": [
+        1955,
+        2012
+      ],
+      "median_year": 1999,
+      "representative_chunks": [
+        {
+          "chunk_id": "SF_1999_chunk_028",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1999,
+          "title": "Fagligt principprogram",
+          "word_count": 242,
+          "preview": "Fagbevægelsen må selv trække i førertrøjen. Fagbevægelsen skal være en social reformbevægelse, der selv skaber opbakning og magt bag kravene. Hvis fagbevægelsen formår at bruge medlemmernes sociale kreativitet til at skabe nye reformprojekter, vil det styrke fagbevægelsens uafhængighed, og det vil åbne for en i Danmark helt ny dialog mellem fagbevægelsen og arbejderbevægelsens partier. SF skal og vil satse på en lang"
+        },
+        {
+          "chunk_id": "SF_1999_chunk_025",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1999,
+          "title": "Fagligt principprogram",
+          "word_count": 223,
+          "preview": "Arbejdet i de forskellige ILO-komiteer bør effektiviseres. ILO skal have særlige instrumenter til at implementere de 7 grundlæggende ILO konventioner. Den europæiske fagbevægelse bør presse EU til at arbejde for sociale og miljømæssige klausuler via FN og WTO. Sidst men ikke mindst må den nationale fagbevægelse rustes bedre til deltage i internationalt koordinerede aktioner (strejker, blokader, demonstrationer, retss"
+        },
+        {
+          "chunk_id": "SF_1999_chunk_012",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1999,
+          "title": "Fagligt principprogram",
+          "word_count": 309,
+          "preview": "Fremtidens faglige dagsorden er bredere end før. Derfor må fagbevægelsen arbejde for at forpligte arbejdsgiverne til at tage et socialt ansvar over for sine ansatte og andre med sociale behov. Overalt må samarbejdsudvalg, sikkerhedsorganisationer, personalepolitik og faglige lokalaftaler bruges til at forpligte ledelsen. Det er tillidsrepræsentanternes opgave at koordinere kollegaernes ønsker og få alle forventninger"
+        },
+        {
+          "chunk_id": "SF_1999_chunk_027",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1999,
+          "title": "Fagligt principprogram",
+          "word_count": 225,
+          "preview": "Nutidens unge stiller store krav til deres fremtidige arbejdsliv. Alligevel er det ikke en selvfølge for dem at melde sig ind i en fagforening. De er ikke vokset op i en kultur, hvor fagbevægelsen var en naturlig og nødvendig hjælp. De tror, de selv kan klare arbejdslivets udfordringer. Hvis fagbevægelsen skal engagere disse unge, må den vise, at den kan skabe nye individuelle muligheder i uddannelsessystemet, på arb"
+        },
+        {
+          "chunk_id": "SF_1999_chunk_010",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1999,
+          "title": "Fagligt principprogram",
+          "word_count": 250,
+          "preview": "pensionsordninger køber store klip, LO-grupperne på det private område køber mindre. Nogen køber slet ingen. Men ingen af os kan vide, hvor langt vi til sin tid kan køre på de forskellige klip. Det vil afhænge af den økonomiske formåen og politiske vilje i fremtidens Danmark. Fagbevægelsen har derfor en interesse i at udvikle samfundsøkonomien på en måde, der gør det økonomisk, socialt og miljømæssigt muligt at give"
+        }
+      ]
+    },
+    "4": {
+      "cluster_id": 4,
+      "size": 69,
+      "top_terms": [
+        "uddannelse",
+        "uddannelser",
+        "folkeskolen",
+        "undervisning",
+        "mulighed",
+        "enkelte",
+        "unge",
+        "skoler",
+        "elever",
+        "sikre",
+        "fag",
+        "viden"
+      ],
+      "party_distribution": {
+        "Det Konservative Folkeparti": 27,
+        "Socialistisk Folkeparti": 13,
+        "Venstre": 13,
+        "Kristeligt Folkeparti": 6,
+        "Radikale Venstre": 3,
+        "Dansk Folkeparti": 3,
+        "Venstresocialisterne": 2,
+        "Fremskridtspartiet": 1,
+        "Socialdemokratiet": 1
+      },
+      "year_range": [
+        1955,
+        2025
+      ],
+      "median_year": 1981,
+      "representative_chunks": [
+        {
+          "chunk_id": "K_2024_chunk_019",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 249,
+          "preview": "Uddannelse er først og fremmest et personligt ansvar. Derfor er det op til både eleverne og deres forældre at sikre, at børnene er veludhvilede, laver deres lektier, udviser respekt for læreren og de øvrige elever og deltager aktivt i undervisningen. Til gengæld er det statens og kommunernes ansvar at tilbyde et uddannelsessystem og fagligt miljø af højeste kvalitet. Det Konservative Folkeparti ønsker at styrke ungdo"
+        },
+        {
+          "chunk_id": "K_1970_chunk_025",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1970,
+          "title": "70'ernes folkeparti",
+          "word_count": 320,
+          "preview": "Den offentlige skole må baseres på en enhedsskole med tilvalg. Ved alle skoler oprettes børnehaveklasser med adgang fra det femte år. Børnehaveklasserne skal være den naturlige overgang til den egentlige undervisning, som begynder fra det fyldte sjette år. Gennem musiske aktiviteter skal man allerede i børnehaveklasserne udvikle børnenes fantasi og skaberevner. Folkeskolen skal give en bred, almen grunduddannelse med"
+        },
+        {
+          "chunk_id": "K_1970_chunk_022",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1970,
+          "title": "70'ernes folkeparti",
+          "word_count": 226,
+          "preview": "Skole- og uddannelsessystemet må til stadighed være fuldt på højde med samfundsudviklingens krav. Målsætningen må være ikke alene at give den enkelte den viden, der er nødvendig i et samfund i stadig forandring, men i lige så høj grad at udvikle interesser og skabende evner, selvstændig tænkning, omstillingsevne og forståelse for samarbejde med andre. Uddannelse bør ikke begrænses til barne- og ungdomsårene, men være"
+        },
+        {
+          "chunk_id": "K_1981_chunk_022",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1981,
+          "title": "En fremtid i frihed",
+          "word_count": 248,
+          "preview": "For de 16–19-årige ønskes flere alternativer til det traditionelle gymnasium. Adgang efter undervisningspligtens ophør bør som hovedregel bero på beståede prøver, der viser egnethed, eller på senere optagelsesprøver. Gymnasiet tilrettelægges på højt fagligt niveau med sigte på studiekompetence til videregående, teoretiske uddannelser og med bevaring af de almendannende elementer. Den Højere Forberedelseseksamen opret"
+        },
+        {
+          "chunk_id": "SF_1991_chunk_050",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1991,
+          "title": "Mod nye tider",
+          "word_count": 223,
+          "preview": "rammer skal de ansatte gennem virksomhedsråd efterhånden have ret til at bestemme over egne arbejdsforhold. Uddannelse Børn og unge Alle skal have adgang til 12 års grunduddannelse. Der er 9 års undervisningspligt. De 9 år foregår som en udelt grunduddannelse, hvor børn med forskellige forudsætninger får mulighed for at fungere sammen. Skolen har en særlig forpligtelse overfor elever, der af økonomiske, sociale, kult"
+        }
+      ]
+    },
+    "5": {
+      "cluster_id": 5,
+      "size": 51,
+      "top_terms": [
+        "mennesket",
+        "menneskesyn",
+        "kristne",
+        "kristeligt",
+        "enkelte",
+        "bade",
+        "menneske",
+        "familien",
+        "kristeligt folkeparti",
+        "ansvar",
+        "menneskets",
+        "mennesker"
+      ],
+      "party_distribution": {
+        "Kristeligt Folkeparti": 31,
+        "Venstresocialisterne": 9,
+        "Venstre": 3,
+        "Socialdemokratiet": 3,
+        "Radikale Venstre": 2,
+        "Det Konservative Folkeparti": 2,
+        "Socialistisk Folkeparti": 1
+      },
+      "year_range": [
+        1969,
+        2024
+      ],
+      "median_year": 1996,
+      "representative_chunks": [
+        {
+          "chunk_id": "KrF_2008_chunk_001",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 2008,
+          "title": "Politik til tiden, politik i tiden",
+          "word_count": 278,
+          "preview": "B. Kristendemokratisk. A. Forord Kristendemokraterne er et politisk parti, der onsker at prage samfundet ud fra det kristme livsog menneskesyn. Kristendommen er ikke en politisk ideclogi, men uderykker verdier og normer, der er inspirationskilde for Kristendemokraternes politik. Kristendemekraterne orienterer sig ud fra den forudsztning, at der bade er en sammenhang og en forskel mellem kristendom og politik. Sammenh"
+        },
+        {
+          "chunk_id": "KrF_1996_chunk_002",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 1996,
+          "title": "Værdier for fremtiden",
+          "word_count": 188,
+          "preview": "Gud skubte mennesket som mand og kvinde, for at de sammen kan bere nyt liv frem og danne en familie. Familien er samfundets mindste og vigtigste sociale enhed, hvor de grundlarggende normer og vardier som feks. ansvarlighed, selvrespekt, tillid og fiellesskabsfelelse opbygges til gavn for det enkelte menneske og samfundsfiellesskabet, Naestehwerligheds budet Mennesket er skabt til ftellesskab. Det enkelte menneske ha"
+        },
+        {
+          "chunk_id": "KrF_1996_chunk_003",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 1996,
+          "title": "Værdier for fremtiden",
+          "word_count": 223,
+          "preview": "PRINCIPPROGRAM 1996. Forvalteransvaret Universet er skabt af Gud, og mennesket cr sat til at forvalte bide den levende natur og de andre naturressourcer ansvarabevidat og med tanke pd de kommende generationer, Hensynet til natur og milje skal prioriteres hoyere end menneskers materielle overflod. Ogsi samfundets kulturelle og okonomiske muligheder skal forvaltes ansvarsbevidet med tanke pd de kommende generationer. H"
+        },
+        {
+          "chunk_id": "KrF_1973_chunk_002",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 1973,
+          "title": "Principprogram",
+          "word_count": 228,
+          "preview": "At mennesket er en person indebærer, at det kan tænke selvstændige og træffe selvstændige beslutninger, som det kan drages til ansvar for. Det enkelte menneske har både pligter og rettigheder. Dets karakter af person må endvidere ses i forbindelse med dets forhold til medmennesket. KRISTELIGT FOLKEPARTI tager afstand fra politiske systemer og politiske beslutninger, der nedværdiger det enkelte menneske. Holdningsdann"
+        },
+        {
+          "chunk_id": "KrF_1996_chunk_000",
+          "party_name": "Kristeligt Folkeparti",
+          "year": 1996,
+          "title": "Værdier for fremtiden",
+          "word_count": 225,
+          "preview": "Forord. KRISTELIGT FOLKEPARTI Indhold FORORD 1,GRUNDSYN 2. MENNESKET 21, Familien 2.2. Social tryghed 2.3, Medicinsk etik 24, Stindired 25. Bolig 2.6. Undervisning ag uddannelse 27. Beskiftigelse Jif, Frit 2.9. Retssamyfindet 3. SAMPUNDSFAELLESSKABET 3. Folkestyret 32, Det kalturelte liv 34, Nirken @ folket Jf. Teknologi og forskning AS. Erhvervsliver 3.6. Økonomi J, Trafik 38. Energi 39. Miljo 4. DET GLOBALE FeELLES"
+        }
+      ]
+    },
+    "6": {
+      "cluster_id": 6,
+      "size": 74,
+      "top_terms": [
+        "offentlige",
+        "enkelte",
+        "bør",
+        "sikre",
+        "derfor",
+        "konservative",
+        "sundhed",
+        "behandling",
+        "private",
+        "sikres",
+        "adgang",
+        "ansvar"
+      ],
+      "party_distribution": {
+        "Det Konservative Folkeparti": 29,
+        "Venstre": 14,
+        "Socialistisk Folkeparti": 10,
+        "Kristeligt Folkeparti": 8,
+        "Socialdemokratiet": 6,
+        "Radikale Venstre": 3,
+        "Venstresocialisterne": 1,
+        "Fremskridtspartiet": 1,
+        "Dansk Folkeparti": 1,
+        "Liberal Alliance": 1
+      },
+      "year_range": [
+        1955,
+        2024
+      ],
+      "median_year": 1995,
+      "representative_chunks": [
+        {
+          "chunk_id": "K_2024_chunk_027",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 282,
+          "preview": "Hvert enkelt menneske har ansvaret for sin egen sundhed. Der er intet, det offentlige kan gøre for at fremme sundheden, der kan måle sig med, at den enkelte tager et personligt ansvar ved at leve sundt, dyrke motion og passe på sig selv. Og selvom det offentlige finansierer sundhedsvæsenet, så vil det i sidste ende altid være den enkelte, der oplever de negative følger af at leve usundt. Det Konservative Folkeparti p"
+        },
+        {
+          "chunk_id": "K_2024_chunk_026",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 239,
+          "preview": "”Et samfund skal kendes på, hvordan det behandler sine svageste” er en konservativ grundsætning. Vi vil koncentrere hjælpen fra det offentlige om samfundets mest udsatte og dermed give dem den omsorg, de har brug for. Det Konservative Folkeparti ønsker således bedre og mere målrettet hjælp til grupper blandt andre psykisk syge, mennesker med svære handicap, udsatte børn og hjemløse. Dette indbefatter også at gøre adg"
+        },
+        {
+          "chunk_id": "K_1992_chunk_019",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1992,
+          "title": "Frihed i fællesskab",
+          "word_count": 237,
+          "preview": "Skattetrykket må aldrig fratage den enkelte valgmuligheder og selvstændighed. Et for højt skattetryk skaber afhængighed af offentlige ydelser, gør den enkelte mindre selvhjulpen og svækker lysten til at gøre en ekstra indsats. Derfor arbejder vi for en væsentlig reduktion af det samlede skattetryk i Danmark. Skattesystemet må indrettes, så det fremmer vækst og kommer i bedre overensstemmelse med de øvrige EF-landes."
+        },
+        {
+          "chunk_id": "V_1995_chunk_014",
+          "party_name": "Venstre",
+          "year": 1995,
+          "title": "Mennesket frem for systemet",
+          "word_count": 225,
+          "preview": "Der skal være plads til alle uanset alder, køn og fysiske handicap på arbejdsmarkedet. Parterne på arbejdsmarkedet har et medansvar for, at også de handicappede får chance for en så normal tilværelse som mulig, f.eks. via skånejobs. Behandlingen af narko- og alkoholmisbrugere skal decentraliseres med henblik på en effektiv og målrettet indsats til gavn for den enkelte. Der skal i udvidet omfang gøres brug af private"
+        },
+        {
+          "chunk_id": "K_2000_chunk_012",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2000,
+          "title": "Fornuft og fornyelse",
+          "word_count": 256,
+          "preview": "Privat ejendomsret og økonomisk frihed er både forudsætninger for personlig frihed og for velstand og mangfoldighed. Det Konservative Folkeparti ønsker at fremme friheden til selv at eje og høste frugterne af eget arbejde. Den frihed kan kun udfoldes i et samfund baseret på markedsøkonomi. En sund økonomisk og erhvervspolitisk udvikling forudsætter samtidig offentlig regulering og god offentlig service på de områder,"
+        }
+      ]
+    },
+    "7": {
+      "cluster_id": 7,
+      "size": 96,
+      "top_terms": [
+        "venstre",
+        "offentlige",
+        "ønsker",
+        "muligheder",
+        "enkelte",
+        "sikre",
+        "mennesker",
+        "private",
+        "ansvar",
+        "enkeltes",
+        "derfor",
+        "udvikling"
+      ],
+      "party_distribution": {
+        "Venstre": 39,
+        "Det Konservative Folkeparti": 19,
+        "Socialistisk Folkeparti": 15,
+        "Radikale Venstre": 10,
+        "Socialdemokratiet": 6,
+        "Kristeligt Folkeparti": 6,
+        "Fremskridtspartiet": 1
+      },
+      "year_range": [
+        1970,
+        2025
+      ],
+      "median_year": 2000,
+      "representative_chunks": [
+        {
+          "chunk_id": "V_2025_chunk_007",
+          "party_name": "Venstre",
+          "year": 2025,
+          "title": "Principprogram",
+          "word_count": 244,
+          "preview": "Fremtidens velfærdssamfund: Venstre ønsker et velfærdssamfund og ikke en velfærdsstat. Velfærdssamfundet er baseret på frihed, ansvar og selvbestemmelse. Alle skal have mulighed for at leve et selvstændigt, værdigt og meningsfuldt liv med størst mulig selvbestemmelse og livskvalitet. Velfærdssamfundet skal som udgangspunkt understøtte danskerne i at kunne hjælpe sig selv fremfor at gøre dem til passive klienter. Velf"
+        },
+        {
+          "chunk_id": "V_2025_chunk_002",
+          "party_name": "Venstre",
+          "year": 2025,
+          "title": "Principprogram",
+          "word_count": 267,
+          "preview": "Folkestyre: Folkestyre er mere end politikerstyre. Venstre mener, at der skal sættes grænser for politik, og at borgernes selvbestemmelse må respekteres. Folketinget skal ikke detailstyre hele landet, for beslutninger bør træffes så tæt på den enkelte som muligt. I et levende folkestyre skal opgaver og ansvar være placeret i det yderste bæredygtige led. Et levende folkestyre er opbygget nedefra med lokalt engagement"
+        },
+        {
+          "chunk_id": "K_2000_chunk_002",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2000,
+          "title": "Fornuft og fornyelse",
+          "word_count": 237,
+          "preview": "Vi vil sørge for, at alle får adgang til mere viden og flere kundskaber og får mulighed for at udfolde sig til gavn for den enkelte og samfundet. Vi vil sørge for, at alle grupper – også nydanskere – integreres på arbejdsmarkedet. Vi vil sikre en miljømæssigt bæredygtig udvikling. Vi vil styrke danske muligheder og dansk indflydelse i det Europa, vi er en del af. Vi vil forsvare og udbrede demokrati og menneskerettig"
+        },
+        {
+          "chunk_id": "V_2025_chunk_006",
+          "party_name": "Venstre",
+          "year": 2025,
+          "title": "Principprogram",
+          "word_count": 256,
+          "preview": "En stærk økonomi: Ingen velstand, ingen udvikling og ingen velfærd uden stærke virksomheder. Fremskridt og udvikling af velfærden kræver, at danske virksomheder tjener penge, og at danskerne er klar til at yde en indsats på det private arbejdsmarked. Derfor skal virksomhederne have gode, stabile rammevilkår, og Venstre står vagt om skattestop. Vi ønsker en kultur, hvor flere tør tage en chance og skabe noget nyt fra"
+        },
+        {
+          "chunk_id": "V_1995_chunk_008",
+          "party_name": "Venstre",
+          "year": 1995,
+          "title": "Mennesket frem for systemet",
+          "word_count": 229,
+          "preview": "Det offentliges opgave er at stimulere processen ved at fjerne eventuelle hindringer for udviklingen af nye markeder samt ved generelt at tilvejebringe den lovgivningsmæssige ramme for privat initiativ på området. Sigtet er det størst mulige udbud af tjenester, lavest mulige priser og bedre service for kunderne. Den teknologiske udvikling rummer spændende muligheder for vækst i livskvalitet, hvis vi bevidst udnytter"
+        }
+      ]
+    },
+    "8": {
+      "cluster_id": 8,
+      "size": 55,
+      "top_terms": [
+        "dansk folkeparti",
+        "dansk",
+        "folkeparti",
+        "folkeparti ønsker",
+        "danske",
+        "ønsker",
+        "bør",
+        "danmark",
+        "således",
+        "offentlige",
+        "kommunale",
+        "grundloven"
+      ],
+      "party_distribution": {
+        "Dansk Folkeparti": 37,
+        "Det Konservative Folkeparti": 5,
+        "Radikale Venstre": 4,
+        "Socialistisk Folkeparti": 4,
+        "Fremskridtspartiet": 2,
+        "Venstresocialisterne": 1,
+        "Kristeligt Folkeparti": 1,
+        "Venstre": 1
+      },
+      "year_range": [
+        1955,
+        2000
+      ],
+      "median_year": 1997,
+      "representative_chunks": [
+        {
+          "chunk_id": "DF_1997_chunk_002",
+          "party_name": "Dansk Folkeparti",
+          "year": 1997,
+          "title": "Principprogram",
+          "word_count": 232,
+          "preview": "Nedenfor angives i hovedtræk den politik, som Dansk Folkeparti står for og vil arbejde for i Folketinget og i andre folkevalgte organer. LANDETS STYRING Dansk Folkeparti ønsker at opretholde det konstitutionelle monarki med en skarp adskillelse mellem den lovgivende, den udøvende og den dømmende magt. Grundloven Grundloven er grundlaget for det danske folkestyre. Politikerne skal respektere Grundloven, og domstolene"
+        },
+        {
+          "chunk_id": "DF_1997_chunk_029",
+          "party_name": "Dansk Folkeparti",
+          "year": 1997,
+          "title": "Principprogram",
+          "word_count": 246,
+          "preview": "Det skal understreges, at det offentlige stadig skal stå for betalingen til eksempelvis pleje- og sygehussektoren. For at kunne nedsætte de alt for høje skatter og afgifter ønsker Dansk Folkeparti besparelser på de offentlige budgetter. Derfor skal en lang række opgaver privatiseres og udliciteres. Herudover mener Dansk Folkeparti, at der kan findes offentlige besparelser på eksempelvis områder som udlændinge, kultur"
+        },
+        {
+          "chunk_id": "DF_1997_chunk_041",
+          "party_name": "Dansk Folkeparti",
+          "year": 1997,
+          "title": "Principprogram",
+          "word_count": 224,
+          "preview": "Sammenfattende kan det konstateres, at Dansk Folkeparti ønsker, at det offentlige skal holde så lav profil som overhovedet muligt og lade det private initiativ råde, når dette er i stand til at tilbyde varer og ydelser på gunstige vilkår. Den kommunale økonomi Dansk Folkeparti finder, at efter en række år med kommunale skattestigninger er hovedopgaven nu at sikre nedsættelse af de kommunale skatter. I en række kommun"
+        },
+        {
+          "chunk_id": "DF_1997_chunk_040",
+          "party_name": "Dansk Folkeparti",
+          "year": 1997,
+          "title": "Principprogram",
+          "word_count": 229,
+          "preview": "Dansk Folkeparti ønsker derfor amter og statsamter nedlagt. Dansk Folkeparti ønsker, at opgaven med det kommunale tilsyn overflyttes til Indenrigsministeriet. Inddeling Den nuværende kommunale inddeling fra 1970 skal respekteres, medmindre et antal kommuner direkte selv anmoder om en sammenlægning el eller opdeling, som i så fald efter Dansk Folkepartis opfattelse skal vedtages gennem en folkeafstemning i de berørte"
+        },
+        {
+          "chunk_id": "DF_1997_chunk_026",
+          "party_name": "Dansk Folkeparti",
+          "year": 1997,
+          "title": "Principprogram",
+          "word_count": 232,
+          "preview": "Dansk Folkeparti finder videre, at dambrugene er udsat for urimelig forfølgelse. Dambrug skal overholde rimelige miljøkrav, og ikke som nu, udokumenterede krav. Det skal sikres, at lovgivningen på området ikke er diskriminerende og konkurrenceforvridende i forhold til de lande, vi konkurrerer med. SKATTEN Skatte politikken skal ændres markant. Dette er nødvendigt, såfremt det i det danske samfund skal kunne betale si"
+        }
+      ]
+    },
+    "9": {
+      "cluster_id": 9,
+      "size": 50,
+      "top_terms": [
+        "partiet",
+        "partiets",
+        "hovedbestyrelsen",
+        "medlemmer",
+        "partiafdeling",
+        "inden",
+        "partiafdelingens",
+        "mellem",
+        "socialistisk",
+        "opgave",
+        "kongres",
+        "indstilling"
+      ],
+      "party_distribution": {
+        "Venstresocialisterne": 37,
+        "Socialistisk Folkeparti": 11,
+        "Socialdemokratiet": 2
+      },
+      "year_range": [
+        1961,
+        1980
+      ],
+      "median_year": 1980,
+      "representative_chunks": [
+        {
+          "chunk_id": "VS_1980_chunk_025",
+          "party_name": "Venstresocialisterne",
+          "year": 1980,
+          "title": "Program og love for Venstresocialisterne",
+          "word_count": 238,
+          "preview": "Pa hovedbestyrelsesmedeme skal hovedbestyrelsens aktuelle politik pa grundiag af de af kongressen vedtagne kommisorier diskuteres, Hovedbestyrelsens moder er principlelt Sbne for pantiets medlammer. Vedrarande taleret og rejsegodigerelsa henvises til lovbestemmelse 6, afsnit 7, Principprogrammet er bestemmende for hovedbestyrelsans beslutninger, Det er hovedbestyrelsens pligt at indkalde skriftlige indberetninger fra"
+        },
+        {
+          "chunk_id": "VS_1980_chunk_016",
+          "party_name": "Venstresocialisterne",
+          "year": 1980,
+          "title": "Program og love for Venstresocialisterne",
+          "word_count": 254,
+          "preview": "sig partiets minimumsprogram, godkender dets love, betaler det af kongressen fastsatie kontingent, det af partiafdelingens generalforsamling godkendte lokalkontingent, samt at man ikke er medlem af andre partier. Endvidere forudsaetter mediemskab, at man i sympaticarpe- ‘iodan har deltaget i partiafdelingens aktiviteter. Samtidig med introduktionsskolingen kan der abnes: muligheder for, at sympatisererne kan deltage"
+        },
+        {
+          "chunk_id": "VS_1980_chunk_031",
+          "party_name": "Venstresocialisterne",
+          "year": 1980,
+          "title": "Program og love for Venstresocialisterne",
+          "word_count": 234,
+          "preview": "16. Enhver henstilling, som klart falgerat kongresbeslutninger, eller af de lofter, der er afgiveti partiets programmer, herunder valgprogrammer, skal ubetinget felges. Sker det ikke, kan den pSgaidende ikke laangere repraesentere partiet. Enhver anden henastilling skal, hvis den ikke falges, forelagges mediammerne til afgoreise. Partiledelsan motiverer sin henstilling, og den pigasidendea parlamentariske repreesenta"
+        },
+        {
+          "chunk_id": "SF_1980_chunk_074",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1980,
+          "title": "Princip- og handlingsprogram",
+          "word_count": 261,
+          "preview": "Derfor lægger vi vægt på, at partiet tilbyder og tilskynder sine medlemmer til aktiviteter, der ligger i forlængelse af deres interesser, ligesom der overalt tilbydes skoling i marxistisk teori og socialistisk politik. Vor grundholdning er den, at partiet står stærkere som socialistisk redskab i klassekampen, desto flere der er aktive og skolede. Derfor opmuntrer vi til aktivitet og skoling; kønskvoteringsreglen skal"
+        },
+        {
+          "chunk_id": "VS_1980_chunk_015",
+          "party_name": "Venstresocialisterne",
+          "year": 1980,
+          "title": "Program og love for Venstresocialisterne",
+          "word_count": 224,
+          "preview": "46. Partiet og dets madiammer mi.se det som en apgave at fremme denne proces. Partiet er dbent for et neert samarbejde med alle ikke-reformistiske grupper, der deltager i denne del af klassekampen. Partiet tilstrasber at skabe en organisatorisk ramme, hvar de mange spredte erfaringer kan undergd en samlet bearbeldelse, til sikring af den vekselvirkning mellem teori og praksis, som er forudsaetningen for en socialisti"
+        }
+      ]
+    },
+    "10": {
+      "cluster_id": 10,
+      "size": 64,
+      "top_terms": [
+        "ansvar",
+        "konservative",
+        "mennesker",
+        "værdier",
+        "danmark",
+        "kultur",
+        "danske",
+        "fælles",
+        "fællesskab",
+        "ønsker",
+        "fællesskaber",
+        "rettigheder"
+      ],
+      "party_distribution": {
+        "Det Konservative Folkeparti": 34,
+        "Venstre": 11,
+        "Socialdemokratiet": 10,
+        "Socialistisk Folkeparti": 4,
+        "Liberal Alliance": 2,
+        "Dansk Folkeparti": 1,
+        "Kristeligt Folkeparti": 1,
+        "Radikale Venstre": 1
+      },
+      "year_range": [
+        1961,
+        2025
+      ],
+      "median_year": 2010,
+      "representative_chunks": [
+        {
+          "chunk_id": "K_2024_chunk_003",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 252,
+          "preview": "De lokale fællesskaber er alle en del af det nationale fællesskab med dets historie, kultur, sprog og fælles traditioner. Gennem kærlighed og kendskab til vores fælles, nationale fundament bliver vi til et folk, uanset om vi hver især har rødder i andre kulturer. Samlet i et fædreland med forankring i vores kongehus og demokratiske styreform, kristne værdier og de grundlæggende rettigheder, pligter og andre centrale"
+        },
+        {
+          "chunk_id": "K_1992_chunk_005",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 1992,
+          "title": "Frihed i fællesskab",
+          "word_count": 302,
+          "preview": "Virkeligheden er således fyldt med modsætninger, som er uundgåelige i et fællesskab af mennesker. Vores opgave er til stadighed at tilstræbe balancen mellem frihed, ansvar, tryghed og lige muligheder. Det konservative menneskesyn er præget af den opfattelse, at alle mennesker er født forskellige, men ligeværdige og med samme fundamentale rettigheder. Målet for konservativ politik er derfor ikke lighed – men lige muli"
+        },
+        {
+          "chunk_id": "K_2000_chunk_000",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2000,
+          "title": "Fornuft og fornyelse",
+          "word_count": 276,
+          "preview": "Det Konservative Folkepartis idégrundlag bygger på troen på frihed og ansvar. Vi har tillid til det enkelte menneske. Vi ønsker, at det enkelte menneske skal have frihed til at forme sin egen tilværelse og til at skabe sin egen lykke. Men for os er frihed og ansvar to sider af samme sag. Ansvar for at forvalte sin egen frihed uden at krænke andres ret til samme frihed. Ansvar for fællesskabet, hvor vi hver især respe"
+        },
+        {
+          "chunk_id": "K_2024_chunk_000",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 286,
+          "preview": "Det Konservative Folkeparti er et parti for ansvarsbevidste mennesker, der elsker deres fædreland med dets kultur, traditioner og historie, og som ønsker et frit samfund, hvor den enkelte tager ansvar for sig selv og sine nærmeste, og hvor vi værner om de fællesskaber, vi hver især indgår i. Det gælder først og fremmest familien, som er samfundets grundlæggende byggesten og som uanset familieformen er det naturlige u"
+        },
+        {
+          "chunk_id": "K_2024_chunk_002",
+          "party_name": "Det Konservative Folkeparti",
+          "year": 2024,
+          "title": "Stærke rødder i en omskiftelig tid",
+          "word_count": 279,
+          "preview": "En af de vigtigste forudsætninger for den enkeltes frihed er den private ejendomsret. Den skaber tryghed om fremtiden, og den fremmer den enkeltes ansvar og giver større stabilitet i samfundsudviklingen. Vi vil beskytte privatlivets fred, og vi modsætter os overgreb mod den private ejendomsret. Ekspropriation kan kun ske til fordel for almenvellet i særlige tilfælde. Det Konservative Folkeparti ønsker frihed for den"
+        }
+      ]
+    },
+    "11": {
+      "cluster_id": 11,
+      "size": 92,
+      "top_terms": [
+        "økologisk",
+        "udvikling",
+        "produktion",
+        "disse",
+        "økologiske",
+        "vedvarende",
+        "energi",
+        "økonomisk",
+        "socialistisk",
+        "politik",
+        "demokratisk",
+        "forbrug"
+      ],
+      "party_distribution": {
+        "Socialistisk Folkeparti": 66,
+        "Enhedslisten": 14,
+        "Socialdemokratiet": 5,
+        "Det Konservative Folkeparti": 3,
+        "Kristeligt Folkeparti": 2,
+        "Radikale Venstre": 2
+      },
+      "year_range": [
+        1970,
+        2024
+      ],
+      "median_year": 1991,
+      "representative_chunks": [
+        {
+          "chunk_id": "SF_1991_chunk_002",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1991,
+          "title": "Mod nye tider",
+          "word_count": 240,
+          "preview": "Men selv om der kan opstilles en række vigtige principper for et socialistisk samfund, kan der ikke opstilles en præcis model for det. Også i et socialistisk samfund vil der ske forandringer, bl.a. fordi der fortsat vil være konflikter, og socialismen vil naturligvis være underkastet disse forandringer. Netop fordi forandringer et sted i verden påvirker og påvirkes af forandringer andre steder, er det vigtigt, at løs"
+        },
+        {
+          "chunk_id": "SF_2012_chunk_004",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 2012,
+          "title": "Principprogram",
+          "word_count": 294,
+          "preview": "Vigtigst er lønmodtagernes organisering i fagbevægelsen, som grundlag for fordelingskampen og den danske arbejdsmarkedsmodel. Bevægelser og foreninger omkring uddannelser, miljø, bolig, solidaritet, patienter og borgere med handicap er også meget vigtige at styrke og inddrage. Også de nære fællesskaber som familien, skolen, boligforeningen, kulturinitiativer, kvarteret og lokalsamfundets netværk af foreninger, borger"
+        },
+        {
+          "chunk_id": "SF_1991_chunk_053",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 1991,
+          "title": "Mod nye tider",
+          "word_count": 240,
+          "preview": "tryghedsbestemmelser om vikarafløsning, retten til fuld arbejdstid efter orlov og sikring mod fyring. Økonomisk og økologisk ansvarlighed 90ernes største udfordring er indlysende: det truende økologiske sammenbrud skal forhindres både lokalt, globalt og især i udviklingslandene af hensyn til deres vækst i produktionen. Ved forebyggende indgreb, som er det mest effektive, må disse tre hensyn samlet tilgodeses. Der må"
+        },
+        {
+          "chunk_id": "SF_2003_chunk_027",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 2003,
+          "title": "Princip- og perspektivprogram",
+          "word_count": 253,
+          "preview": "Det har ikke mindst vist sig i tragedien på Balkan, hvor Jugoslaviens opløsning førte til et inferno af vold. Selv om demokratiet efterhånden synes at have fået overtaget i de fleste lande på Balkan, lurer de voldsomme konflikter fortsat, og det kræver en kolossal økonomisk, social og demokratisk indsats at bringe landene på fode igen. Det er nu besluttet at optage en række af de central- og østeuropæiske lande i EU."
+        },
+        {
+          "chunk_id": "SF_2003_chunk_041",
+          "party_name": "Socialistisk Folkeparti",
+          "year": 2003,
+          "title": "Princip- og perspektivprogram",
+          "word_count": 228,
+          "preview": "Produktion og forbrug skal omlægges så ressourceforbruget og forurening svarer til det som naturen kan bære. Dette miljømæssige råderum skal udvikles til at være et styringsinstrument for myndigheder, virksomheder, foreninger og borgere og skal søges anvendt aktivt af alle relevante aktører. En sådan radikal grøn omlægning forudsætter en bevidst økonomisk politik og indgreb i økonomien. Skatte- og afgiftspolitik skal"
+        }
+      ]
+    }
+  }
+}

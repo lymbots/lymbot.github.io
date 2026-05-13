@@ -330,6 +330,52 @@ a { color: var(--accent); font-weight: 700; }
   letter-spacing: 0.04em;
 }
 
+.analysis-summary-box {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.85rem;
+}
+
+.analysis-section-head {
+  margin-top: 1.4rem;
+}
+
+.analysis-results {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.analysis-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  padding: 0.95rem;
+}
+
+.analysis-card h3 {
+  margin: 0;
+}
+
+.analysis-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.8rem;
+}
+
+.analysis-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.analysis-tag-alt {
+  background: #eef3ef;
+  color: #40584c;
+}
+
 @media (min-width: 920px) {
   .hero-grid { grid-template-columns: 1.5fr 1fr; }
   .two-col { grid-template-columns: 310px 1fr; align-items: start; }
