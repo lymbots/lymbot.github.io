@@ -49,10 +49,10 @@ async function init() {
 }
 
 function renderStatusStrip() {
-  const programCount = new Set(state.suggestions.map((item) => item.program_id)).size;
+  const sourceCount = new Set(state.suggestions.map((item) => item.program_id)).size;
   statusTopics.textContent = String(state.topics.length);
   statusTexts.textContent = String(state.suggestions.length);
-  statusPrograms.textContent = String(programCount);
+  statusPrograms.textContent = String(sourceCount);
 }
 
 function renderTopicOptions() {
@@ -68,7 +68,7 @@ function renderPartyOptions() {
   );
 
   partySelect.innerHTML = [
-    '<option value="all" selected>Alle partier</option>',
+    '<option value="all" selected>Alle kildegrupper</option>',
     ...parties.map((party) => `<option value="${party}">${party}</option>`),
   ].join("");
 }
@@ -116,6 +116,12 @@ function filterSuggestions() {
   });
 }
 
+function formatReviewStatus(status) {
+  if (status === "needs_review") return "Behøver gennemgang";
+  if (status === "approved") return "Godkendt";
+  return status || "Ukendt";
+}
+
 function renderAll() {
   const items = filterSuggestions();
   const selectedTopic = topicSelect.value;
@@ -123,7 +129,7 @@ function renderAll() {
   const selectedStatus = statusSelect.value;
 
   const topicLabel = selectedTopic === "all" ? "Alle emner" : getTopicLabel(selectedTopic);
-  const partyLabel = selectedParty === "all" ? "alle partier" : selectedParty;
+  const partyLabel = selectedParty === "all" ? "alle kildegrupper" : selectedParty;
   const statusLabel =
     selectedStatus === "all" ? "alle gennemgange" : statusSelect.selectedOptions[0].textContent;
 
@@ -155,7 +161,7 @@ function renderAll() {
               }
             </div>
           </div>
-          <p class="meta">Status: ${item.review_status} · Signal: ${item.reasons || "ingen ekstra signaler"}</p>
+          <p class="meta">Status: ${formatReviewStatus(item.review_status)} · Signal: ${item.reasons || "ingen ekstra signaler"}</p>
           <p class="context">${item.text}</p>
         </article>
       `

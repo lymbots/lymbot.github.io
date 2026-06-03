@@ -6,7 +6,7 @@
     <title>Emneanalyse</title>
     <meta
       name="description"
-      content="Analysevisning for emneklassifikation af principprogrammer med taksonomi, filtre og tekstforslag."
+      content="Analysevisning for emneklassifikation af principprogrammer og regeringsgrundlag med taksonomi, filtre og tekstforslag."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,7 +25,7 @@
       <h1>Emnematrix</h1>
       <p class="lead">
         Denne side viser emnetaksonomien og de tilhørende tekstforslag på tværs af
-        principprogrammerne.
+        principprogrammer og regeringsgrundlag.
       </p>
       <div class="intro-note">
         <p>
@@ -40,7 +40,7 @@
       <div class="status-strip" aria-label="Analysestatus">
         <p><strong id="analysis-status-topics">0</strong> emner</p>
         <p><strong id="analysis-status-texts">0</strong> tekststykker</p>
-        <p><strong id="analysis-status-programs">0</strong> programmer</p>
+        <p><strong id="analysis-status-programs">0</strong> kilder</p>
       </div>
     </header>
 
@@ -61,13 +61,13 @@
         <aside class="panel controls" aria-label="Filtre for analyse">
           <h2>Filtre</h2>
           <p class="panel-intro">
-            Vælg emne, parti og status for at se hvordan den første analyse fordeler teksterne.
+            Vælg emne, kildegruppe og status for at se hvordan den første analyse fordeler teksterne.
           </p>
 
           <label for="analysis-topic-select">Emne</label>
           <select id="analysis-topic-select"></select>
 
-          <label for="analysis-party-select">Parti</label>
+          <label for="analysis-party-select">Kildegruppe</label>
           <select id="analysis-party-select"></select>
 
           <label for="analysis-status-select">Gennemgang</label>

@@ -1,0 +1,341 @@
+#!/usr/bin/env python3
+"""Build topic suggestions and party-similarity indicators for government foundations."""
+
+from __future__ import annotations
+
+import json
+import math
+import re
+from collections import Counter, defaultdict
+from pathlib import Path
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+ROOT = Path(__file__).resolve().parents[1]
+GOVERNMENTS_PATH = ROOT / "docs" / "data" / "governments.json"
+PROGRAMS_PATH = ROOT / "docs" / "data" / "programs.json"
+TAXONOMY_PATH = ROOT / "analysis" / "topic_taxonomy.json"
+PARTY_SUGGESTIONS_PATH = ROOT / "docs" / "data" / "analysis" / "topic_suggestions.json"
+OUTPUT_DIR = ROOT / "analysis" / "output"
+DOCS_ANALYSIS_DIR = ROOT / "docs" / "data" / "analysis"
+
+MIN_WORDS = 120
+TARGET_WORDS = 220
+MAX_WORDS = 320
+
+STOP_WORDS = {
+    "af", "alle", "at", "da", "de", "dem", "den", "der", "det", "en", "er", "et",
+    "for", "fra", "har", "i", "ikke", "kan", "med", "men", "og", "om", "på", "som",
+    "til", "ud", "var", "ved", "vi", "vil", "være", "år", "regeringen", "danmark",
+    "danske", "skal", "mere", "nye", "sammen", "sikre", "styrke", "bedre",
+}
+
+EXTRA_TOPIC_KEYWORDS = {
+    "stat_marked_oekonomi": ["finanspolitik", "økonomisk", "skattelettelser", "produktivitet", "konkurrenceevne", "virksomhed"],
+    "velfaerd_socialpolitik": ["sundhedsvæsen", "ældrepleje", "social", "psykiatrien", "patienter", "velfærdssamfund"],
+    "arbejde_fagbevaegelse": ["beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster"],
+    "uddannelse_dannelse": ["folkeskole", "universiteter", "erhvervsuddannelser", "daginstitutioner", "børn", "unge"],
+    "klima_miljoe_energi": ["grøn", "co2", "landbrug", "havmiljø", "drikkevand", "vind", "elektrificering"],
+    "internationalt_europa": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik"],
+    "forsvar_sikkerhed": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler"],
+    "nation_udlaendinge": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab"],
+}
+
+
+def normalize_text(raw_text: str) -> str:
+    text = raw_text.replace("\ufeff", "\n").replace("\f", "\n\n")
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
+def word_count(text: str) -> int:
+    return len(re.findall(r"\b[\wÆØÅæøå]+\b", text))
+
+
+def paragraph_like_blocks(text: str) -> list[str]:
+    blocks = []
+    for block in re.split(r"\n\s*\n", text):
+        lines = [line.strip() for line in block.splitlines() if line.strip()]
+        combined = re.sub(r"\s+", " ", " ".join(lines)).strip()
+        if combined:
+            blocks.append(combined)
+    return blocks
+
+
+def looks_like_heading(block: str) -> bool:
+    if len(block.split()) > 12:
+        return False
+    if re.fullmatch(r"[A-ZÆØÅ0-9 .,:;()'\"/-]+", block):
+        return True
+    return len(block) <= 42 and block[:1].isupper() and block == block.title()
+
+
+def split_long_block(block: str) -> list[str]:
+    if word_count(block) <= MAX_WORDS:
+        return [block]
+    sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+(?=[A-ZÆØÅ0-9\"“])", block) if s.strip()]
+    if len(sentences) <= 1:
+        words = block.split()
+        return [" ".join(words[i : i + TARGET_WORDS]) for i in range(0, len(words), TARGET_WORDS)]
+    pieces, current, current_words = [], [], 0
+    for sentence in sentences:
+        sentence_words = word_count(sentence)
+        if current and current_words + sentence_words > MAX_WORDS:
+            pieces.append(" ".join(current))
+            current, current_words = [], 0
+        current.append(sentence)
+        current_words += sentence_words
+        if current_words >= TARGET_WORDS:
+            pieces.append(" ".join(current))
+            current, current_words = [], 0
+    if current:
+        pieces.append(" ".join(current))
+    return pieces
+
+
+def chunk_document(document: dict) -> list[dict]:
+    full_path = document.get("fullTextPath")
+    if not full_path:
+        return []
+    text_path = ROOT / "docs" / full_path.replace("./", "")
+    if not text_path.exists():
+        return []
+    blocks = paragraph_like_blocks(normalize_text(text_path.read_text(encoding="utf-8", errors="ignore")))
+    chunks, pending_heading, current_parts, current_words = [], "", [], 0
+
+    def flush() -> None:
+        nonlocal pending_heading, current_parts, current_words
+        if not current_parts:
+            return
+        chunk_text = " ".join(current_parts).strip()
+        if pending_heading and pending_heading not in chunk_text:
+            chunk_text = f"{pending_heading}. {chunk_text}"
+        index = len(chunks)
+        chunks.append(
+            {
+                "chunk_id": f"{document['id']}_chunk_{index:03d}",
+                "program_id": document["id"],
+                "source_type": "government_basis",
+                "party_id": "REGERING",
+                "party_name": "Regeringsgrundlag",
+                "year": int(document["year"]),
+                "title": document["title"],
+                "source_path": document.get("sourcePath", ""),
+                "chunk_index": index,
+                "word_count": word_count(chunk_text),
+                "text": chunk_text,
+            }
+        )
+        pending_heading, current_parts, current_words = "", [], 0
+
+    for block in blocks:
+        if looks_like_heading(block):
+            if current_parts and current_words >= MIN_WORDS:
+                flush()
+            pending_heading = block
+            continue
+        for piece in split_long_block(block):
+            piece_words = word_count(piece)
+            if current_parts and current_words + piece_words > MAX_WORDS:
+                flush()
+            current_parts.append(piece)
+            current_words += piece_words
+            if current_words >= TARGET_WORDS:
+                flush()
+    if current_parts:
+        flush()
+    return chunks
+
+
+def topic_keywords(topic: dict) -> list[str]:
+    return list(dict.fromkeys(topic.get("keywords", []) + EXTRA_TOPIC_KEYWORDS.get(topic["id"], [])))
+
+
+def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, str]:
+    normalized = " ".join(text.lower().split())
+    scored = []
+    reasons_by_topic = defaultdict(list)
+    for topic in topics:
+        hits = []
+        for keyword in topic_keywords(topic):
+            key = " ".join(keyword.lower().split())
+            if topic["id"] == "nation_udlaendinge" and key == "danske":
+                continue
+            if key and key in normalized:
+                hits.append(keyword)
+        if not hits:
+            continue
+        score = 0.18 * len(set(hits))
+        if len(set(hits)) >= 2:
+            score += 0.25
+        if topic["id"] in {"forsvar_sikkerhed", "klima_miljoe_energi"} and hits:
+            score += 0.12
+        scored.append((topic["id"], score, hits[:4]))
+        reasons_by_topic[topic["id"]] = [f"keyword:{hit}" for hit in hits[:4]]
+    if not scored:
+        return "ukendt", 0.0, "", 0.0, "ingen klare nøgleord"
+    scored.sort(key=lambda item: (-item[1], item[0]))
+    primary = scored[0]
+    secondary = scored[1] if len(scored) > 1 else ("", 0.0, [])
+    reasons = reasons_by_topic.get(primary[0], []) + reasons_by_topic.get(secondary[0], [])
+    return primary[0], primary[1], secondary[0], secondary[1], ", ".join(reasons[:6])
+
+
+def build_similarity(combined_suggestions: list[dict], programs: dict, governments: list[dict], topics: list[dict]) -> list[dict]:
+    latest_by_party = {}
+    for program in programs["programs"]:
+        pid = program["partyId"]
+        if pid not in latest_by_party or int(program["year"]) > int(latest_by_party[pid]["year"]):
+            latest_by_party[pid] = program
+
+    by_program_topic = defaultdict(list)
+    for item in combined_suggestions:
+        if item.get("primary_topic_id") and item.get("primary_topic_id") != "ukendt":
+            by_program_topic[(item["program_id"], item["primary_topic_id"])].append(item["text"])
+
+    rows = []
+    for government in governments:
+        candidate_ids = list(dict.fromkeys(government.get("governmentParties", []) + government.get("parliamentaryBasis", [])))
+        available = [pid for pid in candidate_ids if pid in latest_by_party]
+        missing = [pid for pid in candidate_ids if pid not in latest_by_party]
+        for topic in topics:
+            gov_text = " ".join(by_program_topic.get((government["id"], topic["id"]), []))
+            if not gov_text or not available:
+                rows.append({
+                    "government_id": government["id"],
+                    "topic_id": topic["id"],
+                    "topic_label": topic["label"],
+                    "scores": [],
+                    "missing_party_ids": missing,
+                    "note": "Ikke nok emnetekst til beregning." if not gov_text else "Ingen partiprogrammer i datagrundlaget.",
+                })
+                continue
+            docs = [gov_text]
+            parties = []
+            for pid in available:
+                program = latest_by_party[pid]
+                party_text = " ".join(by_program_topic.get((program["id"], topic["id"]), []))
+                parties.append((pid, program, party_text))
+                docs.append(party_text or "")
+            if all(not text for _pid, _program, text in parties):
+                sims = [0.0] * len(parties)
+            else:
+                vectorizer = TfidfVectorizer(lowercase=True, stop_words=list(STOP_WORDS), ngram_range=(1, 2), min_df=1)
+                matrix = vectorizer.fit_transform(docs)
+                sims = cosine_similarity(matrix[0], matrix[1:]).ravel().tolist()
+            total = sum(max(score, 0.0) for score in sims)
+            scores = []
+            for (pid, program, party_text), score in zip(parties, sims):
+                scores.append({
+                    "party_id": pid,
+                    "party_name": programs["parties_by_id"].get(pid, pid),
+                    "program_id": program["id"],
+                    "program_year": program["year"],
+                    "program_title": program["title"],
+                    "similarity": round(float(score), 4),
+                    "share": round(float(score / total), 4) if total > 0 else 0.0,
+                    "has_topic_text": bool(party_text),
+                    "role": "Regeringsparti" if pid in government.get("governmentParties", []) else "Parlamentarisk grundlag",
+                })
+            scores.sort(key=lambda item: (-item["share"], item["party_name"]))
+            rows.append({
+                "government_id": government["id"],
+                "topic_id": topic["id"],
+                "topic_label": topic["label"],
+                "scores": scores,
+                "missing_party_ids": missing,
+                "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
+            })
+    return rows
+
+
+def main() -> None:
+    governments_payload = json.loads(GOVERNMENTS_PATH.read_text(encoding="utf-8"))
+    programs = json.loads(PROGRAMS_PATH.read_text(encoding="utf-8"))
+    programs["parties_by_id"] = {party["id"]: party["name"] for party in programs["parties"]}
+    taxonomy = json.loads(TAXONOMY_PATH.read_text(encoding="utf-8"))
+    raw_party_suggestions = json.loads(PARTY_SUGGESTIONS_PATH.read_text(encoding="utf-8"))
+    party_suggestions = [
+        item for item in raw_party_suggestions if item.get("source_type", "party_program") == "party_program"
+    ]
+    for item in party_suggestions:
+        item.setdefault("source_type", "party_program")
+
+    topics = taxonomy["topics"]
+    topic_by_id = {topic["id"]: topic for topic in topics}
+    chunks = []
+    for document in governments_payload["governments"]:
+        chunks.extend(chunk_document(document))
+
+    suggestions = []
+    topic_totals = Counter()
+    for chunk in chunks:
+        primary_id, primary_score, secondary_id, secondary_score, reasons = score_chunk(chunk["text"], topics)
+        if primary_id not in topic_by_id:
+            continue
+        topic_totals[primary_id] += 1
+        suggestions.append({
+            "chunk_id": chunk["chunk_id"],
+            "program_id": chunk["program_id"],
+            "source_type": "government_basis",
+            "party_name": chunk["party_name"],
+            "year": chunk["year"],
+            "title": chunk["title"],
+            "cluster_id": "gov_keyword",
+            "primary_topic_id": primary_id,
+            "primary_topic_label": topic_by_id.get(primary_id, {}).get("label", primary_id),
+            "primary_confidence": f"{primary_score:.2f}",
+            "secondary_topic_id": secondary_id,
+            "secondary_topic_label": topic_by_id.get(secondary_id, {}).get("label", secondary_id),
+            "secondary_confidence": f"{secondary_score:.2f}" if secondary_id else "",
+            "review_status": "needs_review",
+            "reasons": reasons,
+            "text": chunk["text"],
+        })
+
+    combined = party_suggestions + suggestions
+    similarity = build_similarity(combined, programs, governments_payload["governments"], topics)
+
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    DOCS_ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
+    (OUTPUT_DIR / "government_chunks.json").write_text(json.dumps(chunks, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (OUTPUT_DIR / "government_topic_suggestions.json").write_text(json.dumps(suggestions, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (OUTPUT_DIR / "government_similarity.json").write_text(json.dumps(similarity, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (DOCS_ANALYSIS_DIR / "topic_suggestions.json").write_text(json.dumps(combined, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (DOCS_ANALYSIS_DIR / "government_similarity.json").write_text(json.dumps(similarity, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    lines = [
+        "# Emneforslag for regeringsgrundlag",
+        "",
+        f"- Regeringsdokumenter med tekst: {len({chunk['program_id'] for chunk in chunks})}",
+        f"- Tekststykker: {len(chunks)}",
+        "",
+        "## Emnefordeling",
+        "",
+    ]
+    for topic in topics:
+        lines.append(f"- {topic['label']}: {topic_totals.get(topic['id'], 0)}")
+    lines.extend([
+        "",
+        "## Metode",
+        "",
+        "Regeringsgrundlagene er opdelt med samme chunk-størrelser som partiprogrammerne.",
+        "Emneforslagene bruger den samme 12-emne-taksonomi, men uden at ændre den eksisterende partianalyses KMeans-klynger.",
+        "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
+    ])
+    (OUTPUT_DIR / "government_topic_suggestions_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    print(json.dumps({
+        "government_chunks": len(chunks),
+        "government_suggestions": len(suggestions),
+        "combined_suggestions": len(combined),
+        "similarity_rows": len(similarity),
+    }, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

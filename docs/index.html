@@ -6,7 +6,7 @@
     <title>De politiske principper</title>
     <meta
       name="description"
-      content="Læs og sammenlign danske partiers principprogrammer på tværs af emner og over tid."
+      content="Læs og sammenlign danske partiers principprogrammer og regeringsgrundlag på tværs af emner og over tid."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,14 +24,14 @@
       <p class="eyebrow">Offentlig kildesite</p>
       <h1>De politiske principper</h1>
       <p class="lead">
-        En digital kildeside for danske partiers principprogrammer. Læs kilderne, sammenlign
-        formuleringer på tværs, og følg udviklingen over tid.
+        En digital kildeside for danske partiers principprogrammer og regeringers politiske
+        grundlag. Læs kilderne, sammenlign formuleringer på tværs, og følg udviklingen over tid.
       </p>
       <div class="intro-note">
         <p>
-          Sitet samler danske partiers principprogrammer i en fælles, læsbar struktur, hvor
-          originale tekster kan følges over tid, sammenlignes på tværs og læses i fuld længde med
-          tilhørende kildeoplysninger.
+          Sitet samler danske partiers principprogrammer og regeringsgrundlag i en fælles,
+          læsbar struktur, hvor originale tekster kan følges over tid, sammenlignes på tværs og
+          læses i fuld længde med tilhørende kildeoplysninger.
         </p>
       </div>
       <p class="site-credit">
@@ -40,6 +40,7 @@
       <div class="status-strip" aria-label="Datastatus">
         <p><strong id="status-parties">0</strong> partier</p>
         <p><strong id="status-programs">0</strong> programmer</p>
+        <p><strong id="status-governments">0</strong> regeringsgrundlag</p>
         <p><strong id="status-topics">0</strong> emner</p>
       </div>
     </header>
@@ -48,18 +49,19 @@
       <section class="panel hero-panel">
         <div class="hero-grid">
           <article>
-            <p class="section-kicker">Tre måder at bruge sitet på</p>
+            <p class="section-kicker">Fire måder at bruge sitet på</p>
             <h2>Vælg en funktion</h2>
             <p class="hero-copy">
-              Vælg mellem tre læsemåder bygget på samme emnegrundlag: sammenlign partier om et
-              emne, følg ét partis formuleringer fra program til program, eller gå ind på en
-              partiside med overblik over kilder, tidslinje og emnedækning.
+              Vælg mellem fire læsemåder bygget på samme emnegrundlag: sammenlign partier og
+              regeringsgrundlag om et emne, følg ét partis formuleringer over tid, gå ind på en
+              partiside, eller læs regeringsgrundlagene som regeringernes politiske principtekster.
             </p>
           </article>
           <nav class="mode-switch" aria-label="Hovedfunktioner">
             <button class="mode-button is-active" data-mode="compare">Sammenlign partier</button>
             <button class="mode-button" data-mode="timeline">Følg et parti over tid</button>
             <button class="mode-button" data-mode="party">Partisider</button>
+            <button class="mode-button" data-mode="government">Regeringsgrundlag</button>
           </nav>
         </div>
       </section>
@@ -67,21 +69,22 @@
       <section class="panel method-panel" aria-labelledby="method-title">
         <h2 id="method-title">Om kilder og metode</h2>
         <p>
-          Sitet samler partiernes principprogrammer i en ensartet struktur, så formuleringer kan
-          læses og sammenlignes på tværs af tid, partier og emner.
+          Sitet samler partiernes principprogrammer og regeringsgrundlag i en ensartet struktur,
+          så formuleringer kan læses og sammenlignes på tværs af tid, partier, regeringer og emner.
         </p>
         <p>
-          Emnevisningen bygger på en første automatisk analyse, hvor programmerne er opdelt i
-          tekststykker og grupperet med topic modelling. Emnerne er derefter samlet i en
-          foreløbig taksonomi, så materialet kan læses målrettet på tværs af partier og år.
+          Emnevisningen bygger på en første automatisk analyse, hvor programmer og
+          regeringsgrundlag er opdelt i tekststykker og grupperet med topic modelling. Emnerne er
+          derefter samlet i en foreløbig taksonomi, så materialet kan læses målrettet på tværs af
+          partier, regeringer og år.
           <a href="./analysis.html">Åbn den samlede emnematrix</a>.
         </p>
         <p>
-          Et program vises kun under et emne, når analysen har fundet tekststykker, der primært
-          matcher emnet. Derfor kan nogle programmer mangle i bestemte emnevisninger. Det betyder
-          ikke nødvendigvis, at partiet ikke har en holdning, men at emnet ikke er tydeligt
-          identificeret i den maskinelle førsteopdeling. Den fulde programtekst kan altid åbnes fra
-          programmets kildeside.
+          Et program eller regeringsgrundlag vises kun under et emne, når analysen har fundet
+          tekststykker, der primært matcher emnet. Derfor kan nogle kilder mangle i bestemte
+          emnevisninger. Det betyder ikke nødvendigvis, at aktøren ikke har en holdning, men at
+          emnet ikke er tydeligt identificeret i den maskinelle førsteopdeling. Den fulde tekst kan
+          altid åbnes fra kildesiden, når PDF’en kan tekstudtrækkes.
         </p>
       </section>
 
@@ -90,8 +93,8 @@
           <aside class="panel controls" aria-label="Filtre for sammenligning">
             <h2 id="compare-title">Sammenlign partier</h2>
             <p class="panel-intro">
-              Vælg et emne og se partiernes egne formuleringer side om side. Hvert uddrag
-              peger videre til den konkrete kildeside for programmet.
+              Vælg et emne og se partiernes egne formuleringer side om side med relevante
+              regeringsgrundlag. Hvert uddrag peger videre til den konkrete kildeside.
             </p>
 
             <label for="compare-topic-select">Emne</label>
@@ -101,11 +104,16 @@
               <legend>Partier</legend>
               <div id="compare-party-checkboxes" class="party-grid"></div>
             </fieldset>
+
+            <fieldset>
+              <legend>Regeringsgrundlag</legend>
+              <div id="compare-government-checkboxes" class="party-grid"></div>
+            </fieldset>
           </aside>
 
           <section class="panel results" aria-live="polite">
             <div class="view-header">
-              <h2>Sammenligning på tværs af partier</h2>
+              <h2>Sammenligning på tværs af partier og regeringer</h2>
               <p id="compare-summary"></p>
             </div>
             <div id="compare-view" class="card-grid"></div>
@@ -161,13 +169,40 @@
           </section>
         </div>
       </section>
+
+      <section id="mode-government" class="mode-panel" aria-labelledby="government-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Regeringsgrundlag">
+            <h2 id="government-title">Regeringsgrundlag</h2>
+            <p class="panel-intro">
+              Vælg et regeringsgrundlag og et emne for at læse regeringens egne formuleringer,
+              se regeringspartier og parlamentarisk grundlag, og få en første indikator for
+              tekstlig nærhed til partiernes aktuelle principprogrammer.
+            </p>
+
+            <label for="government-select">Regeringsgrundlag</label>
+            <select id="government-select"></select>
+
+            <label for="government-topic-select">Emne</label>
+            <select id="government-topic-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Regeringsoversigt</h2>
+              <p id="government-summary"></p>
+            </div>
+            <div id="government-view" class="party-overview"></div>
+          </section>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <p>
         Emneuddragene er foreløbige analyseforslag fra automatisk tekstopdeling og topic modelling og
-        skal læses i sammenhæng med den fulde programtekst. Første offentlige version samler de
-        programmer, der allerede er gjort tekstligt tilgængelige i projektets kildearkiv.
+        skal læses i sammenhæng med den fulde kilde. Regeringsgrundlagene er medtaget som
+        regeringernes politiske principgrundlag; 2019 er markeret særskilt som forståelsespapir.
       </p>
       <p class="site-credit-footer">
         © Asger Krogh · Projektet bygger videre på speciale fra Aarhus Universitet.

@@ -445,6 +445,58 @@ a { color: var(--accent); font-weight: 700; }
   color: #40584c;
 }
 
+.government-card {
+  border-color: #b7cec4;
+  background: linear-gradient(180deg, #fffdfa 0%, #f6fbf8 100%);
+}
+
+.government-focus {
+  border-color: #9bb8aa;
+}
+
+.compact-tags {
+  margin: 0.35rem 0 0.75rem;
+}
+
+.meta-block p {
+  margin-bottom: 0.3rem;
+}
+
+.similarity-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.similarity-row {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 0.85rem;
+}
+
+.similarity-row-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.similarity-bar {
+  height: 12px;
+  margin: 0.5rem 0;
+  border-radius: 999px;
+  background: #edf1ee;
+  overflow: hidden;
+}
+
+.similarity-bar span {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
 @media (min-width: 920px) {
   .hero-grid { grid-template-columns: 1.5fr 1fr; }
   .two-col { grid-template-columns: 310px 1fr; align-items: start; }

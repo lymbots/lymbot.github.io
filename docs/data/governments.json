@@ -1,0 +1,482 @@
+{
+  "parties": [
+    {
+      "id": "S",
+      "name": "Socialdemokratiet"
+    },
+    {
+      "id": "V",
+      "name": "Venstre"
+    },
+    {
+      "id": "K",
+      "name": "Det Konservative Folkeparti"
+    },
+    {
+      "id": "SF",
+      "name": "Socialistisk Folkeparti"
+    },
+    {
+      "id": "RV",
+      "name": "Radikale Venstre"
+    },
+    {
+      "id": "DF",
+      "name": "Dansk Folkeparti"
+    },
+    {
+      "id": "EL",
+      "name": "Enhedslisten"
+    },
+    {
+      "id": "LA",
+      "name": "Liberal Alliance"
+    },
+    {
+      "id": "KrF",
+      "name": "Kristeligt Folkeparti"
+    },
+    {
+      "id": "CD",
+      "name": "Centrum Demokraterne"
+    },
+    {
+      "id": "M",
+      "name": "Moderaterne"
+    },
+    {
+      "id": "ALT",
+      "name": "Alternativet"
+    }
+  ],
+  "governments": [
+    {
+      "id": "RG_1994",
+      "year": 1994,
+      "title": "Fælles fremtid",
+      "file": "1994_fælles-fremtid.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Poul Nyrup Rasmussen II",
+      "primeMinister": "Poul Nyrup Rasmussen",
+      "governmentParties": [
+        "S",
+        "RV",
+        "CD"
+      ],
+      "parliamentaryBasis": [],
+      "period": "27. september 1994 - 30. december 1996",
+      "context": "Regeringsgrundlaget for Poul Nyrup Rasmussens anden regering efter folketingsvalget i 1994.",
+      "note": "PDF’en er billedbaseret i denne version og kræver OCR, før teksten kan emneklassificeres.",
+      "sourceFile": "1994_fælles-fremtid.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/1994_fælles-fremtid.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Radikale Venstre",
+        "Centrum Demokraterne"
+      ],
+      "parliamentaryBasisNames": [],
+      "pageCount": 17,
+      "fullTextPath": "",
+      "textStatus": "scanned",
+      "metadataUrl": "https://stm.dk/en/the-government/governments-since-1848/regeringen-poul-nyrup-rasmussen-ii/"
+    },
+    {
+      "id": "RG_1998",
+      "year": 1998,
+      "title": "Godt på vej",
+      "file": "1998_godt-på-vej.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Poul Nyrup Rasmussen IV",
+      "primeMinister": "Poul Nyrup Rasmussen",
+      "governmentParties": [
+        "S",
+        "RV"
+      ],
+      "parliamentaryBasis": [],
+      "period": "23. marts 1998 - 27. november 2001",
+      "context": "Regeringsgrundlag for S-RV-regeringen efter folketingsvalget i 1998.",
+      "note": "Mindretalsregering uden særskilt skriftligt parlamentarisk grundlag registreret her.",
+      "sourceFile": "1998_godt-på-vej.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/1998_godt-på-vej.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Radikale Venstre"
+      ],
+      "parliamentaryBasisNames": [],
+      "pageCount": 14,
+      "fullTextPath": "./data/full_texts/RG_1998.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-poul-nyrup-rasmussen-iv/"
+    },
+    {
+      "id": "RG_2000",
+      "year": 2000,
+      "title": "Fremgang, velfærd og nye udfordringer",
+      "file": "2000_frengang-velfaerd-og-nye-udfordringer_supplerende.pdf",
+      "type": "supplerende_regeringsgrundlag",
+      "typeLabel": "Supplerende regeringsgrundlag",
+      "governmentName": "Regeringen Poul Nyrup Rasmussen IV",
+      "primeMinister": "Poul Nyrup Rasmussen",
+      "governmentParties": [
+        "S",
+        "RV"
+      ],
+      "parliamentaryBasis": [],
+      "period": "23. marts 1998 - 27. november 2001",
+      "context": "Supplerende regeringsgrundlag fra oktober 2000 for den siddende S-RV-regering. Dokumentet opdaterer og præciserer regeringens politiske kurs i den resterende del af valgperioden.",
+      "note": "Behandles som selvstændigt dokument, men markeret som supplerende.",
+      "sourceFile": "2000_frengang-velfaerd-og-nye-udfordringer_supplerende.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2000_frengang-velfaerd-og-nye-udfordringer_supplerende.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Radikale Venstre"
+      ],
+      "parliamentaryBasisNames": [],
+      "pageCount": 21,
+      "fullTextPath": "./data/full_texts/RG_2000.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-poul-nyrup-rasmussen-iv/"
+    },
+    {
+      "id": "RG_2001",
+      "year": 2001,
+      "title": "Vækst, velfærd, fornyelse",
+      "file": "2001_vækst-velfærd-fornyelse.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Anders Fogh Rasmussen I",
+      "primeMinister": "Anders Fogh Rasmussen",
+      "governmentParties": [
+        "V",
+        "K"
+      ],
+      "parliamentaryBasis": [
+        "DF"
+      ],
+      "period": "27. november 2001 - 18. februar 2005",
+      "context": "Regeringsgrundlag for VK-regeringen efter folketingsvalget i 2001.",
+      "note": "PDF’en er billedbaseret i denne version og kræver OCR, før teksten kan emneklassificeres.",
+      "sourceFile": "2001_vækst-velfærd-fornyelse.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2001_vækst-velfærd-fornyelse.pdf",
+      "governmentPartyNames": [
+        "Venstre",
+        "Det Konservative Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti"
+      ],
+      "pageCount": 25,
+      "fullTextPath": "",
+      "textStatus": "scanned",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-anders-fogh-rasmussen-i/"
+    },
+    {
+      "id": "RG_2003",
+      "year": 2003,
+      "title": "Vækst, velfærd, fornyelse II",
+      "file": "2003_vækst-velfærd-fornyelse-ii_supplerende.pdf",
+      "type": "supplerende_regeringsgrundlag",
+      "typeLabel": "Supplerende regeringsgrundlag",
+      "governmentName": "Regeringen Anders Fogh Rasmussen I",
+      "primeMinister": "Anders Fogh Rasmussen",
+      "governmentParties": [
+        "V",
+        "K"
+      ],
+      "parliamentaryBasis": [
+        "DF"
+      ],
+      "period": "27. november 2001 - 18. februar 2005",
+      "context": "Supplerende regeringsgrundlag fra august 2003 for VK-regeringen. Dokumentet viderefører regeringsgrundlaget fra 2001 og opstiller nye prioriteringer midt i valgperioden.",
+      "note": "Behandles som selvstændigt dokument, men markeret som supplerende.",
+      "sourceFile": "2003_vækst-velfærd-fornyelse-ii_supplerende.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2003_vækst-velfærd-fornyelse-ii_supplerende.pdf",
+      "governmentPartyNames": [
+        "Venstre",
+        "Det Konservative Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti"
+      ],
+      "pageCount": 30,
+      "fullTextPath": "./data/full_texts/RG_2003.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-anders-fogh-rasmussen-i/"
+    },
+    {
+      "id": "RG_2005",
+      "year": 2005,
+      "title": "Nye mål",
+      "file": "2005_nye-mål.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Anders Fogh Rasmussen II",
+      "primeMinister": "Anders Fogh Rasmussen",
+      "governmentParties": [
+        "V",
+        "K"
+      ],
+      "parliamentaryBasis": [
+        "DF"
+      ],
+      "period": "18. februar 2005 - 23. november 2007",
+      "context": "Regeringsgrundlag for VK-regeringen efter folketingsvalget i 2005.",
+      "sourceFile": "2005_nye-mål.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2005_nye-mål.pdf",
+      "governmentPartyNames": [
+        "Venstre",
+        "Det Konservative Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti"
+      ],
+      "pageCount": 55,
+      "fullTextPath": "./data/full_texts/RG_2005.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-anders-fogh-rasmussen-ii/"
+    },
+    {
+      "id": "RG_2007",
+      "year": 2007,
+      "title": "Mulighedernes samfund",
+      "file": "2007_Mulighedernes-samfund.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Anders Fogh Rasmussen III",
+      "primeMinister": "Anders Fogh Rasmussen",
+      "governmentParties": [
+        "V",
+        "K"
+      ],
+      "parliamentaryBasis": [
+        "DF"
+      ],
+      "period": "23. november 2007 - 5. april 2009",
+      "context": "Regeringsgrundlag for VK-regeringen efter folketingsvalget i 2007.",
+      "sourceFile": "2007_Mulighedernes-samfund.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2007_Mulighedernes-samfund.pdf",
+      "governmentPartyNames": [
+        "Venstre",
+        "Det Konservative Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti"
+      ],
+      "pageCount": 75,
+      "fullTextPath": "./data/full_texts/RG_2007.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-anders-fogh-rasmussen-iii/"
+    },
+    {
+      "id": "RG_2011",
+      "year": 2011,
+      "title": "Et Danmark, der står sammen",
+      "file": "2011_Et-danmark-der-står-sammen.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Helle Thorning-Schmidt I",
+      "primeMinister": "Helle Thorning-Schmidt",
+      "governmentParties": [
+        "S",
+        "RV",
+        "SF"
+      ],
+      "parliamentaryBasis": [
+        "EL"
+      ],
+      "period": "3. oktober 2011 - 3. februar 2014",
+      "context": "Regeringsgrundlag for S-RV-SF-regeringen efter folketingsvalget i 2011.",
+      "sourceFile": "2011_Et-danmark-der-står-sammen.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2011_Et-danmark-der-står-sammen.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Radikale Venstre",
+        "Socialistisk Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Enhedslisten"
+      ],
+      "pageCount": 80,
+      "fullTextPath": "./data/full_texts/RG_2011.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-Helle-thorning-schmidt-i/"
+    },
+    {
+      "id": "RG_2015",
+      "year": 2015,
+      "title": "Sammen for fremtiden",
+      "file": "2015_Sammen-for-fremtiden.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Lars Løkke Rasmussen II",
+      "primeMinister": "Lars Løkke Rasmussen",
+      "governmentParties": [
+        "V"
+      ],
+      "parliamentaryBasis": [
+        "DF",
+        "LA",
+        "K"
+      ],
+      "period": "28. juni 2015 - 28. november 2016",
+      "context": "Regeringsgrundlag for Venstres mindretalsregering efter folketingsvalget i 2015.",
+      "sourceFile": "2015_Sammen-for-fremtiden.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2015_Sammen-for-fremtiden.pdf",
+      "governmentPartyNames": [
+        "Venstre"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti",
+        "Liberal Alliance",
+        "Det Konservative Folkeparti"
+      ],
+      "pageCount": 40,
+      "fullTextPath": "./data/full_texts/RG_2015.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-lars-loekke-rasmussen-ii/"
+    },
+    {
+      "id": "RG_2016",
+      "year": 2016,
+      "title": "For et friere, rigere og mere trygt Danmark",
+      "file": "2016_regeringsgrundlag2016_upload.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Lars Løkke Rasmussen III",
+      "primeMinister": "Lars Løkke Rasmussen",
+      "governmentParties": [
+        "V",
+        "LA",
+        "K"
+      ],
+      "parliamentaryBasis": [
+        "DF"
+      ],
+      "period": "28. november 2016 - 27. juni 2019",
+      "context": "Regeringsgrundlaget for trekløverregeringen mellem Venstre, Liberal Alliance og Det Konservative Folkeparti.",
+      "sourceFile": "2016_regeringsgrundlag2016_upload.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2016_regeringsgrundlag2016_upload.pdf",
+      "governmentPartyNames": [
+        "Venstre",
+        "Liberal Alliance",
+        "Det Konservative Folkeparti"
+      ],
+      "parliamentaryBasisNames": [
+        "Dansk Folkeparti"
+      ],
+      "pageCount": 88,
+      "fullTextPath": "./data/full_texts/RG_2016.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-lars-loekke-rasmussen-iii/"
+    },
+    {
+      "id": "RG_2019",
+      "year": 2019,
+      "title": "Retfærdig retning for Danmark",
+      "file": "2019_forståelsespapir_Retfærdig retning for Danmark_2019-06-25.pdf",
+      "type": "forstaaelsespapir",
+      "typeLabel": "Forståelsespapir*",
+      "governmentName": "Regeringen Mette Frederiksen I",
+      "primeMinister": "Mette Frederiksen",
+      "governmentParties": [
+        "S"
+      ],
+      "parliamentaryBasis": [
+        "RV",
+        "SF",
+        "EL"
+      ],
+      "period": "27. juni 2019 - 15. december 2022",
+      "context": "Politisk forståelse mellem Socialdemokratiet, Radikale Venstre, SF og Enhedslisten efter folketingsvalget i 2019.",
+      "note": "* Teknisk set ikke et regeringsgrundlag, men et forståelsespapir mellem regeringen og det parlamentariske grundlag.",
+      "sourceFile": "2019_forståelsespapir_Retfærdig retning for Danmark_2019-06-25.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2019_forståelsespapir_Retfærdig retning for Danmark_2019-06-25.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet"
+      ],
+      "parliamentaryBasisNames": [
+        "Radikale Venstre",
+        "Socialistisk Folkeparti",
+        "Enhedslisten"
+      ],
+      "pageCount": 18,
+      "fullTextPath": "./data/full_texts/RG_2019.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-mette-frederiksen-i/"
+    },
+    {
+      "id": "RG_2022",
+      "year": 2022,
+      "title": "Ansvar for Danmark",
+      "file": "2022_Ansvar-for-Danmark.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Regeringen Mette Frederiksen II",
+      "primeMinister": "Mette Frederiksen",
+      "governmentParties": [
+        "S",
+        "V",
+        "M"
+      ],
+      "parliamentaryBasis": [],
+      "period": "15. december 2022 -",
+      "context": "Det politiske grundlag for SVM-regeringen efter folketingsvalget i 2022.",
+      "note": "Ingen særskilte eksterne støttepartier er registreret i denne metadata-version.",
+      "sourceFile": "2022_Ansvar-for-Danmark.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2022_Ansvar-for-Danmark.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Venstre",
+        "Moderaterne"
+      ],
+      "parliamentaryBasisNames": [],
+      "pageCount": 63,
+      "fullTextPath": "./data/full_texts/RG_2022.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-mette-frederiksen-ii/"
+    },
+    {
+      "id": "RG_2026",
+      "year": 2026,
+      "title": "Det politiske grundlag for firkløverregeringen",
+      "file": "2026_det-politiske-grundlag-for-firkloeverregeringen_web.pdf",
+      "type": "regeringsgrundlag",
+      "typeLabel": "Regeringsgrundlag",
+      "governmentName": "Firkløverregeringen",
+      "primeMinister": "Mette Frederiksen",
+      "governmentParties": [
+        "S",
+        "SF",
+        "RV",
+        "M"
+      ],
+      "parliamentaryBasis": [
+        "EL",
+        "ALT"
+      ],
+      "period": "3. juni 2026 -",
+      "context": "Det politiske grundlag for firkløverregeringen mellem Socialdemokratiet, SF, Radikale Venstre og Moderaterne.",
+      "note": "Parlamentarisk grundlag registreret som Enhedslisten og Alternativet på baggrund af offentlig omtale og pressemødet 2. juni 2026.",
+      "sourceFile": "2026_det-politiske-grundlag-for-firkloeverregeringen_web.pdf",
+      "sourcePath": "./kildearkiv/Regeringsgrundlag/2026_det-politiske-grundlag-for-firkloeverregeringen_web.pdf",
+      "governmentPartyNames": [
+        "Socialdemokratiet",
+        "Socialistisk Folkeparti",
+        "Radikale Venstre",
+        "Moderaterne"
+      ],
+      "parliamentaryBasisNames": [
+        "Enhedslisten",
+        "Alternativet"
+      ],
+      "pageCount": 77,
+      "fullTextPath": "./data/full_texts/RG_2026.txt",
+      "textStatus": "text",
+      "metadataUrl": "https://stm.dk/statsministeriet/publikationer/det-politiske-grundlag-for-firkloeverregeringen/",
+      "basisSourceUrl": "https://stm.dk/presse/pressemoedearkiv/2026/pressemoede-den-2-juni-2026/"
+    }
+  ],
+  "methodNote": "Regeringsgrundlagene behandles som regeringernes normative/politiske grundlag. 2019 er markeret som forståelsespapir, og 2000/2003 som supplerende regeringsgrundlag."
+}

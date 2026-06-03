@@ -1,11 +1,15 @@
 const dataUrl = "./data/programs.json";
+const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 const root = document.getElementById("program-source-root");
 
-function getProgramIdFromUrl() {
+function getSourceParams() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("program");
+  return {
+    programId: params.get("program"),
+    governmentId: params.get("government"),
+  };
 }
 
 function escapeHtml(value) {
@@ -17,12 +21,27 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function escapeHref(value) {
+  return encodeURI(String(value ?? ""));
+}
+
+function renderMetadataLink(source) {
+  const links = [];
+  if (source.metadataUrl) {
+    links.push(`<a href="${source.metadataUrl}" target="_blank" rel="noreferrer">Metadata fra Statsministeriet</a>`);
+  }
+  if (source.basisSourceUrl) {
+    links.push(`<a href="${source.basisSourceUrl}" target="_blank" rel="noreferrer">Kilde til parlamentarisk grundlag</a>`);
+  }
+  return links.length ? `<p class="meta">${links.join(" · ")}</p>` : "";
+}
+
 function getLatestProgramYear(programs, partyId) {
   const years = programs
     .filter((program) => program.partyId === partyId)
     .map((program) => Number(program.year));
 
-  return Math.max(...years);
+  return years.length ? Math.max(...years) : 0;
 }
 
 function getProgramStatus(program, programs) {
@@ -43,19 +62,28 @@ function renderProgramStatus(program, programs) {
   )}</span>`;
 }
 
-function renderTopicBlocks(programId, topics, suggestions) {
-  const programSuggestions = suggestions.filter((item) => item.program_id === programId);
+function getGovernmentStatus(government, governments) {
+  const latestYear = Math.max(...governments.map((item) => Number(item.year)));
+  return Number(government.year) === latestYear ? "current" : "historical";
+}
 
-  if (programSuggestions.length === 0) {
+function renderGovernmentStatus(government, governments) {
+  const status = getGovernmentStatus(government, governments);
+  const label = status === "current" ? "Aktuelt regeringsgrundlag" : "Historisk regeringsgrundlag";
+  return `<span class="program-status program-status-${status}">${label}</span>`;
+}
+
+function renderTopicBlocks(sourceId, topics, suggestions) {
+  const sourceSuggestions = suggestions.filter((item) => item.program_id === sourceId);
+
+  if (sourceSuggestions.length === 0) {
     return '<p class="meta">Ingen emneforslag endnu.</p>';
   }
 
   const grouped = topics
     .map((topic) => ({
       ...topic,
-      suggestions: programSuggestions.filter(
-        (item) => item.primary_topic_id === topic.id
-      ),
+      suggestions: sourceSuggestions.filter((item) => item.primary_topic_id === topic.id),
     }))
     .filter((topic) => topic.suggestions.length > 0);
 
@@ -138,50 +166,79 @@ function renderFullText(rawText) {
     .join("");
 }
 
+function renderPartyTags(ids, parties, emptyText = "Ikke særskilt registreret") {
+  if (!ids || ids.length === 0) return `<span class="tag analysis-tag-alt">${escapeHtml(emptyText)}</span>`;
+  return ids
+    .map((id) => {
+      const name = parties.find((party) => party.id === id)?.name ?? id;
+      return `<span class="tag">${escapeHtml(name)}</span>`;
+    })
+    .join("");
+}
+
+function renderGovernmentMeta(government, parties) {
+  return `
+    <p class="meta"><strong>Statsminister:</strong> ${escapeHtml(government.primeMinister || "Ukendt")}</p>
+    <p class="meta"><strong>Periode:</strong> ${escapeHtml(government.period || "Ukendt")}</p>
+    <p class="meta"><strong>Regering:</strong></p>
+    <div class="tag-row compact-tags">${renderPartyTags(government.governmentParties, parties)}</div>
+    <p class="meta"><strong>Parlamentarisk grundlag:</strong></p>
+    <div class="tag-row compact-tags">${renderPartyTags(government.parliamentaryBasis, parties)}</div>
+  `;
+}
+
+async function fetchFullText(path) {
+  if (!path) return "";
+  const response = await fetch(path);
+  return response.ok ? response.text() : "";
+}
+
 async function init() {
-  const programId = getProgramIdFromUrl();
-  if (!programId) {
-    root.innerHTML = '<div class="empty">Mangler program-id i URL.</div>';
+  const { programId, governmentId } = getSourceParams();
+  if (!programId && !governmentId) {
+    root.innerHTML = '<div class="empty">Mangler kilde-id i URL.</div>';
     return;
   }
 
-  const [dataResponse, taxonomyResponse, suggestionsResponse] = await Promise.all([
+  const [dataResponse, governmentsResponse, taxonomyResponse, suggestionsResponse] = await Promise.all([
     fetch(dataUrl),
+    fetch(governmentsUrl),
     fetch(taxonomyUrl),
     fetch(suggestionsUrl),
   ]);
 
-  if (!dataResponse.ok || !taxonomyResponse.ok || !suggestionsResponse.ok) {
+  if (!dataResponse.ok || !governmentsResponse.ok || !taxonomyResponse.ok || !suggestionsResponse.ok) {
     throw new Error("Kunne ikke hente alle datafiler.");
   }
 
   const data = await dataResponse.json();
+  const governmentsData = await governmentsResponse.json();
   const taxonomy = await taxonomyResponse.json();
   const suggestions = await suggestionsResponse.json();
+
+  if (governmentId) {
+    await renderGovernmentSource(governmentId, governmentsData, taxonomy, suggestions);
+    return;
+  }
+
+  await renderProgramSource(programId, data, taxonomy, suggestions);
+}
+
+async function renderProgramSource(programId, data, taxonomy, suggestions) {
   const program = data.programs.find((item) => item.id === programId);
   if (!program) {
     root.innerHTML = '<div class="empty">Programmet blev ikke fundet.</div>';
     return;
   }
 
-  let fullText = "";
-  if (program.fullTextPath) {
-    const fullTextResponse = await fetch(program.fullTextPath);
-    if (fullTextResponse.ok) {
-      fullText = await fullTextResponse.text();
-    }
-  }
-
+  const fullText = await fetchFullText(program.fullTextPath);
   const partyName = data.parties.find((party) => party.id === program.partyId)?.name ?? program.partyId;
 
   root.innerHTML = `
     <header class="source-header">
       <p class="section-kicker">Programtekst</p>
       <h1>${escapeHtml(program.title)}</h1>
-      <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(
-    program,
-    data.programs
-  )}</p>
+      <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(program, data.programs)}</p>
       <p class="context">${escapeHtml(program.context || "")}</p>
       <p class="meta">Kildefil: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>
       ${
@@ -209,7 +266,54 @@ async function init() {
   document.title = `${program.title} · Programkilde`;
 }
 
+async function renderGovernmentSource(governmentId, governmentsData, taxonomy, suggestions) {
+  const government = governmentsData.governments.find((item) => item.id === governmentId);
+  if (!government) {
+    root.innerHTML = '<div class="empty">Regeringsgrundlaget blev ikke fundet.</div>';
+    return;
+  }
+
+  const fullText = await fetchFullText(government.fullTextPath);
+
+  root.innerHTML = `
+    <header class="source-header">
+      <p class="section-kicker">Regeringsgrundlag</p>
+      <h1>${escapeHtml(government.title)}</h1>
+      <p class="lead">${government.year} · ${escapeHtml(government.typeLabel)} ${renderGovernmentStatus(
+    government,
+    governmentsData.governments
+  )}</p>
+      <p class="context">${escapeHtml(government.context || "")}</p>
+      ${government.note ? `<p class="context">${escapeHtml(government.note)}</p>` : ""}
+      ${renderGovernmentMeta(government, governmentsData.parties)}
+      <p class="meta">Kildefil: ${escapeHtml(government.sourceFile || "Ukendt kildefil")}</p>
+      ${
+        government.sourcePath
+          ? `<p class="meta"><a href="${escapeHref(government.sourcePath)}" target="_blank" rel="noreferrer">Åbn original PDF</a></p>`
+          : ""
+      }
+      ${renderMetadataLink(government)}
+    </header>
+
+    <section class="source-section">
+      <h2>Emneforslag fra analysen</h2>
+      ${renderTopicBlocks(government.id, taxonomy.topics, suggestions)}
+    </section>
+
+    <section class="source-section">
+      <h2>Fuld dokumenttekst</h2>
+      ${
+        fullText
+          ? `<article class="source-text">${renderFullText(fullText)}</article>`
+          : '<div class="empty">Fuldtekst er ikke tekstudtrukket endnu. Den originale PDF kan åbnes via linket ovenfor.</div>'
+      }
+    </section>
+  `;
+
+  document.title = `${government.title} · Regeringsgrundlag`;
+}
+
 init().catch((error) => {
-  root.innerHTML = '<div class="empty">Kunne ikke indlæse programkilden.</div>';
+  root.innerHTML = '<div class="empty">Kunne ikke indlæse kilden.</div>';
   console.error(error);
 });
