@@ -16,13 +16,14 @@ ROOT = Path(__file__).resolve().parents[1]
 GOVERNMENTS_PATH = ROOT / "docs" / "data" / "governments.json"
 PROGRAMS_PATH = ROOT / "docs" / "data" / "programs.json"
 TAXONOMY_PATH = ROOT / "analysis" / "topic_taxonomy.json"
-PARTY_SUGGESTIONS_PATH = ROOT / "docs" / "data" / "analysis" / "topic_suggestions.json"
 OUTPUT_DIR = ROOT / "analysis" / "output"
+PARTY_SUGGESTIONS_PATH = OUTPUT_DIR / "topic_suggestions.json"
 DOCS_ANALYSIS_DIR = ROOT / "docs" / "data" / "analysis"
 
 MIN_WORDS = 120
 TARGET_WORDS = 220
 MAX_WORDS = 320
+MIN_PRIMARY_SCORE = 0.26
 
 STOP_WORDS = {
     "af", "alle", "at", "da", "de", "dem", "den", "der", "det", "en", "er", "et",
@@ -32,14 +33,24 @@ STOP_WORDS = {
 }
 
 EXTRA_TOPIC_KEYWORDS = {
-    "stat_marked_oekonomi": ["finanspolitik", "økonomisk", "skattelettelser", "produktivitet", "konkurrenceevne", "virksomhed"],
-    "velfaerd_socialpolitik": ["sundhedsvæsen", "ældrepleje", "social", "psykiatrien", "patienter", "velfærdssamfund"],
-    "arbejde_fagbevaegelse": ["beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster"],
-    "uddannelse_dannelse": ["folkeskole", "universiteter", "erhvervsuddannelser", "daginstitutioner", "børn", "unge"],
-    "klima_miljoe_energi": ["grøn", "co2", "landbrug", "havmiljø", "drikkevand", "vind", "elektrificering"],
-    "internationalt_europa": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik"],
-    "forsvar_sikkerhed": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler"],
-    "nation_udlaendinge": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab"],
+    "oekonomi_skat_finans": ["finanspolitik", "økonomisk", "skattelettelser", "skattestop", "produktivitet", "råderum", "offentlige finanser"],
+    "erhverv_konkurrence_ivaerksaetteri": ["konkurrenceevne", "erhvervsliv", "virksomhed", "virksomheder", "iværksætteri", "rammevilkår"],
+    "arbejdsmarked_beskaeftigelse": ["beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster", "dagpenge"],
+    "sundhed_psykiatri": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger"],
+    "aeldre_omsorg": ["ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension"],
+    "boern_unge_familie": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel"],
+    "skole_uddannelse_forskning": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse"],
+    "socialpolitik_udsatte": ["social", "udsatte", "fattigdom", "handicap", "hjemløse", "misbrug", "social arv"],
+    "klima_energi_miljoe": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet"],
+    "landbrug_foedevarer_dyrevelfaerd": ["landbrug", "fødevarer", "dyrevelfærd", "kvælstof", "vandmiljø", "fiskeri", "økologi"],
+    "udlaendinge_integration_statsborgerskab": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab", "flygtninge"],
+    "retspolitik_kriminalitet": ["politi", "kriminalitet", "straf", "domstole", "retssikkerhed", "fængsler", "bander"],
+    "forsvar_sikkerhed_beredskab": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler", "militær"],
+    "eu_udenrig_globalt": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik", "udviklingsbistand"],
+    "offentlig_sektor_forvaltning": ["offentlig sektor", "kommuner", "regioner", "bureaukrati", "decentralisering", "forvaltning"],
+    "bolig_by_landdistrikter": ["almene boliger", "lejeboliger", "landdistrikter", "yderområder", "byudvikling", "boligpolitik"],
+    "transport_infrastruktur": ["kollektiv trafik", "jernbane", "tog", "veje", "infrastruktur", "pendlere"],
+    "digitalisering_teknologi_data": ["digitalisering", "kunstig intelligens", "data", "platforme", "cybersikkerhed", "teknologi"],
 }
 
 
@@ -61,8 +72,15 @@ def paragraph_like_blocks(text: str) -> list[str]:
     for block in re.split(r"\n\s*\n", text):
         lines = [line.strip() for line in block.splitlines() if line.strip()]
         combined = re.sub(r"\s+", " ", " ".join(lines)).strip()
-        if combined:
-            blocks.append(combined)
+        combined = re.sub(
+            r"(?<=[.!?])\s+([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}:)",
+            r"\n\n\1",
+            combined,
+        )
+        for piece in re.split(r"\n\s*\n", combined):
+            piece = piece.strip()
+            if piece:
+                blocks.append(piece)
     return blocks
 
 
@@ -72,6 +90,11 @@ def looks_like_heading(block: str) -> bool:
     if re.fullmatch(r"[A-ZÆØÅ0-9 .,:;()'\"/-]+", block):
         return True
     return len(block) <= 42 and block[:1].isupper() and block == block.title()
+
+
+def starts_with_inline_heading(block: str) -> bool:
+    match = re.match(r"^([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}):", block)
+    return bool(match and len(match.group(1).split()) <= 8)
 
 
 def split_long_block(block: str) -> list[str]:
@@ -133,6 +156,8 @@ def chunk_document(document: dict) -> list[dict]:
         pending_heading, current_parts, current_words = "", [], 0
 
     for block in blocks:
+        if current_parts and starts_with_inline_heading(block):
+            flush()
         if looks_like_heading(block):
             if current_parts and current_words >= MIN_WORDS:
                 flush()
@@ -155,6 +180,11 @@ def topic_keywords(topic: dict) -> list[str]:
     return list(dict.fromkeys(topic.get("keywords", []) + EXTRA_TOPIC_KEYWORDS.get(topic["id"], [])))
 
 
+def keyword_pattern(keyword: str) -> re.Pattern:
+    escaped = re.escape(" ".join(keyword.lower().split())).replace(r"\ ", r"\s+")
+    return re.compile(rf"(?<![\wÆØÅæøå-]){escaped}(?![\wÆØÅæøå-])", re.IGNORECASE)
+
+
 def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, str]:
     normalized = " ".join(text.lower().split())
     scored = []
@@ -163,22 +193,24 @@ def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, 
         hits = []
         for keyword in topic_keywords(topic):
             key = " ".join(keyword.lower().split())
-            if topic["id"] == "nation_udlaendinge" and key == "danske":
+            if topic["id"] == "udlaendinge_integration_statsborgerskab" and key == "danske":
                 continue
-            if key and key in normalized:
+            if key and keyword_pattern(key).search(normalized):
                 hits.append(keyword)
         if not hits:
             continue
         score = 0.18 * len(set(hits))
         if len(set(hits)) >= 2:
             score += 0.25
-        if topic["id"] in {"forsvar_sikkerhed", "klima_miljoe_energi"} and hits:
+        if topic["id"] in {"forsvar_sikkerhed_beredskab", "klima_energi_miljoe"} and hits:
             score += 0.12
         scored.append((topic["id"], score, hits[:4]))
         reasons_by_topic[topic["id"]] = [f"keyword:{hit}" for hit in hits[:4]]
     if not scored:
         return "ukendt", 0.0, "", 0.0, "ingen klare nøgleord"
     scored.sort(key=lambda item: (-item[1], item[0]))
+    if scored[0][1] < MIN_PRIMARY_SCORE:
+        return "ukendt", 0.0, "", 0.0, "ingen stærke emnesignaler"
     primary = scored[0]
     secondary = scored[1] if len(scored) > 1 else ("", 0.0, [])
     reasons = reasons_by_topic.get(primary[0], []) + reasons_by_topic.get(secondary[0], [])
@@ -324,7 +356,7 @@ def main() -> None:
         "## Metode",
         "",
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
-        "Emneforslagene bruger den samme 12-emne-taksonomi, men uden at ændre den eksisterende partianalyses KMeans-klynger.",
+        "Emneforslagene bruger den samme realpolitiske 24-emne-taksonomi som partiprogrammerne.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
     ])
     (OUTPUT_DIR / "government_topic_suggestions_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")

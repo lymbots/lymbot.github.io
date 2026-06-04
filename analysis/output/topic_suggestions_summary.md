@@ -1,26 +1,33 @@
-# Første emneforslag pr. chunk
+# Emneforslag for partiprogrammer
 
-Denne fil bygger oven på klyngeanalysen og giver et første emneforslag til hvert chunk.
-Forslagene er arbejdsforslag og skal gennemgås redaktionelt.
+Forslagene bygger på den realpolitiske v2-taksonomi og bruges som primære emner på sitet.
+
+- Tekststykker med emneforslag: 973
+- Tekststykker uden tydeligt emnesignal: 143
 
 ## Emnefordeling
 
-- Ideologi og systemkritik: 100
-- Demokrati og retsstat: 63
-- Stat, marked og økonomi: 258
-- Velfærd og socialpolitik: 51
-- Arbejde og fagbevægelse: 53
-- Uddannelse og dannelse: 84
-- Internationalt samarbejde og Europa: 180
-- Klima, miljø og energi: 78
-- Familie, kultur og værdier: 85
-- Nation, udlændinge og identitet: 36
-- Forsvar og sikkerhed: 36
-- Parti og organisation: 40
-
-## Arbejdsgang
-
-1. Start i `analysis/output/topic_suggestions.csv`.
-2. Sortér på `primary_topic_label` eller `program_id`.
-3. Ret `primary_topic_id` og `secondary_topic_id`, hvor forslaget er forkert.
-4. Skift `review_status` til `approved`, når et chunk er gennemgået.
+- Økonomi, skat og finanspolitik: 47
+- Erhverv, konkurrence og iværksætteri: 61
+- Arbejdsmarked og beskæftigelse: 61
+- Sundhed og psykiatri: 18
+- Ældre og omsorg: 11
+- Børn, unge og familie: 46
+- Skole, uddannelse og forskning: 66
+- Socialpolitik og udsatte grupper: 35
+- Klima, energi og miljø: 53
+- Landbrug, fødevarer og dyrevelfærd: 15
+- Udlændinge, integration og statsborgerskab: 14
+- Retspolitik, politi og kriminalitet: 18
+- Forsvar, sikkerhed og beredskab: 22
+- EU, udenrigspolitik og globalt samarbejde: 139
+- Demokrati, retsstat og forfatning: 40
+- Offentlig sektor og forvaltning: 75
+- Bolig, by og landdistrikter: 20
+- Transport og infrastruktur: 14
+- Kultur, medier og idræt: 33
+- Digitalisering, teknologi og data: 2
+- Ligestilling og minoriteter: 25
+- Ideologi og samfundssyn: 102
+- Parti og organisation: 35
+- Religion, etik og værdier: 21

@@ -256,8 +256,15 @@ def paragraph_like_blocks(text: str) -> list[str]:
             continue
         combined = " ".join(lines)
         combined = re.sub(r"\s+", " ", combined).strip()
-        if combined:
-            blocks.append(combined)
+        combined = re.sub(
+            r"(?<=[.!?])\s+([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}:)",
+            r"\n\n\1",
+            combined,
+        )
+        for piece in re.split(r"\n\s*\n", combined):
+            piece = piece.strip()
+            if piece:
+                blocks.append(piece)
 
     return blocks
 
@@ -312,6 +319,11 @@ def looks_like_heading(block: str) -> bool:
     return False
 
 
+def starts_with_inline_heading(block: str) -> bool:
+    match = re.match(r"^([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}):", block)
+    return bool(match and len(match.group(1).split()) <= 8)
+
+
 def word_count(text: str) -> int:
     return len(re.findall(r"\b[\wÆØÅæøå]+\b", text))
 
@@ -353,6 +365,8 @@ def chunk_program(program: Program, min_words: int, target_words: int, max_words
         pending_heading = ""
 
     for block in blocks:
+        if current_parts and starts_with_inline_heading(block):
+            flush()
         if looks_like_heading(block):
             if current_parts and current_words >= min_words:
                 flush()
@@ -551,7 +565,7 @@ def write_report(programs: list[Program], chunks: list[dict], cluster_payload: d
             "## Forslag til brug",
             "",
             "1. Læs klyngerne som rå mønstre, ikke som endelige emner.",
-            "2. Navngiv 8-15 stabile emner på baggrund af topord og eksempeluddrag.",
+            "2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 24-emne-taksonomi.",
             "3. Brug chunk-filen til manuel eller halvautomatisk tagging i næste trin.",
             "",
             "## Klynger",
