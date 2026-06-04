@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-04-polish";
+const dataVersion = "2026-06-04-method";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -329,6 +329,17 @@ function renderExcerpts(suggestions, topicId, limit = 2) {
     .join("");
 }
 
+function formatPercent(value) {
+  return `${Math.round((Number(value) || 0) * 100)}%`;
+}
+
+function formatSimilarity(value) {
+  return (Number(value) || 0).toLocaleString("da-DK", {
+    minimumFractionDigits: 3,
+    maximumFractionDigits: 3,
+  });
+}
+
 function renderTopicTags(program) {
   const labels = getTopicLabelsForProgram(program);
   if (labels.length === 0) return '<p class="meta">Ingen emneforslag endnu.</p>';
@@ -599,9 +610,9 @@ function renderGovernmentOverview(governmentId, topicId) {
 
     <section class="program-detail-section">
       <div class="program-detail-head">
-        <p class="section-kicker">Tekstlig nærhed</p>
-        <h3>Tekstlig nærhed til partier</h3>
-        <p class="meta">TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og aktuelle principprogrammer. Viser tekstlig nærhed, ikke dokumenteret indflydelse.</p>
+        <p class="section-kicker">Metodisk indikator</p>
+        <h3>Relativ tekstlig nærhed til partier</h3>
+        <p class="meta">Procenten normaliserer TF-IDF/cosinus-scorerne inden for dette regeringsgrundlag og emne. Den viser relativ tekstlig nærhed, ikke emnefylde eller dokumenteret politisk indflydelse.</p>
       </div>
       ${renderSimilarityBars(government.id, topicId)}
     </section>
@@ -642,18 +653,18 @@ function renderSimilarityBars(governmentId, topicId) {
     <div class="similarity-list">
       ${row.scores
         .map((score) => {
-          const width = Math.round(score.share * 100);
-          const pct = `${width}%`;
+          const share = Number(score.relative_similarity_share ?? score.share ?? 0);
+          const pct = formatPercent(share);
           return `
             <div class="similarity-row">
               <div class="similarity-row-head">
                 <span><strong>${escapeHtml(score.party_name)}</strong> · ${escapeHtml(score.role)}</span>
-                <span>${pct}</span>
+                <span>Relativ nærhed ${pct}</span>
               </div>
               <div class="similarity-bar" aria-label="${escapeHtml(score.party_name)} ${pct}">
                 <span style="width: ${pct}"></span>
               </div>
-              <p class="meta">Sammenlignet med ${score.program_year} · ${escapeHtml(score.program_title)}${
+              <p class="meta">Cosinus ${formatSimilarity(score.similarity)} · Sammenlignet med ${score.program_year} · ${escapeHtml(score.program_title)}${
             score.has_topic_text ? "" : " · ingen emnetekst fundet i programmet"
           }</p>
             </div>

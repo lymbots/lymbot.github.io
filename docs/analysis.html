@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-04-polish" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-04-method" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -29,9 +29,9 @@
       </p>
       <div class="intro-note">
         <p>
-          Emnerne er dannet med automatisk tekstopdeling, topic modelling og en samlet
-          redaktionel taksonomi. De fungerer som navigationshjælp til at finde relevante passager
-          i de fulde programtekster.
+          Emnerne er dannet med automatisk tekstopdeling, eksplorativ klyngeanalyse og en
+          redaktionel realpolitisk taksonomi. De fungerer som navigationshjælp til at finde
+          relevante passager i de fulde programtekster.
         </p>
       </div>
       <p class="site-credit">
@@ -54,6 +54,20 @@
         <p>
           Klassifikationen er automatisk beregnet og skal læses som en indgang til kilderne,
           ikke som en endelig fortolkning af partiernes politik.
+        </p>
+        <p>
+          Hvis emnefordelinger omregnes til procent, er nævneren antallet af klassificerede
+          tekststykker i det valgte udsnit. Det er en læseindikator for tekstlig vægt, ikke en
+          måling af partiets samlede prioritering eller politiske betydning.
+        </p>
+        <p>
+          Metodisk bygger siden på standarder fra text-as-data-litteraturen og gængse
+          tekstmining-mål:
+          <a href="https://doi.org/10.1093/pan/mps028" target="_blank" rel="noreferrer">Grimmer & Stewart (2013)</a>,
+          <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html" target="_blank" rel="noreferrer">TF-IDF</a>,
+          <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html" target="_blank" rel="noreferrer">cosinus-similaritet</a>
+          og
+          <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noreferrer">KMeans</a>.
         </p>
       </section>
 
@@ -99,11 +113,11 @@
 
     <footer class="site-footer">
       <p>
-        Analysevisningen dokumenterer den automatiske tekstopdeling, topic modelling og de
-        emneforslag, der bruges som læsehjælp på sitet.
+        Analysevisningen dokumenterer den automatiske tekstopdeling, den eksplorative
+        klyngeanalyse og de emneforslag, der bruges som læsehjælp på sitet.
       </p>
     </footer>
 
-    <script src="./analysis.js?v=2026-06-04-polish" type="module"></script>
+    <script src="./analysis.js?v=2026-06-04-method" type="module"></script>
   </body>
 </html>

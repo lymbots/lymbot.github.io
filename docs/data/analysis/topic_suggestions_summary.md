@@ -44,5 +44,6 @@ Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifik
 Tekstopdelingen forsøger også at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.
 Regeringsgrundlagene er opdelt med samme tekststykke-størrelser og klassificeret ind i de samme 24 emner.
 Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.
+Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer inden for ét regeringsgrundlag og ét emne. Den må ikke læses som kausal politisk indflydelse.
 1994- og 2001-dokumenterne er OCR-behandlet lokalt, fordi de originale PDF’er er billedbaserede.
 2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.

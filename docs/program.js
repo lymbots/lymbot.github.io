@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-04-polish";
+const dataVersion = "2026-06-04-method";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";

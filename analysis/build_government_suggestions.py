@@ -260,8 +260,20 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                 matrix = vectorizer.fit_transform(docs)
                 sims = cosine_similarity(matrix[0], matrix[1:]).ravel().tolist()
             total = sum(max(score, 0.0) for score in sims)
+            if total <= 0:
+                rows.append({
+                    "government_id": government["id"],
+                    "topic_id": topic["id"],
+                    "topic_label": topic["label"],
+                    "scores": [],
+                    "missing_party_ids": missing,
+                    "calculation": "tfidf_cosine_relative",
+                    "note": "Der er emnetekst i regeringsgrundlaget, men ikke nok matchende emnetekst i de aktuelle principprogrammer til en relativ nærhedsberegning.",
+                })
+                continue
             scores = []
             for (pid, program, party_text), score in zip(parties, sims):
+                share = float(score / total)
                 scores.append({
                     "party_id": pid,
                     "party_name": programs["parties_by_id"].get(pid, pid),
@@ -269,7 +281,8 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     "program_year": program["year"],
                     "program_title": program["title"],
                     "similarity": round(float(score), 4),
-                    "share": round(float(score / total), 4) if total > 0 else 0.0,
+                    "share": round(share, 4),
+                    "relative_similarity_share": round(share, 4),
                     "has_topic_text": bool(party_text),
                     "role": "Regeringsparti" if pid in government.get("governmentParties", []) else "Parlamentarisk grundlag",
                 })
@@ -280,7 +293,8 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                 "topic_label": topic["label"],
                 "scores": scores,
                 "missing_party_ids": missing,
-                "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
+                "calculation": "tfidf_cosine_relative",
+                "note": "Procenten er en normaliseret andel af TF-IDF/cosinus-scorerne inden for dette regeringsgrundlag, emne og de partier, der indgår. Den viser relativ tekstlig nærhed, ikke politisk indflydelse.",
             })
     return rows
 
@@ -358,6 +372,7 @@ def main() -> None:
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
         "Emneforslagene bruger den samme realpolitiske 24-emne-taksonomi som partiprogrammerne.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
+        "Den viste procent er en relativ normalisering af cosinus-scorerne inden for ét regeringsgrundlag og ét emne. Den er ikke en måling af kausal politisk indflydelse.",
     ])
     (OUTPUT_DIR / "government_topic_suggestions_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 

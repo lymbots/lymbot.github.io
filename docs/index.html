@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-04-polish" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-04-method" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -181,6 +181,16 @@
             Det betyder, at emnet ikke er tydeligt identificeret i den automatiske tekstanalyse.
             <a href="./analysis.html">Åbn emnematrix og metodevisning</a>.
           </p>
+          <p>
+            Metoden følger almindelig text-as-data-praksis: TF-IDF bruges til tekstvægtning,
+            cosinus til tekstlig nærhed og KMeans kun som eksplorativ kontrol af emnestrukturen.
+            Se bl.a.
+            <a href="https://doi.org/10.1093/pan/mps028" target="_blank" rel="noreferrer">Grimmer & Stewart (2013)</a>,
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html" target="_blank" rel="noreferrer">TF-IDF</a>,
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html" target="_blank" rel="noreferrer">cosinus-similaritet</a>
+            og
+            <a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html" target="_blank" rel="noreferrer">KMeans</a>.
+          </p>
         </div>
       </details>
     </main>
@@ -196,6 +206,6 @@
       </p>
     </footer>
 
-    <script src="./app.js?v=2026-06-04-polish" type="module"></script>
+    <script src="./app.js?v=2026-06-04-method" type="module"></script>
   </body>
 </html>
