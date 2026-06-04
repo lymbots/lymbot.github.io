@@ -65,6 +65,21 @@ h1 { margin: 0.4rem 0 0; font-size: clamp(2rem, 4vw, 3.1rem); }
   padding: 1rem 1.2rem;
   margin-bottom: 1rem;
 }
+.method-details {
+  margin-top: 1rem;
+}
+.method-details summary {
+  cursor: pointer;
+  font-family: "Literata", serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+.method-details summary::marker {
+  color: var(--accent);
+}
+.method-content {
+  margin-top: 0.65rem;
+}
 .method-panel h2 {
   margin-top: 0;
 }

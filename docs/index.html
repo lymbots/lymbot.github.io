@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-04-polish" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -24,18 +24,8 @@
       <p class="eyebrow">Offentlig kildesite</p>
       <h1>De politiske principper</h1>
       <p class="lead">
-        En digital kildeside for danske partiers principprogrammer og regeringers politiske
-        grundlag. Læs kilderne, sammenlign formuleringer på tværs, og følg udviklingen over tid.
-      </p>
-      <div class="intro-note">
-        <p>
-          Sitet samler danske partiers principprogrammer og regeringsgrundlag i en fælles,
-          læsbar struktur, hvor originale tekster kan følges over tid, sammenlignes på tværs og
-          læses i fuld længde med tilhørende kildeoplysninger.
-        </p>
-      </div>
-      <p class="site-credit">
-        Udviklet af Asger Krogh som en videreudvikling af specialet ved Aarhus Universitet.
+        Læs danske partiers principprogrammer og regeringers politiske grundlag.
+        Sammenlign formuleringer på tværs af emner, aktører og tid.
       </p>
       <div class="status-strip" aria-label="Datastatus">
         <p><strong id="status-parties">0</strong> partier</p>
@@ -52,9 +42,8 @@
             <p class="section-kicker">Fire indgange til kilderne</p>
             <h2>Vælg en funktion</h2>
             <p class="hero-copy">
-              Vælg mellem fire læsemåder bygget på samme emnegrundlag: sammenlign kilder om et
-              emne, følg ét partis formuleringer over tid, gå ind på en partiside, eller læs
-              regeringsgrundlagene som regeringernes politiske principtekster.
+              Brug samme datagrundlag på fire måder: sammenlign kilder, følg et parti over tid,
+              åbn en partiside eller læs regeringsgrundlag som politiske principtekster.
             </p>
           </article>
           <nav class="mode-switch" aria-label="Hovedfunktioner">
@@ -64,27 +53,6 @@
             <button class="mode-button" data-mode="government">Regeringsgrundlag</button>
           </nav>
         </div>
-      </section>
-
-      <section class="panel method-panel" aria-labelledby="method-title">
-        <h2 id="method-title">Om kilder og metode</h2>
-        <p>
-          Sitet samler partiernes principprogrammer og regeringsgrundlag i en ensartet struktur,
-          så formuleringer kan læses og sammenlignes på tværs af tid, partier, regeringer og emner.
-        </p>
-        <p>
-          Emnevisningen bygger på automatisk tekstanalyse, hvor programmer og regeringsgrundlag
-          opdeles i tekststykker og klassificeres i en fælles realpolitisk 24-emne-taksonomi. Det gør materialet
-          læsbart på tværs af partier, regeringer og år.
-          <a href="./analysis.html">Åbn den samlede emnematrix</a>.
-        </p>
-        <p>
-          Et program eller regeringsgrundlag vises kun under et emne, når analysen har fundet
-          tekststykker, der primært matcher emnet. Derfor kan nogle kilder mangle i bestemte
-          emnevisninger. Det betyder ikke nødvendigvis, at aktøren ikke har en holdning, men at
-          emnet ikke er tydeligt identificeret i den automatiske tekstanalyse. Den fulde tekst kan
-          altid åbnes fra kildesiden, når dokumentet er tekstudtrukket.
-        </p>
       </section>
 
       <section id="mode-compare" class="mode-panel is-active" aria-labelledby="compare-title">
@@ -195,20 +163,39 @@
           </section>
         </div>
       </section>
+
+      <details class="panel method-panel method-details">
+        <summary>Datagrundlag og metode</summary>
+        <div class="method-content">
+          <p>
+            Sitet samler partiernes principprogrammer og regeringsgrundlag i en ensartet struktur,
+            så de originale tekster kan læses i fuld længde og sammenlignes på tværs.
+          </p>
+          <p>
+            Emnevisningen bygger på automatisk tekstopdeling og en fælles realpolitisk
+            24-emne-taksonomi. Et dokument vises kun under et emne, når analysen finder
+            tekststykker, der primært matcher emnet.
+          </p>
+          <p>
+            Manglende uddrag betyder derfor ikke nødvendigvis, at aktøren ikke har en holdning.
+            Det betyder, at emnet ikke er tydeligt identificeret i den automatiske tekstanalyse.
+            <a href="./analysis.html">Åbn emnematrix og metodevisning</a>.
+          </p>
+        </div>
+      </details>
     </main>
 
     <footer class="site-footer">
       <p>
-        Emneuddragene er analysebaserede tekstforslag fra automatisk tekstopdeling og topic
-        modelling og skal læses i sammenhæng med den fulde kilde. Regeringsgrundlagene er
-        medtaget som regeringernes politiske principgrundlag; 2019 er markeret særskilt som
-        forståelsespapir.
+        Emneuddrag er automatiske læseforslag og skal læses sammen med den fulde kilde.
+        Regeringsgrundlag er medtaget som regeringernes politiske principgrundlag; 2019 er
+        markeret særskilt som forståelsespapir.
       </p>
       <p class="site-credit-footer">
         © Asger Krogh · Projektet bygger videre på speciale fra Aarhus Universitet.
       </p>
     </footer>
 
-    <script src="./app.js?v=2026-06-04-topics" type="module"></script>
+    <script src="./app.js?v=2026-06-04-polish" type="module"></script>
   </body>
 </html>
