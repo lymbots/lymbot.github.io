@@ -3,7 +3,6 @@ const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
 const topicSelect = document.getElementById("analysis-topic-select");
 const partySelect = document.getElementById("analysis-party-select");
-const statusSelect = document.getElementById("analysis-status-select");
 const topicCards = document.getElementById("analysis-topic-cards");
 const resultsView = document.getElementById("analysis-results");
 const resultsSummary = document.getElementById("analysis-results-summary");
@@ -43,7 +42,6 @@ async function init() {
 
   topicSelect.addEventListener("change", renderAll);
   partySelect.addEventListener("change", renderAll);
-  statusSelect.addEventListener("change", renderAll);
 
   renderAll();
 }
@@ -68,7 +66,7 @@ function renderPartyOptions() {
   );
 
   partySelect.innerHTML = [
-    '<option value="all" selected>Alle kildegrupper</option>',
+    '<option value="all" selected>Alle kilder</option>',
     ...parties.map((party) => `<option value="${party}">${party}</option>`),
   ].join("");
 }
@@ -102,7 +100,6 @@ function getTopicLabel(topicId) {
 function filterSuggestions() {
   const selectedTopic = topicSelect.value;
   const selectedParty = partySelect.value;
-  const selectedStatus = statusSelect.value;
 
   return state.suggestions.filter((item) => {
     const topicMatch =
@@ -110,32 +107,22 @@ function filterSuggestions() {
       item.primary_topic_id === selectedTopic ||
       item.secondary_topic_id === selectedTopic;
     const partyMatch = selectedParty === "all" || item.party_name === selectedParty;
-    const statusMatch = selectedStatus === "all" || item.review_status === selectedStatus;
 
-    return topicMatch && partyMatch && statusMatch;
+    return topicMatch && partyMatch;
   });
-}
-
-function formatReviewStatus(status) {
-  if (status === "needs_review") return "Behøver gennemgang";
-  if (status === "approved") return "Godkendt";
-  return status || "Ukendt";
 }
 
 function renderAll() {
   const items = filterSuggestions();
   const selectedTopic = topicSelect.value;
   const selectedParty = partySelect.value;
-  const selectedStatus = statusSelect.value;
 
   const topicLabel = selectedTopic === "all" ? "Alle emner" : getTopicLabel(selectedTopic);
-  const partyLabel = selectedParty === "all" ? "alle kildegrupper" : selectedParty;
-  const statusLabel =
-    selectedStatus === "all" ? "alle gennemgange" : statusSelect.selectedOptions[0].textContent;
+  const partyLabel = selectedParty === "all" ? "alle kilder" : selectedParty;
 
   filterTitle.textContent = topicLabel;
-  filterSummary.textContent = `Viser ${items.length} tekststykker for ${partyLabel} med ${statusLabel}.`;
-  resultsSummary.textContent = `Viser ${items.length} forslag. Primært emne vises først, sekundært emne som hjælpespor.`;
+  filterSummary.textContent = `Viser ${items.length} tekststykker for ${partyLabel}.`;
+  resultsSummary.textContent = `Viser ${items.length} tekstforslag. Primært emne vises først, sekundært emne vises som supplerende signal.`;
 
   if (items.length === 0) {
     resultsView.innerHTML = '<div class="empty">Ingen tekststykker matcher den aktuelle filtrering.</div>';
@@ -161,7 +148,6 @@ function renderAll() {
               }
             </div>
           </div>
-          <p class="meta">Status: ${formatReviewStatus(item.review_status)} · Signal: ${item.reasons || "ingen ekstra signaler"}</p>
           <p class="context">${item.text}</p>
         </article>
       `

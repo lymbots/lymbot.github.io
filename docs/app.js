@@ -360,7 +360,7 @@ function renderCompare(topicId, partyIds, governmentIds) {
   const partyCards = partyIds.map((partyId) => renderPartyCompareCard(partyId, topicId)).join("");
   const governmentCards = governmentIds.map((governmentId) => renderGovernmentCompareCard(governmentId, topicId)).join("");
 
-  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} partier og ${governmentIds.length} regeringsgrundlag med foreløbige analyseuddrag.`;
+  compareSummary.textContent = `Emne: ${getTopicLabel(topicId)}. Viser ${partyIds.length} partier og ${governmentIds.length} regeringsgrundlag med analysebaserede uddrag.`;
   compareView.innerHTML = partyCards + governmentCards;
 }
 
@@ -378,7 +378,7 @@ function renderPartyCompareCard(partyId, topicId) {
     return `
       <article class="party-card">
         <h3>${escapeHtml(getPartyName(partyId))}</h3>
-        <p class="empty">Ingen emneforslag endnu for emnet ${escapeHtml(getTopicLabel(topicId))}.</p>
+        <p class="empty">Ingen analyseuddrag for emnet ${escapeHtml(getTopicLabel(topicId))}.</p>
       </article>
     `;
   }
@@ -419,7 +419,7 @@ function renderGovernmentCompareCard(governmentId, topicId) {
       <h3>${government.year} · ${escapeHtml(government.title)} ${renderGovernmentStatus(government)}</h3>
       <p class="meta">${escapeHtml(government.typeLabel)} · ${escapeHtml(government.governmentName)}</p>
       ${renderGovernmentMeta(government)}
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen emneforslag endnu for dette emne. Hvis PDF’en er scannet, kræver den OCR før analyse.</p>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen analyseuddrag for dette emne. Scannede PDF’er skal OCR-behandles, før de kan indgå i emneanalysen.</p>'}
       ${renderGovernmentFullTextLink(government)}
       ${renderPdfLink(government)}
       ${renderMetadataLink(government)}
@@ -485,7 +485,7 @@ function renderPartyOverview(partyId) {
     .sort((a, b) => a.year - b.year);
 
   const programLabel = programs.length === 1 ? "program" : "programmer";
-  partySummary.textContent = `${getPartyName(partyId)} · ${programs.length} ${programLabel} er lagt ind i denne version.`;
+  partySummary.textContent = `${getPartyName(partyId)} · ${programs.length} ${programLabel} er tilgængelige.`;
 
   if (programs.length === 0) {
     partyView.innerHTML = '<div class="empty">Ingen programmer lagt ind for dette parti endnu.</div>';
@@ -537,7 +537,7 @@ function renderPartyOverview(partyId) {
       <div class="program-detail-head">
         <p class="section-kicker">Programmer og emneforslag</p>
         <h3>Programkort</h3>
-        <p class="meta">Her vises hvert programs kontekst, kilde og de emner, som analysen har fundet.</p>
+        <p class="meta">Her vises hvert programs kontekst, kilde og de emner, som analysen har fundet tydelige tekststykker for.</p>
       </div>
       <div class="overview-grid">${cards}</div>
     </div>
@@ -557,18 +557,15 @@ function renderGovernmentOverview(governmentId, topicId) {
   const topicLabel = getTopicLabel(topicId);
   governmentSummary.textContent = `${government.year} · ${government.title} · ${topicLabel}`;
 
-  const archiveCards = [...state.governments]
+  const archiveLinks = [...state.governments]
     .sort((a, b) => b.year - a.year)
     .map(
       (item) => `
-        <article class="overview-card">
-          <h3>${item.year} · ${escapeHtml(item.title)} ${renderGovernmentStatus(item)}</h3>
-          <p class="meta">${escapeHtml(item.typeLabel)} · ${escapeHtml(item.governmentName)}</p>
-          ${renderGovernmentMeta(item)}
-          ${item.note ? `<p class="context">${escapeHtml(item.note)}</p>` : ""}
-          ${renderGovernmentFullTextLink(item)}
-          ${renderPdfLink(item)}
-        </article>
+        <a class="mini-timeline-item" href="${getGovernmentUrl(item)}">
+          <span class="mini-year">${item.year}</span>
+          <span class="mini-title">${escapeHtml(item.title)}</span>
+          <span class="meta">${escapeHtml(item.typeLabel)}</span>
+        </a>
       `
     )
     .join("");
@@ -591,24 +588,24 @@ function renderGovernmentOverview(governmentId, topicId) {
         <h3>${escapeHtml(topicLabel)}</h3>
         <p class="meta">Uddragene viser tekststykker, hvor regeringsgrundlaget primært matcher dette emne.</p>
       </div>
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen emneforslag for dette emne i dokumentet. Scannede PDF’er kræver OCR før de kan analyseres.</div>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen analyseuddrag for dette emne. Scannede PDF’er skal OCR-behandles, før de kan indgå i emneanalysen.</div>'}
     </section>
 
     <section class="program-detail-section">
       <div class="program-detail-head">
         <p class="section-kicker">Tekstlig nærhed</p>
-        <h3>Partispor i emnet</h3>
+        <h3>Tekstlig nærhed til partier</h3>
         <p class="meta">Indikatoren sammenligner regeringsgrundlagets emnetekst med aktuelle principprogrammer for partier i regering og parlamentarisk grundlag. Den viser tekstlig nærhed, ikke dokumenteret kausal indflydelse.</p>
       </div>
       ${renderSimilarityBars(government.id, topicId)}
     </section>
 
-    <section class="program-detail-section">
-      <div class="program-detail-head">
-        <p class="section-kicker">Arkiv</p>
-        <h3>Alle regeringsgrundlag</h3>
+    <section class="program-nav" aria-label="Kildearkiv for regeringsgrundlag">
+      <div class="program-nav-head">
+        <p class="section-kicker">Kildearkiv</p>
+        <p class="meta">Åbn et grundlag for fuld tekst og kildeoplysninger.</p>
       </div>
-      <div class="overview-grid">${archiveCards}</div>
+      <div class="mini-timeline">${archiveLinks}</div>
     </section>
   `;
 }

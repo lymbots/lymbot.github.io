@@ -52,7 +52,7 @@
           bruger de primære emner, mens denne analysevisning også viser de sekundære signaler.
         </p>
         <p>
-          Klassifikationen er maskinelt foreslået og skal læses som en indgang til kilderne,
+          Klassifikationen er automatisk beregnet og skal læses som en indgang til kilderne,
           ikke som en endelig fortolkning af partiernes politik.
         </p>
       </section>
@@ -61,24 +61,18 @@
         <aside class="panel controls" aria-label="Filtre for analyse">
           <h2>Filtre</h2>
           <p class="panel-intro">
-            Vælg emne, kildegruppe og status for at se hvordan den første analyse fordeler teksterne.
+            Vælg emne og kilde for at se, hvordan analysen fordeler tekststykkerne.
           </p>
 
           <label for="analysis-topic-select">Emne</label>
           <select id="analysis-topic-select"></select>
 
-          <label for="analysis-party-select">Kildegruppe</label>
+          <label for="analysis-party-select">Kilde</label>
           <select id="analysis-party-select"></select>
 
-          <label for="analysis-status-select">Gennemgang</label>
-          <select id="analysis-status-select">
-            <option value="all" selected>Alle</option>
-            <option value="needs_review">Behøver gennemgang</option>
-            <option value="approved">Godkendt</option>
-          </select>
 
           <div class="analysis-summary-box">
-            <p class="section-kicker">Aktuelt udsnit</p>
+            <p class="section-kicker">Valgt udsnit</p>
             <h3 id="analysis-filter-title">Alle forslag</h3>
             <p id="analysis-filter-summary" class="meta"></p>
           </div>
@@ -88,8 +82,8 @@
           <div class="view-header">
             <h2>Emnetaksonomi</h2>
             <p>
-              Oversigten nedenfor viser de emner, som analysen fordeler tekststykker efter i denne
-              første version.
+              Oversigten nedenfor viser de emner, som analysen bruger til at fordele tekststykker
+              på tværs af programmer og regeringsgrundlag.
             </p>
           </div>
           <div id="analysis-topic-cards" class="overview-grid"></div>

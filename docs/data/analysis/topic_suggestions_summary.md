@@ -1,6 +1,6 @@
 # Emneforslag
 
-Denne fil opsummerer de foreløbige emneforslag, der bruges på sitet.
+Denne fil opsummerer de analysebaserede emneforslag, der bruges på sitet.
 
 ## Datagrundlag
 
@@ -26,5 +26,5 @@ Denne fil opsummerer de foreløbige emneforslag, der bruges på sitet.
 ## Metode
 
 Partiprogrammerne bygger på den eksisterende TF-IDF/KMeans-pipeline og den redaktionelle 12-emne-taksonomi.
-Regeringsgrundlagene er opdelt med samme chunk-størrelser og klassificeret ind i samme 12 emner uden at ændre partiernes eksisterende primære emneforslag.
+Regeringsgrundlagene er opdelt med samme tekststykke-størrelser og klassificeret ind i samme 12 emner uden at ændre partiernes eksisterende primære emneforslag.
 2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.
