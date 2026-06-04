@@ -323,7 +323,7 @@ def main() -> None:
         "",
         "## Metode",
         "",
-        "Regeringsgrundlagene er opdelt med samme chunk-størrelser som partiprogrammerne.",
+        "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
         "Emneforslagene bruger den samme 12-emne-taksonomi, men uden at ændre den eksisterende partianalyses KMeans-klynger.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
     ])

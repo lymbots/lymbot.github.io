@@ -23,61 +23,199 @@
     "government_id": "RG_1994",
     "topic_id": "stat_marked_oekonomi",
     "topic_label": "Stat, marked og økonomi",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.095,
+        "share": 1.0,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
     "topic_id": "velfaerd_socialpolitik",
     "topic_label": "Velfærd og socialpolitik",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.0609,
+        "share": 0.5683,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0463,
+        "share": 0.4317,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
     "topic_id": "arbejde_fagbevaegelse",
     "topic_label": "Arbejde og fagbevægelse",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
     "topic_id": "uddannelse_dannelse",
     "topic_label": "Uddannelse og dannelse",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.0918,
+        "share": 1.0,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
     "topic_id": "internationalt_europa",
     "topic_label": "Internationalt samarbejde og Europa",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.0968,
+        "share": 1.0,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
     "topic_id": "klima_miljoe_energi",
     "topic_label": "Klima, miljø og energi",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "RV",
+        "party_name": "Radikale Venstre",
+        "program_id": "RV_2022",
+        "program_year": 2022,
+        "program_title": "Principprogram 2022",
+        "similarity": 0.0358,
+        "share": 0.6791,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "S",
+        "party_name": "Socialdemokratiet",
+        "program_id": "S_2017",
+        "program_year": 2017,
+        "program_title": "Fælles om Danmark",
+        "similarity": 0.0169,
+        "share": 0.3209,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [
       "CD"
     ],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_1994",
@@ -622,81 +760,421 @@
     "government_id": "RG_2001",
     "topic_id": "demokrati_retsstat",
     "topic_label": "Demokrati og retsstat",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0361,
+        "share": 0.5348,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0314,
+        "share": 0.4652,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Parlamentarisk grundlag"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "stat_marked_oekonomi",
     "topic_label": "Stat, marked og økonomi",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.1861,
+        "share": 0.4091,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.1359,
+        "share": 0.2988,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.1329,
+        "share": 0.2921,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "velfaerd_socialpolitik",
     "topic_label": "Velfærd og socialpolitik",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0971,
+        "share": 0.4905,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0668,
+        "share": 0.3372,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0341,
+        "share": 0.1723,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "arbejde_fagbevaegelse",
     "topic_label": "Arbejde og fagbevægelse",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0867,
+        "share": 1.0,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Parlamentarisk grundlag"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "uddannelse_dannelse",
     "topic_label": "Uddannelse og dannelse",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.144,
+        "share": 0.4808,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.109,
+        "share": 0.364,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0465,
+        "share": 0.1552,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "internationalt_europa",
     "topic_label": "Internationalt samarbejde og Europa",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.2398,
+        "share": 0.5001,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.1528,
+        "share": 0.3187,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0869,
+        "share": 0.1812,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "klima_miljoe_energi",
     "topic_label": "Klima, miljø og energi",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0642,
+        "share": 0.6458,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0352,
+        "share": 0.3542,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "familie_kultur_vaerdier",
     "topic_label": "Familie, kultur og værdier",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0474,
+        "share": 0.6612,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0206,
+        "share": 0.2871,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.0037,
+        "share": 0.0518,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "nation_udlaendinge",
     "topic_label": "Nation, udlændinge og identitet",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.1784,
+        "share": 0.7472,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0604,
+        "share": 0.2528,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",
     "topic_id": "forsvar_sikkerhed",
     "topic_label": "Forsvar og sikkerhed",
-    "scores": [],
+    "scores": [
+      {
+        "party_id": "K",
+        "party_name": "Det Konservative Folkeparti",
+        "program_id": "K_2024",
+        "program_year": 2024,
+        "program_title": "Stærke rødder i en omskiftelig tid",
+        "similarity": 0.056,
+        "share": 0.6084,
+        "has_topic_text": true,
+        "role": "Regeringsparti"
+      },
+      {
+        "party_id": "DF",
+        "party_name": "Dansk Folkeparti",
+        "program_id": "DF_1997",
+        "program_year": 1997,
+        "program_title": "Principprogram",
+        "similarity": 0.036,
+        "share": 0.3916,
+        "has_topic_text": true,
+        "role": "Parlamentarisk grundlag"
+      },
+      {
+        "party_id": "V",
+        "party_name": "Venstre",
+        "program_id": "V_2025",
+        "program_year": 2025,
+        "program_title": "Principprogram",
+        "similarity": 0.0,
+        "share": 0.0,
+        "has_topic_text": false,
+        "role": "Regeringsparti"
+      }
+    ],
     "missing_party_ids": [],
-    "note": "Ikke nok emnetekst til beregning."
+    "note": "Tekstlig nærhed er beregnet mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag."
   },
   {
     "government_id": "RG_2001",

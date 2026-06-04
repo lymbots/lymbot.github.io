@@ -1,3 +1,4 @@
+const dataVersion = "2026-06-04-ocr";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -38,14 +39,19 @@ let state = {
   similarities: [],
 };
 
+function withVersion(url) {
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${dataVersion}`;
+}
+
 async function init() {
   const [dataResponse, governmentsResponse, taxonomyResponse, suggestionsResponse, similarityResponse] =
     await Promise.all([
-      fetch(dataUrl),
-      fetch(governmentsUrl),
-      fetch(taxonomyUrl),
-      fetch(suggestionsUrl),
-      fetch(similarityUrl),
+      fetch(withVersion(dataUrl)),
+      fetch(withVersion(governmentsUrl)),
+      fetch(withVersion(taxonomyUrl)),
+      fetch(withVersion(suggestionsUrl)),
+      fetch(withVersion(similarityUrl)),
     ]);
 
   if (
@@ -419,7 +425,7 @@ function renderGovernmentCompareCard(governmentId, topicId) {
       <h3>${government.year} · ${escapeHtml(government.title)} ${renderGovernmentStatus(government)}</h3>
       <p class="meta">${escapeHtml(government.typeLabel)} · ${escapeHtml(government.governmentName)}</p>
       ${renderGovernmentMeta(government)}
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen analyseuddrag for dette emne. Scannede PDF’er skal OCR-behandles, før de kan indgå i emneanalysen.</p>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen analyseuddrag for dette emne i dokumentet.</p>'}
       ${renderGovernmentFullTextLink(government)}
       ${renderPdfLink(government)}
       ${renderMetadataLink(government)}
@@ -588,7 +594,7 @@ function renderGovernmentOverview(governmentId, topicId) {
         <h3>${escapeHtml(topicLabel)}</h3>
         <p class="meta">Uddragene viser tekststykker, hvor regeringsgrundlaget primært matcher dette emne.</p>
       </div>
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen analyseuddrag for dette emne. Scannede PDF’er skal OCR-behandles, før de kan indgå i emneanalysen.</div>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen analyseuddrag for dette emne i dokumentet.</div>'}
     </section>
 
     <section class="program-detail-section">

@@ -67,7 +67,7 @@
       "parliamentaryBasis": [],
       "period": "27. september 1994 - 30. december 1996",
       "context": "Regeringsgrundlaget for Poul Nyrup Rasmussens anden regering efter folketingsvalget i 1994.",
-      "note": "PDF’en er billedbaseret og kræver OCR, før teksten kan emneklassificeres.",
+      "note": "PDF’en er OCR-behandlet lokalt. Teksten kan indeholde mindre OCR-fejl og bør læses sammen med original-PDF’en.",
       "sourceFile": "1994_fælles-fremtid.pdf",
       "sourcePath": "./kildearkiv/Regeringsgrundlag/1994_fælles-fremtid.pdf",
       "governmentPartyNames": [
@@ -77,8 +77,8 @@
       ],
       "parliamentaryBasisNames": [],
       "pageCount": 17,
-      "fullTextPath": "",
-      "textStatus": "scanned",
+      "fullTextPath": "./data/full_texts/RG_1994.txt",
+      "textStatus": "ocr",
       "metadataUrl": "https://stm.dk/en/the-government/governments-since-1848/regeringen-poul-nyrup-rasmussen-ii/"
     },
     {
@@ -157,7 +157,7 @@
       ],
       "period": "27. november 2001 - 18. februar 2005",
       "context": "Regeringsgrundlag for VK-regeringen efter folketingsvalget i 2001.",
-      "note": "PDF’en er billedbaseret og kræver OCR, før teksten kan emneklassificeres.",
+      "note": "PDF’en er OCR-behandlet lokalt. Teksten kan indeholde mindre OCR-fejl og bør læses sammen med original-PDF’en.",
       "sourceFile": "2001_vækst-velfærd-fornyelse.pdf",
       "sourcePath": "./kildearkiv/Regeringsgrundlag/2001_vækst-velfærd-fornyelse.pdf",
       "governmentPartyNames": [
@@ -168,8 +168,8 @@
         "Dansk Folkeparti"
       ],
       "pageCount": 25,
-      "fullTextPath": "",
-      "textStatus": "scanned",
+      "fullTextPath": "./data/full_texts/RG_2001.txt",
+      "textStatus": "ocr",
       "metadataUrl": "https://stm.dk/regeringen/regeringer-siden-1848/regeringen-anders-fogh-rasmussen-i/"
     },
     {

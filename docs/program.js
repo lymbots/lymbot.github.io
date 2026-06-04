@@ -1,3 +1,4 @@
+const dataVersion = "2026-06-04-ocr";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -189,8 +190,13 @@ function renderGovernmentMeta(government, parties) {
 
 async function fetchFullText(path) {
   if (!path) return "";
-  const response = await fetch(path);
+  const response = await fetch(withVersion(path));
   return response.ok ? response.text() : "";
+}
+
+function withVersion(url) {
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${dataVersion}`;
 }
 
 async function init() {
@@ -201,10 +207,10 @@ async function init() {
   }
 
   const [dataResponse, governmentsResponse, taxonomyResponse, suggestionsResponse] = await Promise.all([
-    fetch(dataUrl),
-    fetch(governmentsUrl),
-    fetch(taxonomyUrl),
-    fetch(suggestionsUrl),
+    fetch(withVersion(dataUrl)),
+    fetch(withVersion(governmentsUrl)),
+    fetch(withVersion(taxonomyUrl)),
+    fetch(withVersion(suggestionsUrl)),
   ]);
 
   if (!dataResponse.ok || !governmentsResponse.ok || !taxonomyResponse.ok || !suggestionsResponse.ok) {

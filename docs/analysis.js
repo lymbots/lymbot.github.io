@@ -1,3 +1,4 @@
+const dataVersion = "2026-06-04-ocr";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
@@ -17,10 +18,15 @@ let state = {
   suggestions: [],
 };
 
+function withVersion(url) {
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${dataVersion}`;
+}
+
 async function init() {
   const [taxonomyResponse, suggestionsResponse] = await Promise.all([
-    fetch(taxonomyUrl),
-    fetch(suggestionsUrl),
+    fetch(withVersion(taxonomyUrl)),
+    fetch(withVersion(suggestionsUrl)),
   ]);
 
   if (!taxonomyResponse.ok || !suggestionsResponse.ok) {
