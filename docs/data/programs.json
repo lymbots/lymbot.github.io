@@ -61,6 +61,10 @@
     {
       "id": "VS",
       "name": "Venstresocialisterne"
+    },
+    {
+      "id": "DD",
+      "name": "Danmarksdemokraterne"
     }
   ],
   "programs": [
@@ -487,17 +491,6 @@
       "topics": []
     },
     {
-      "id": "RV_1997",
-      "partyId": "RV",
-      "year": 1997,
-      "title": "Principprogram 1997",
-      "sourceFile": "RV_1976.rtf",
-      "fullTextPath": "./data/full_texts/RV_1997.txt",
-      "externalUrl": "",
-      "context": "Dette dokument indeholder Radikale Venstres principprogram med fokus på menneske og fællesskab, bæredygtighed, folkestyre og international forpligtelse.",
-      "topics": []
-    },
-    {
       "id": "RV_1977",
       "partyId": "RV",
       "year": 1977,
@@ -506,6 +499,17 @@
       "fullTextPath": "./data/full_texts/RV_1977.txt",
       "externalUrl": "",
       "context": "Principtekst for Radikale Venstre med vægt på åndsfrihed, ligestilling, ikke-vold og sociale reformmål.",
+      "topics": []
+    },
+    {
+      "id": "RV_1997",
+      "partyId": "RV",
+      "year": 1997,
+      "title": "Principprogram 1997",
+      "sourceFile": "RV_1997.rtf",
+      "fullTextPath": "./data/full_texts/RV_1997.txt",
+      "externalUrl": "",
+      "context": "Radikale Venstres principprogram fra 1997 med fokus på menneske og fællesskab, bæredygtighed, folkestyre, velfærd og internationalt ansvar.",
       "topics": []
     },
     {
@@ -523,11 +527,60 @@
       "id": "DF_1997",
       "partyId": "DF",
       "year": 1997,
-      "title": "Principprogram",
+      "title": "Arbejdsprogram / principprogram",
       "sourceFile": "DF_1997.rtf",
       "fullTextPath": "./data/full_texts/DF_1997.txt",
       "externalUrl": "",
-      "context": "Dansk Folkepartis første principprogram fra 1997. Programmet formulerer partiets nationale selvforståelse, syn på folkestyre og vægt på suverænitet, familie og velfærd.",
+      "context": "Dansk Folkepartis første program fra 1997. Partiet omtaler selv programrækken som arbejdsprogrammer; dette dokument optræder samtidig som principprogram i kildeteksten.",
+      "topics": [],
+      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)"
+    },
+    {
+      "id": "DF_2001",
+      "partyId": "DF",
+      "year": 2001,
+      "title": "Fælles værdier - fælles ansvar",
+      "sourceFile": "DF_2001.rtf",
+      "fullTextPath": "./data/full_texts/DF_2001.txt",
+      "externalUrl": "",
+      "context": "Dansk Folkepartis arbejdsprogram fra 2001. Programmet udfolder partiets værdigrundlag og konkrete politik på tværs af stat, udlændinge, velfærd, økonomi og kultur.",
+      "topics": [],
+      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)"
+    },
+    {
+      "id": "DF_2009",
+      "partyId": "DF",
+      "year": 2009,
+      "title": "Arbejdsprogram 2009",
+      "sourceFile": "DF_2009.rtf",
+      "fullTextPath": "",
+      "externalUrl": "",
+      "context": "Dansk Folkepartis tredje arbejdsprogram. Kildefilen er registreret, men den aktuelle RTF-fil indeholder ikke tekst eller scannede sider; fuldtekst og emneanalyse tilføjes, når en læsbar kilde foreligger.",
+      "topics": [],
+      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)",
+      "extractionStatus": "missing_source_text"
+    },
+    {
+      "id": "DF_2024",
+      "partyId": "DF",
+      "year": 2024,
+      "title": "Arbejdsprogram for Dansk Folkeparti 2024",
+      "sourceFile": "DF_2025.rtf",
+      "fullTextPath": "./data/full_texts/DF_2024.txt",
+      "externalUrl": "",
+      "context": "Dansk Folkepartis aktuelle arbejdsprogram, afsluttet i november 2024. Programmet er partiets egen betegnelse for den politiske programtekst og dækker konkrete politikområder fra indvandring til velfærd, økonomi og kultur.",
+      "topics": [],
+      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)"
+    },
+    {
+      "id": "EL_1996",
+      "partyId": "EL",
+      "year": 1996,
+      "title": "Et rødt-grønt alternativ",
+      "sourceFile": "EL_1996.rtf",
+      "fullTextPath": "./data/full_texts/EL_1996.txt",
+      "externalUrl": "",
+      "context": "Politisk grundlag for Enhedslisten - de rød-grønne, vedtaget på årsmødet i november 1996. Programmet formulerer partiets socialistiske, feministiske og økologiske grundlag.",
       "topics": []
     },
     {
@@ -542,6 +595,17 @@
       "topics": []
     },
     {
+      "id": "EL_2014",
+      "partyId": "EL",
+      "year": 2014,
+      "title": "Enhedslistens principprogram",
+      "sourceFile": "EL_2014.rtf",
+      "fullTextPath": "./data/full_texts/EL_2014.txt",
+      "externalUrl": "",
+      "context": "Enhedslistens principprogram vedtaget i 2014 som afløser for 2003-programmet. Programmet beskriver partiets socialistiske værdier, kapitalismekritik og strategi for samfundsforandring.",
+      "topics": []
+    },
+    {
       "id": "Z_1973",
       "partyId": "Z",
       "year": 1973,
@@ -550,6 +614,17 @@
       "fullTextPath": "./data/full_texts/Z_1973.txt",
       "externalUrl": "",
       "context": "Fremskridtspartiets programskrift fra 1973 med fokus på skatteafvikling, nedbrydning af papirvælde og en markant kritik af den offentlige sektor og det etablerede partisystem.",
+      "topics": []
+    },
+    {
+      "id": "Z_1993",
+      "partyId": "Z",
+      "year": 1993,
+      "title": "Fremskridtspartiets Principprogram",
+      "sourceFile": "Z_1993.pdf",
+      "fullTextPath": "./data/full_texts/Z_1993.txt",
+      "externalUrl": "",
+      "context": "Fremskridtspartiets principprogram fra 1993. PDF’en er billedbaseret og er OCR-behandlet lokalt med dansk Tesseract; enkelte OCR-fejl kan forekomme.",
       "topics": []
     },
     {
@@ -616,6 +691,17 @@
       "fullTextPath": "./data/full_texts/VS_1980.txt",
       "externalUrl": "",
       "context": "Venstresocialisternes programtekst fra 1980. Dokumentet fastholder partiets revolutionært socialistiske målsætning og forbinder marxistisk analyse med partiets organisatoriske og politiske grundlag.",
+      "topics": []
+    },
+    {
+      "id": "DD_2023",
+      "partyId": "DD",
+      "year": 2023,
+      "title": "Et sammenhængende Danmark",
+      "sourceFile": "Danmarksdemokraterne_2023.rtf",
+      "fullTextPath": "./data/full_texts/DD_2023.txt",
+      "externalUrl": "",
+      "context": "Danmarksdemokraternes program fra 2023 med fokus på nationalt fællesskab, personlig frihed, sammenhængskraft, landdistrikter og velfærd.",
       "topics": []
     }
   ]

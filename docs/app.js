@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-04-method";
+const dataVersion = "2026-06-07-programs";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -224,6 +224,11 @@ function renderProgramStatus(program) {
   return `<span class="program-status program-status-${status}">${getProgramStatusLabel(program)}</span>`;
 }
 
+function renderProgramType(program) {
+  if (!program.programTypeLabel) return "";
+  return `<p class="meta"><strong>Dokumenttype:</strong> ${escapeHtml(program.programTypeLabel)}</p>`;
+}
+
 function getGovernmentStatus(government) {
   const latestYear = Math.max(...state.governments.map((item) => Number(item.year)));
   return Number(government.year) === latestYear ? "current" : "historical";
@@ -407,6 +412,7 @@ function renderPartyCompareCard(partyId, topicId) {
           <p class="meta"><strong>${program.year}</strong> · ${escapeHtml(program.title)} ${renderProgramStatus(
         program
       )}</p>
+          ${renderProgramType(program)}
           ${renderContext(program)}
           ${renderExcerpts(program.topicSuggestions, topicId, 2)}
           <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
@@ -476,6 +482,7 @@ function renderTimeline(topicId, partyId) {
         <div class="timeline-marker" aria-hidden="true"></div>
         <div class="timeline-content">
           <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
+          ${renderProgramType(program)}
           ${renderContext(program)}
           ${renderExcerpts(program.topicSuggestions, topicId, 3)}
           <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>
@@ -538,6 +545,7 @@ function renderPartyOverview(partyId) {
         <div class="overview-head">
           <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
         </div>
+        ${renderProgramType(program)}
         ${renderContext(program)}
         ${renderTopicTags(program)}
         <p class="meta">Kilde: ${escapeHtml(program.sourceFile)}</p>

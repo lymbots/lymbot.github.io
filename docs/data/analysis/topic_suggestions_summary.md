@@ -4,37 +4,37 @@ Denne fil opsummerer de analysebaserede emneforslag, der bruges på sitet.
 
 ## Datagrundlag
 
-- Partiprogram-tekststykker med emneforslag: 973
+- Partiprogram-tekststykker med emneforslag: 1381
 - Regeringsgrundlag-tekststykker med emneforslag: 840
-- Samlet antal tekststykker med emneforslag: 1813
+- Samlet antal tekststykker med emneforslag: 2221
 - Emner i taksonomien: 24
 
 ## Emnefordeling
 
-- Økonomi, skat og finanspolitik: 110 (partiprogrammer 47, regeringsgrundlag 63)
-- Erhverv, konkurrence og iværksætteri: 109 (partiprogrammer 61, regeringsgrundlag 48)
-- Arbejdsmarked og beskæftigelse: 118 (partiprogrammer 61, regeringsgrundlag 57)
-- Sundhed og psykiatri: 57 (partiprogrammer 18, regeringsgrundlag 39)
-- Ældre og omsorg: 25 (partiprogrammer 11, regeringsgrundlag 14)
-- Børn, unge og familie: 101 (partiprogrammer 46, regeringsgrundlag 55)
-- Skole, uddannelse og forskning: 142 (partiprogrammer 66, regeringsgrundlag 76)
-- Socialpolitik og udsatte grupper: 62 (partiprogrammer 35, regeringsgrundlag 27)
-- Klima, energi og miljø: 143 (partiprogrammer 53, regeringsgrundlag 90)
-- Landbrug, fødevarer og dyrevelfærd: 25 (partiprogrammer 15, regeringsgrundlag 10)
-- Udlændinge, integration og statsborgerskab: 45 (partiprogrammer 14, regeringsgrundlag 31)
-- Retspolitik, politi og kriminalitet: 55 (partiprogrammer 18, regeringsgrundlag 37)
-- Forsvar, sikkerhed og beredskab: 48 (partiprogrammer 22, regeringsgrundlag 26)
-- EU, udenrigspolitik og globalt samarbejde: 235 (partiprogrammer 139, regeringsgrundlag 96)
-- Demokrati, retsstat og forfatning: 46 (partiprogrammer 40, regeringsgrundlag 6)
-- Offentlig sektor og forvaltning: 147 (partiprogrammer 75, regeringsgrundlag 72)
-- Bolig, by og landdistrikter: 37 (partiprogrammer 20, regeringsgrundlag 17)
-- Transport og infrastruktur: 30 (partiprogrammer 14, regeringsgrundlag 16)
-- Kultur, medier og idræt: 54 (partiprogrammer 33, regeringsgrundlag 21)
-- Digitalisering, teknologi og data: 16 (partiprogrammer 2, regeringsgrundlag 14)
-- Ligestilling og minoriteter: 38 (partiprogrammer 25, regeringsgrundlag 13)
-- Ideologi og samfundssyn: 114 (partiprogrammer 102, regeringsgrundlag 12)
-- Parti og organisation: 35 (partiprogrammer 35, regeringsgrundlag 0)
-- Religion, etik og værdier: 21 (partiprogrammer 21, regeringsgrundlag 0)
+- Økonomi, skat og finanspolitik: 131 (partiprogrammer 68, regeringsgrundlag 63)
+- Erhverv, konkurrence og iværksætteri: 122 (partiprogrammer 74, regeringsgrundlag 48)
+- Arbejdsmarked og beskæftigelse: 139 (partiprogrammer 82, regeringsgrundlag 57)
+- Sundhed og psykiatri: 80 (partiprogrammer 41, regeringsgrundlag 39)
+- Ældre og omsorg: 41 (partiprogrammer 27, regeringsgrundlag 14)
+- Børn, unge og familie: 126 (partiprogrammer 71, regeringsgrundlag 55)
+- Skole, uddannelse og forskning: 171 (partiprogrammer 95, regeringsgrundlag 76)
+- Socialpolitik og udsatte grupper: 77 (partiprogrammer 50, regeringsgrundlag 27)
+- Klima, energi og miljø: 164 (partiprogrammer 74, regeringsgrundlag 90)
+- Landbrug, fødevarer og dyrevelfærd: 39 (partiprogrammer 29, regeringsgrundlag 10)
+- Udlændinge, integration og statsborgerskab: 73 (partiprogrammer 42, regeringsgrundlag 31)
+- Retspolitik, politi og kriminalitet: 77 (partiprogrammer 40, regeringsgrundlag 37)
+- Forsvar, sikkerhed og beredskab: 57 (partiprogrammer 31, regeringsgrundlag 26)
+- EU, udenrigspolitik og globalt samarbejde: 271 (partiprogrammer 175, regeringsgrundlag 96)
+- Demokrati, retsstat og forfatning: 60 (partiprogrammer 54, regeringsgrundlag 6)
+- Offentlig sektor og forvaltning: 177 (partiprogrammer 105, regeringsgrundlag 72)
+- Bolig, by og landdistrikter: 51 (partiprogrammer 34, regeringsgrundlag 17)
+- Transport og infrastruktur: 36 (partiprogrammer 20, regeringsgrundlag 16)
+- Kultur, medier og idræt: 68 (partiprogrammer 47, regeringsgrundlag 21)
+- Digitalisering, teknologi og data: 17 (partiprogrammer 3, regeringsgrundlag 14)
+- Ligestilling og minoriteter: 48 (partiprogrammer 35, regeringsgrundlag 13)
+- Ideologi og samfundssyn: 130 (partiprogrammer 118, regeringsgrundlag 12)
+- Parti og organisation: 40 (partiprogrammer 40, regeringsgrundlag 0)
+- Religion, etik og værdier: 26 (partiprogrammer 26, regeringsgrundlag 0)
 
 ## Metode
 
@@ -45,5 +45,6 @@ Tekstopdelingen forsøger også at splitte interne overskrifter i OCR-tekst, så
 Regeringsgrundlagene er opdelt med samme tekststykke-størrelser og klassificeret ind i de samme 24 emner.
 Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.
 Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer inden for ét regeringsgrundlag og ét emne. Den må ikke læses som kausal politisk indflydelse.
-1994- og 2001-dokumenterne er OCR-behandlet lokalt, fordi de originale PDF’er er billedbaserede.
+1994- og 2001-regeringsgrundlagene samt Fremskridtspartiets 1993-program er OCR-behandlet lokalt, fordi de originale PDF’er er billedbaserede.
+DF_2009 er registreret som arbejdsprogram uden fuldtekst, fordi den aktuelle RTF-kildefil er tom.
 2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.

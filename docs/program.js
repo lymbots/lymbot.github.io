@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-04-method";
+const dataVersion = "2026-06-07-programs";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -61,6 +61,11 @@ function renderProgramStatus(program, programs) {
     program,
     programs
   )}</span>`;
+}
+
+function renderProgramType(program) {
+  if (!program.programTypeLabel) return "";
+  return `<p class="meta"><strong>Dokumenttype:</strong> ${escapeHtml(program.programTypeLabel)}</p>`;
 }
 
 function getGovernmentStatus(government, governments) {
@@ -245,6 +250,7 @@ async function renderProgramSource(programId, data, taxonomy, suggestions) {
       <p class="section-kicker">Programtekst</p>
       <h1>${escapeHtml(program.title)}</h1>
       <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(program, data.programs)}</p>
+      ${renderProgramType(program)}
       <p class="context">${escapeHtml(program.context || "")}</p>
       <p class="meta">Kildefil: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>
       ${

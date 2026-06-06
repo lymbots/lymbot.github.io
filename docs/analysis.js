@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-04-method";
+const dataVersion = "2026-06-07-programs";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
