@@ -263,10 +263,29 @@ def paragraph_like_blocks(text: str) -> list[str]:
         )
         for piece in re.split(r"\n\s*\n", combined):
             piece = piece.strip()
-            if piece:
+            if piece and not is_noise_block(piece):
                 blocks.append(piece)
 
     return blocks
+
+
+def is_noise_block(block: str) -> bool:
+    cleaned = block.strip()
+    if re.fullmatch(r"--- Side \d+ ---", cleaned):
+        return True
+    if re.fullmatch(r"\d{1,3}", cleaned):
+        return True
+    noise_patterns = [
+        r"Digitaliseret af",
+        r"Digitised by",
+        r"DET KONGELIGE BIBLIOTEK",
+        r"THE ROYAL LIBRARY",
+        r"Copyright: Billedet",
+        r"Ressourcetype:",
+        r"Opstilling:",
+        r"Relateret:",
+    ]
+    return any(re.search(pattern, cleaned, re.IGNORECASE) for pattern in noise_patterns)
 
 
 def split_long_block(block: str, target_words: int, max_words: int) -> list[str]:
@@ -326,6 +345,54 @@ def starts_with_inline_heading(block: str) -> bool:
 
 def word_count(text: str) -> int:
     return len(re.findall(r"\b[\wÆØÅæøå]+\b", text))
+
+
+def rebalance_short_chunks(chunks: list[dict], min_words: int, max_words: int) -> list[dict]:
+    if not chunks:
+        return []
+
+    balanced = []
+    index = 0
+    while index < len(chunks):
+        current = dict(chunks[index])
+        if current["word_count"] >= min_words:
+            balanced.append(current)
+            index += 1
+            continue
+
+        if index + 1 < len(chunks):
+            next_chunk = dict(chunks[index + 1])
+            combined_text = f"{current['text']} {next_chunk['text']}".strip()
+            combined_words = word_count(combined_text)
+            if combined_words <= max_words:
+                next_chunk["text"] = combined_text
+                next_chunk["word_count"] = combined_words
+                chunks[index + 1] = next_chunk
+                index += 1
+                continue
+
+        if balanced:
+            combined_text = f"{balanced[-1]['text']} {current['text']}".strip()
+            combined_words = word_count(combined_text)
+            if combined_words <= max_words:
+                balanced[-1]["text"] = combined_text
+                balanced[-1]["word_count"] = combined_words
+                index += 1
+                continue
+
+        if current["word_count"] >= max(35, min_words // 2):
+            balanced.append(current)
+        index += 1
+
+    return balanced
+
+
+def renumber_chunks(chunks: list[dict], source_id: str) -> list[dict]:
+    for index, chunk in enumerate(chunks):
+        chunk["chunk_index"] = index
+        chunk["chunk_id"] = f"{source_id}_chunk_{index:03d}"
+        chunk["word_count"] = word_count(chunk["text"])
+    return chunks
 
 
 def chunk_program(program: Program, min_words: int, target_words: int, max_words: int) -> list[dict]:
@@ -394,7 +461,7 @@ def chunk_program(program: Program, min_words: int, target_words: int, max_words
                 flush()
 
     flush()
-    return chunks
+    return renumber_chunks(rebalance_short_chunks(chunks, min_words=min_words, max_words=max_words), program.id)
 
 
 def cluster_chunks(chunks: list[dict], cluster_count: int) -> tuple[list[dict], dict]:
@@ -565,7 +632,7 @@ def write_report(programs: list[Program], chunks: list[dict], cluster_payload: d
             "## Forslag til brug",
             "",
             "1. Læs klyngerne som rå mønstre, ikke som endelige emner.",
-            "2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 24-emne-taksonomi.",
+            "2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 16-emne-taksonomi.",
             "3. Brug chunk-filen til manuel eller halvautomatisk tagging i næste trin.",
             "",
             "## Klynger",

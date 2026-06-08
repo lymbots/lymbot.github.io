@@ -23,7 +23,7 @@ Pipelineidéen for partiprogrammerne er:
 2. Hvert chunk får metadata med parti, år, program og løbenummer.
 3. Chunks vektoriseres med TF-IDF.
 4. Chunks grupperes i eksplorative klynger med `KMeans`.
-5. Klyngerne bruges som teknisk kontrol af den redaktionelle 24-emne-taksonomi.
+5. Klyngerne bruges som teknisk kontrol af den redaktionelle 16-emne-taksonomi.
 6. Hvert chunk klassificeres derefter med forklarlige nøgleord og tærskler fra taksonomien.
 
 Klyngerne er ikke endelige emner. Sitet viser den stabile, redaktionelle

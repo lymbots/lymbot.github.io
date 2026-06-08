@@ -34,23 +34,21 @@ STOP_WORDS = {
 
 EXTRA_TOPIC_KEYWORDS = {
     "oekonomi_skat_finans": ["finanspolitik", "økonomisk", "skattelettelser", "skattestop", "produktivitet", "råderum", "offentlige finanser"],
-    "erhverv_konkurrence_ivaerksaetteri": ["konkurrenceevne", "erhvervsliv", "virksomhed", "virksomheder", "iværksætteri", "rammevilkår"],
-    "arbejdsmarked_beskaeftigelse": ["beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster", "dagpenge"],
-    "sundhed_psykiatri": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger"],
-    "aeldre_omsorg": ["ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension"],
-    "boern_unge_familie": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel"],
-    "skole_uddannelse_forskning": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse"],
-    "socialpolitik_udsatte": ["social", "udsatte", "fattigdom", "handicap", "hjemløse", "misbrug", "social arv"],
-    "klima_energi_miljoe": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet"],
-    "landbrug_foedevarer_dyrevelfaerd": ["landbrug", "fødevarer", "dyrevelfærd", "kvælstof", "vandmiljø", "fiskeri", "økologi"],
+    "erhverv_arbejdsmarked_beskaeftigelse": ["konkurrenceevne", "erhvervsliv", "virksomhed", "virksomheder", "iværksætteri", "rammevilkår", "beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster", "dagpenge"],
+    "offentlig_sektor_velfaerd_forvaltning": ["offentlig sektor", "kommuner", "regioner", "bureaukrati", "decentralisering", "forvaltning", "service", "velfærdssamfund"],
+    "sundhed_aeldre_omsorg": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger", "ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension"],
+    "boern_familie_socialpolitik": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel", "social", "udsatte", "fattigdom", "handicap", "hjemløse", "misbrug", "social arv"],
+    "uddannelse_forskning_unge": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse", "gymnasier", "studerende"],
+    "klima_miljoe_landbrug_energi": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet", "landbrug", "fødevarer", "dyrevelfærd", "kvælstof", "vandmiljø", "fiskeri", "økologi"],
     "udlaendinge_integration_statsborgerskab": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab", "flygtninge"],
-    "retspolitik_kriminalitet": ["politi", "kriminalitet", "straf", "domstole", "retssikkerhed", "fængsler", "bander"],
+    "retspolitik_politi_kriminalitet": ["politi", "kriminalitet", "straf", "domstole", "retssikkerhed", "fængsler", "bander"],
     "forsvar_sikkerhed_beredskab": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler", "militær"],
     "eu_udenrig_globalt": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik", "udviklingsbistand"],
-    "offentlig_sektor_forvaltning": ["offentlig sektor", "kommuner", "regioner", "bureaukrati", "decentralisering", "forvaltning"],
-    "bolig_by_landdistrikter": ["almene boliger", "lejeboliger", "landdistrikter", "yderområder", "byudvikling", "boligpolitik"],
-    "transport_infrastruktur": ["kollektiv trafik", "jernbane", "tog", "veje", "infrastruktur", "pendlere"],
-    "digitalisering_teknologi_data": ["digitalisering", "kunstig intelligens", "data", "platforme", "cybersikkerhed", "teknologi"],
+    "demokrati_retsstat_forfatning": ["grundlov", "folketing", "folkestyre", "magtens tredeling", "forfatning", "borgerrettigheder"],
+    "bolig_transport_landdistrikter": ["almene boliger", "lejeboliger", "landdistrikter", "yderområder", "byudvikling", "boligpolitik", "kollektiv trafik", "jernbane", "tog", "veje", "infrastruktur", "pendlere"],
+    "kultur_religion_medier_vaerdier": ["kulturarv", "medier", "idræt", "foreninger", "folkekirke", "religion", "etik", "værdier", "ytringsfrihed"],
+    "ligestilling_minoriteter_rettigheder": ["ligestilling", "kvinder", "minoritet", "minoriteter", "rettigheder", "diskrimination", "handicapkonvention"],
+    "ideologi_parti_samfundssyn": ["liberalisme", "socialisme", "konservatisme", "national", "solidaritet", "frihed", "fællesskab", "partiet", "bevægelse", "medlemmer"],
 }
 
 
@@ -79,9 +77,28 @@ def paragraph_like_blocks(text: str) -> list[str]:
         )
         for piece in re.split(r"\n\s*\n", combined):
             piece = piece.strip()
-            if piece:
+            if piece and not is_noise_block(piece):
                 blocks.append(piece)
     return blocks
+
+
+def is_noise_block(block: str) -> bool:
+    cleaned = block.strip()
+    if re.fullmatch(r"--- Side \d+ ---", cleaned):
+        return True
+    if re.fullmatch(r"\d{1,3}", cleaned):
+        return True
+    noise_patterns = [
+        r"Digitaliseret af",
+        r"Digitised by",
+        r"DET KONGELIGE BIBLIOTEK",
+        r"THE ROYAL LIBRARY",
+        r"Copyright: Billedet",
+        r"Ressourcetype:",
+        r"Opstilling:",
+        r"Relateret:",
+    ]
+    return any(re.search(pattern, cleaned, re.IGNORECASE) for pattern in noise_patterns)
 
 
 def looks_like_heading(block: str) -> bool:
@@ -118,6 +135,54 @@ def split_long_block(block: str) -> list[str]:
     if current:
         pieces.append(" ".join(current))
     return pieces
+
+
+def rebalance_short_chunks(chunks: list[dict]) -> list[dict]:
+    if not chunks:
+        return []
+
+    balanced = []
+    index = 0
+    while index < len(chunks):
+        current = dict(chunks[index])
+        if current["word_count"] >= MIN_WORDS:
+            balanced.append(current)
+            index += 1
+            continue
+
+        if index + 1 < len(chunks):
+            next_chunk = dict(chunks[index + 1])
+            combined_text = f"{current['text']} {next_chunk['text']}".strip()
+            combined_words = word_count(combined_text)
+            if combined_words <= MAX_WORDS:
+                next_chunk["text"] = combined_text
+                next_chunk["word_count"] = combined_words
+                chunks[index + 1] = next_chunk
+                index += 1
+                continue
+
+        if balanced:
+            combined_text = f"{balanced[-1]['text']} {current['text']}".strip()
+            combined_words = word_count(combined_text)
+            if combined_words <= MAX_WORDS:
+                balanced[-1]["text"] = combined_text
+                balanced[-1]["word_count"] = combined_words
+                index += 1
+                continue
+
+        if current["word_count"] >= max(35, MIN_WORDS // 2):
+            balanced.append(current)
+        index += 1
+
+    return balanced
+
+
+def renumber_chunks(chunks: list[dict], source_id: str) -> list[dict]:
+    for index, chunk in enumerate(chunks):
+        chunk["chunk_index"] = index
+        chunk["chunk_id"] = f"{source_id}_chunk_{index:03d}"
+        chunk["word_count"] = word_count(chunk["text"])
+    return chunks
 
 
 def chunk_document(document: dict) -> list[dict]:
@@ -173,7 +238,7 @@ def chunk_document(document: dict) -> list[dict]:
                 flush()
     if current_parts:
         flush()
-    return chunks
+    return renumber_chunks(rebalance_short_chunks(chunks), document["id"])
 
 
 def topic_keywords(topic: dict) -> list[str]:
@@ -202,7 +267,7 @@ def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, 
         score = 0.18 * len(set(hits))
         if len(set(hits)) >= 2:
             score += 0.25
-        if topic["id"] in {"forsvar_sikkerhed_beredskab", "klima_energi_miljoe"} and hits:
+        if topic["id"] in {"forsvar_sikkerhed_beredskab", "klima_miljoe_landbrug_energi"} and hits:
             score += 0.12
         scored.append((topic["id"], score, hits[:4]))
         reasons_by_topic[topic["id"]] = [f"keyword:{hit}" for hit in hits[:4]]
@@ -370,11 +435,53 @@ def main() -> None:
         "## Metode",
         "",
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
-        "Emneforslagene bruger den samme realpolitiske 24-emne-taksonomi som partiprogrammerne.",
+        "Emneforslagene bruger den samme realpolitiske 16-emne-taksonomi som partiprogrammerne.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
         "Den viste procent er en relativ normalisering af cosinus-scorerne inden for ét regeringsgrundlag og ét emne. Den er ikke en måling af kausal politisk indflydelse.",
     ])
     (OUTPUT_DIR / "government_topic_suggestions_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    party_totals = Counter(item["primary_topic_id"] for item in party_suggestions)
+    combined_totals = Counter(item["primary_topic_id"] for item in combined)
+    combined_lines = [
+        "# Emneforslag",
+        "",
+        "Denne fil opsummerer de analysebaserede emneforslag, der bruges på sitet.",
+        "",
+        "## Datagrundlag",
+        "",
+        f"- Partiprogram-tekststykker med emneforslag: {len(party_suggestions)}",
+        f"- Regeringsgrundlag-tekststykker med emneforslag: {len(suggestions)}",
+        f"- Samlet antal tekststykker med emneforslag: {len(combined)}",
+        f"- Emner i taksonomien: {len(topics)}",
+        "",
+        "## Emnefordeling",
+        "",
+    ]
+    for topic in topics:
+        topic_id = topic["id"]
+        combined_lines.append(
+            f"- {topic['label']}: {combined_totals.get(topic_id, 0)} "
+            f"(partiprogrammer {party_totals.get(topic_id, 0)}, regeringsgrundlag {topic_totals.get(topic_id, 0)})"
+        )
+    combined_lines.extend([
+        "",
+        "## Metode",
+        "",
+        "Partiprogrammer og regeringsgrundlag er genkørt med automatisk tekstopdeling, TF-IDF/KMeans-klyngekontrol og en stabil realpolitisk 16-emne-taksonomi.",
+        "KMeans-klyngerne bruges som teknisk kontrol og dokumentation; sitet viser de forklarlige emneforslag fra taksonomien.",
+        "Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifikke nøgleord, så brede enkeltord ikke alene placerer et tekststykke under et emne.",
+        "Tekstopdelingen filtrerer side-/biblioteksstøj, samler korte fragmenter og forsøger at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.",
+        "Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.",
+        "Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer inden for ét regeringsgrundlag og ét emne. Den må ikke læses som kausal politisk indflydelse.",
+        "1994- og 2001-regeringsgrundlagene samt Fremskridtspartiets 1993-program er OCR-behandlet lokalt, fordi de originale PDF'er er billedbaserede.",
+        "DF_2009 er registreret som arbejdsprogram uden fuldtekst, fordi den aktuelle RTF-kildefil er tom.",
+        "2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.",
+    ])
+    (DOCS_ANALYSIS_DIR / "topic_suggestions_summary.md").write_text(
+        "\n".join(combined_lines) + "\n",
+        encoding="utf-8",
+    )
 
     print(json.dumps({
         "government_chunks": len(chunks),
