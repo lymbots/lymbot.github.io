@@ -2,51 +2,87 @@
   "parties": [
     {
       "id": "S",
-      "name": "Socialdemokratiet"
+      "name": "Socialdemokratiet",
+      "color": "#C8102E",
+      "colorSoft": "#FBE8EC",
+      "shortName": "S"
     },
     {
       "id": "V",
-      "name": "Venstre"
+      "name": "Venstre",
+      "color": "#005AA9",
+      "colorSoft": "#E5F0FA",
+      "shortName": "V"
     },
     {
       "id": "K",
-      "name": "Det Konservative Folkeparti"
+      "name": "Det Konservative Folkeparti",
+      "color": "#006B3F",
+      "colorSoft": "#E5F3EC",
+      "shortName": "K"
     },
     {
       "id": "SF",
-      "name": "Socialistisk Folkeparti"
+      "name": "Socialistisk Folkeparti",
+      "color": "#E40046",
+      "colorSoft": "#FDE6EE",
+      "shortName": "SF"
     },
     {
       "id": "RV",
-      "name": "Radikale Venstre"
+      "name": "Radikale Venstre",
+      "color": "#7A1B78",
+      "colorSoft": "#F1E6F1",
+      "shortName": "RV"
     },
     {
       "id": "DF",
-      "name": "Dansk Folkeparti"
+      "name": "Dansk Folkeparti",
+      "color": "#003B79",
+      "colorSoft": "#E5ECF4",
+      "shortName": "DF"
     },
     {
       "id": "EL",
-      "name": "Enhedslisten"
+      "name": "Enhedslisten",
+      "color": "#D71920",
+      "colorSoft": "#FBE7E8",
+      "shortName": "EL"
     },
     {
       "id": "LA",
-      "name": "Liberal Alliance"
+      "name": "Liberal Alliance",
+      "color": "#00AEEF",
+      "colorSoft": "#DFF6FD",
+      "shortName": "LA"
     },
     {
       "id": "KrF",
-      "name": "Kristeligt Folkeparti"
+      "name": "Kristeligt Folkeparti",
+      "color": "#7A5A2B",
+      "colorSoft": "#F2EBDD",
+      "shortName": "KrF"
     },
     {
       "id": "CD",
-      "name": "Centrum Demokraterne"
+      "name": "Centrum Demokraterne",
+      "color": "#F2A900",
+      "colorSoft": "#FFF4D6",
+      "shortName": "CD"
     },
     {
       "id": "M",
-      "name": "Moderaterne"
+      "name": "Moderaterne",
+      "color": "#7C878E",
+      "colorSoft": "#ECEFF1",
+      "shortName": "M"
     },
     {
       "id": "ALT",
-      "name": "Alternativet"
+      "name": "Alternativet",
+      "color": "#00A676",
+      "colorSoft": "#E0F5EE",
+      "shortName": "ALT"
     }
   ],
   "governments": [

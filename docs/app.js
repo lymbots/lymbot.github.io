@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-final-topics";
+const dataVersion = "2026-06-11-period-colors";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -7,16 +7,21 @@ const similarityUrl = "./data/analysis/government_similarity.json";
 const chunksUrl = "./data/analysis/chunks.json";
 
 const compareTopicSelect = document.getElementById("compare-topic-select");
+const comparePeriodSelect = document.getElementById("compare-period-select");
 const comparePartyCheckboxes = document.getElementById("compare-party-checkboxes");
 const compareGovernmentCheckboxes = document.getElementById("compare-government-checkboxes");
 const timelinePartySelect = document.getElementById("timeline-party-select");
 const timelineTopicSelect = document.getElementById("timeline-topic-select");
+const timelinePeriodSelect = document.getElementById("timeline-period-select");
 const partyOverviewSelect = document.getElementById("party-overview-select");
+const partyPeriodSelect = document.getElementById("party-period-select");
 const governmentSelect = document.getElementById("government-select");
 const governmentTopicSelect = document.getElementById("government-topic-select");
+const governmentPeriodSelect = document.getElementById("government-period-select");
 const searchInput = document.getElementById("search-input");
 const searchSourceSelect = document.getElementById("search-source-select");
 const searchPartySelect = document.getElementById("search-party-select");
+const searchPeriodSelect = document.getElementById("search-period-select");
 
 const compareView = document.getElementById("compare-view");
 const timelineView = document.getElementById("timeline-view");
@@ -45,6 +50,16 @@ let state = {
   similarities: [],
   chunks: [],
 };
+
+const periods = [
+  { id: "all", label: "Alle perioder", start: 0, end: 9999 },
+  { id: "pre_1973", label: "Før jordskredsvalget (1955-1972)", start: 1955, end: 1972 },
+  { id: "1973_1989", label: "Jordskred og ny blokpolitik (1973-1989)", start: 1973, end: 1989 },
+  { id: "1990_2000", label: "1990'erne og midterregeringer (1990-2000)", start: 1990, end: 2000 },
+  { id: "2001_2010", label: "VK/DF-perioden (2001-2010)", start: 2001, end: 2010 },
+  { id: "2011_2019", label: "Efter finanskrisen (2011-2019)", start: 2011, end: 2019 },
+  { id: "2020_now", label: "Nutid og nye partier (2020-2026)", start: 2020, end: 2026 },
+];
 
 function withVersion(url) {
   const separator = url.includes("?") ? "&" : "?";
@@ -94,6 +109,11 @@ async function init() {
   renderTopicOptions(compareTopicSelect);
   renderTopicOptions(timelineTopicSelect);
   renderTopicOptions(governmentTopicSelect);
+  renderPeriodOptions(comparePeriodSelect);
+  renderPeriodOptions(timelinePeriodSelect);
+  renderPeriodOptions(partyPeriodSelect);
+  renderPeriodOptions(governmentPeriodSelect);
+  renderPeriodOptions(searchPeriodSelect);
   renderPartyCheckboxes();
   renderGovernmentCheckboxes();
   renderPartyOptions(timelinePartySelect);
@@ -102,14 +122,19 @@ async function init() {
   renderSearchPartyOptions();
 
   compareTopicSelect.addEventListener("change", renderAll);
+  comparePeriodSelect.addEventListener("change", renderAll);
   timelinePartySelect.addEventListener("change", renderAll);
   timelineTopicSelect.addEventListener("change", renderAll);
+  timelinePeriodSelect.addEventListener("change", renderAll);
   partyOverviewSelect.addEventListener("change", renderAll);
+  partyPeriodSelect.addEventListener("change", renderAll);
   governmentSelect.addEventListener("change", renderAll);
   governmentTopicSelect.addEventListener("change", renderAll);
+  governmentPeriodSelect.addEventListener("change", renderAll);
   searchInput.addEventListener("input", renderAll);
   searchSourceSelect.addEventListener("change", renderAll);
   searchPartySelect.addEventListener("change", renderAll);
+  searchPeriodSelect.addEventListener("change", renderAll);
   comparePartyCheckboxes.addEventListener("change", renderAll);
   compareGovernmentCheckboxes.addEventListener("change", renderAll);
 
@@ -167,6 +192,13 @@ function renderGovernmentOptions(selectElement) {
     .join("");
 }
 
+function renderPeriodOptions(selectElement) {
+  if (!selectElement) return;
+  selectElement.innerHTML = periods
+    .map((period) => `<option value="${period.id}">${escapeHtml(period.label)}</option>`)
+    .join("");
+}
+
 function renderSearchPartyOptions() {
   const names = Array.from(new Set(state.chunks.map((chunk) => chunk.party_name))).sort((a, b) =>
     a.localeCompare(b, "da")
@@ -181,8 +213,9 @@ function renderPartyCheckboxes() {
   comparePartyCheckboxes.innerHTML = state.parties
     .map(
       (party, index) => `
-      <label>
+      <label class="party-choice" style="${partyStyle(party.id)}">
         <input type="checkbox" value="${escapeHtml(party.id)}" ${index < 3 ? "checked" : ""} />
+        ${renderPartySwatchById(party.id)}
         <span>${escapeHtml(party.name)}</span>
       </label>
     `
@@ -220,8 +253,75 @@ function getTopicLabel(topicId) {
   return state.topics.find((topic) => topic.id === topicId)?.label ?? topicId;
 }
 
+function getPeriod(periodId) {
+  return periods.find((period) => period.id === periodId) ?? periods[0];
+}
+
+function getPeriodLabel(periodId) {
+  return getPeriod(periodId).label;
+}
+
+function isInPeriod(year, periodId) {
+  const period = getPeriod(periodId);
+  const numericYear = Number(year);
+  return numericYear >= period.start && numericYear <= period.end;
+}
+
 function getPartyName(partyId) {
   return state.parties.find((party) => party.id === partyId)?.name ?? getGovernmentPartyName(partyId);
+}
+
+function getPartyMeta(partyId) {
+  return (
+    state.parties.find((party) => party.id === partyId) ??
+    state.governmentParties.find((party) => party.id === partyId) ?? {
+      id: partyId,
+      name: partyId,
+      color: "#14583f",
+      colorSoft: "#e0f0e9",
+      shortName: partyId,
+    }
+  );
+}
+
+function getPartyMetaByName(name) {
+  return (
+    state.parties.find((party) => party.name === name) ??
+    state.governmentParties.find((party) => party.name === name) ?? {
+      name,
+      color: "#14583f",
+      colorSoft: "#e0f0e9",
+      shortName: name?.slice(0, 2) ?? "",
+    }
+  );
+}
+
+function partyStyle(partyId) {
+  const meta = getPartyMeta(partyId);
+  return `--party-color: ${escapeHtml(meta.color || "#14583f")}; --party-soft: ${escapeHtml(
+    meta.colorSoft || "#e0f0e9"
+  )};`;
+}
+
+function partyStyleByName(name) {
+  const meta = getPartyMetaByName(name);
+  return `--party-color: ${escapeHtml(meta.color || "#14583f")}; --party-soft: ${escapeHtml(
+    meta.colorSoft || "#e0f0e9"
+  )};`;
+}
+
+function renderPartySwatchById(partyId) {
+  const meta = getPartyMeta(partyId);
+  return `<span class="party-swatch" style="${partyStyle(partyId)}" aria-hidden="true">${escapeHtml(
+    meta.shortName || partyId
+  )}</span>`;
+}
+
+function renderPartySwatchByName(name) {
+  const meta = getPartyMetaByName(name);
+  return `<span class="party-swatch" style="${partyStyleByName(name)}" aria-hidden="true">${escapeHtml(
+    meta.shortName || String(name).slice(0, 2)
+  )}</span>`;
 }
 
 function getGovernmentPartyName(partyId) {
@@ -340,7 +440,14 @@ function renderContext(program) {
 
 function renderPartyTags(ids, emptyText = "Ikke særskilt registreret") {
   if (!ids || ids.length === 0) return `<span class="tag analysis-tag-alt">${escapeHtml(emptyText)}</span>`;
-  return ids.map((id) => `<span class="tag">${escapeHtml(getGovernmentPartyName(id))}</span>`).join("");
+  return ids
+    .map(
+      (id) =>
+        `<span class="tag party-tag" style="${partyStyle(id)}">${renderPartySwatchById(id)}${escapeHtml(
+          getGovernmentPartyName(id)
+        )}</span>`
+    )
+    .join("");
 }
 
 function renderExcerpts(suggestions, topicId, limit = 2) {
@@ -392,6 +499,7 @@ function renderSearch() {
   const query = searchInput.value.trim();
   const sourceType = searchSourceSelect.value;
   const partyName = searchPartySelect.value;
+  const periodId = searchPeriodSelect.value;
 
   if (query.length < 2) {
     searchSummary.textContent = "Skriv mindst to tegn for at søge i alle tekststykker.";
@@ -404,12 +512,15 @@ function renderSearch() {
     .filter((chunk) => {
       const typeMatch = sourceType === "all" || chunk.source_type === sourceType;
       const partyMatch = partyName === "all" || chunk.party_name === partyName;
+      const periodMatch = isInPeriod(chunk.year, periodId);
       const textMatch = chunk.text.toLocaleLowerCase("da-DK").includes(normalizedQuery);
-      return typeMatch && partyMatch && textMatch;
+      return typeMatch && partyMatch && periodMatch && textMatch;
     })
     .sort((a, b) => a.year - b.year || a.party_name.localeCompare(b.party_name, "da") || a.chunk_index - b.chunk_index);
 
-  searchSummary.textContent = `${matches.length} tekststykker matcher "${query}". Viser de første 80.`;
+  searchSummary.textContent = `${matches.length} tekststykker matcher "${query}" i ${getPeriodLabel(
+    periodId
+  )}. Viser de første 80.`;
 
   if (matches.length === 0) {
     searchView.innerHTML = '<div class="empty">Ingen tekststykker matcher søgningen.</div>';
@@ -422,11 +533,11 @@ function renderSearch() {
       const suggestion = getChunkSuggestion(chunk.chunk_id);
       const sourceLabel = chunk.source_type === "government_basis" ? "Regeringsgrundlag" : "Partiprogram";
       return `
-        <article class="analysis-card search-card">
+        <article class="analysis-card search-card party-accent-card" style="${partyStyleByName(chunk.party_name)}">
           <div class="analysis-card-head">
             <div>
               <p class="section-kicker">${escapeHtml(sourceLabel)}</p>
-              <h3>${escapeHtml(chunk.party_name)} · ${chunk.year}</h3>
+              <h3>${renderPartySwatchByName(chunk.party_name)}${escapeHtml(chunk.party_name)} · ${chunk.year}</h3>
               <p class="meta">${escapeHtml(getSourceTitle(chunk))} · Tekst-id ${escapeHtml(chunk.chunk_id)}</p>
             </div>
             <div class="analysis-badges">
@@ -473,14 +584,19 @@ function renderTopicTags(program) {
 }
 
 function renderAll() {
-  renderCompare(compareTopicSelect.value, getSelectedPartyIds(), getSelectedGovernmentIds());
-  renderTimeline(timelineTopicSelect.value, timelinePartySelect.value);
-  renderPartyOverview(partyOverviewSelect.value);
-  renderGovernmentOverview(governmentSelect.value, governmentTopicSelect.value);
+  renderCompare(
+    compareTopicSelect.value,
+    getSelectedPartyIds(),
+    getSelectedGovernmentIds(),
+    comparePeriodSelect.value
+  );
+  renderTimeline(timelineTopicSelect.value, timelinePartySelect.value, timelinePeriodSelect.value);
+  renderPartyOverview(partyOverviewSelect.value, partyPeriodSelect.value);
+  renderGovernmentOverview(governmentSelect.value, governmentTopicSelect.value, governmentPeriodSelect.value);
   renderSearch();
 }
 
-function renderCompare(topicId, partyIds, governmentIds) {
+function renderCompare(topicId, partyIds, governmentIds, periodId) {
   compareView.innerHTML = "";
 
   if (!topicId) {
@@ -495,16 +611,24 @@ function renderCompare(topicId, partyIds, governmentIds) {
     return;
   }
 
-  const partyCards = partyIds.map((partyId) => renderPartyCompareCard(partyId, topicId)).join("");
-  const governmentCards = governmentIds.map((governmentId) => renderGovernmentCompareCard(governmentId, topicId)).join("");
+  const visibleGovernmentIds = governmentIds.filter((governmentId) => {
+    const government = state.governments.find((item) => item.id === governmentId);
+    return government && isInPeriod(government.year, periodId);
+  });
+  const partyCards = partyIds.map((partyId) => renderPartyCompareCard(partyId, topicId, periodId)).join("");
+  const governmentCards = visibleGovernmentIds
+    .map((governmentId) => renderGovernmentCompareCard(governmentId, topicId))
+    .join("");
 
-  compareSummary.textContent = `${getTopicLabel(topicId)} · ${partyIds.length} partier · ${governmentIds.length} regeringsgrundlag`;
+  compareSummary.textContent = `${getTopicLabel(topicId)} · ${getPeriodLabel(periodId)} · ${
+    partyIds.length
+  } partier · ${visibleGovernmentIds.length} regeringsgrundlag`;
   compareView.innerHTML = partyCards + governmentCards;
 }
 
-function renderPartyCompareCard(partyId, topicId) {
+function renderPartyCompareCard(partyId, topicId, periodId) {
   const programs = state.programs
-    .filter((program) => program.partyId === partyId)
+    .filter((program) => program.partyId === partyId && isInPeriod(program.year, periodId))
     .map((program) => ({
       ...program,
       topicSuggestions: getProgramTopicSuggestions(program.id, topicId),
@@ -514,8 +638,8 @@ function renderPartyCompareCard(partyId, topicId) {
 
   if (programs.length === 0) {
     return `
-      <article class="party-card">
-        <h3>${escapeHtml(getPartyName(partyId))}</h3>
+      <article class="party-card party-accent-card" style="${partyStyle(partyId)}">
+        <h3>${renderPartySwatchById(partyId)}${escapeHtml(getPartyName(partyId))}</h3>
         <p class="empty">Ingen uddrag for emnet ${escapeHtml(getTopicLabel(topicId))}.</p>
       </article>
     `;
@@ -540,9 +664,9 @@ function renderPartyCompareCard(partyId, topicId) {
     .join("");
 
   return `
-    <article class="party-card">
+    <article class="party-card party-accent-card" style="${partyStyle(partyId)}">
       <p class="section-kicker">Parti</p>
-      <h3>${escapeHtml(getPartyName(partyId))}</h3>
+      <h3>${renderPartySwatchById(partyId)}${escapeHtml(getPartyName(partyId))}</h3>
       ${programBlocks}
     </article>
   `;
@@ -566,7 +690,7 @@ function renderGovernmentCompareCard(governmentId, topicId) {
   `;
 }
 
-function renderTimeline(topicId, partyId) {
+function renderTimeline(topicId, partyId, periodId) {
   timelineView.innerHTML = "";
 
   if (!topicId || !partyId) {
@@ -576,7 +700,7 @@ function renderTimeline(topicId, partyId) {
   }
 
   const programs = state.programs
-    .filter((program) => program.partyId === partyId)
+    .filter((program) => program.partyId === partyId && isInPeriod(program.year, periodId))
     .map((program) => ({
       ...program,
       topicSuggestions: getProgramTopicSuggestions(program.id, topicId),
@@ -584,7 +708,9 @@ function renderTimeline(topicId, partyId) {
     .filter((program) => program.topicSuggestions.length > 0)
     .sort((a, b) => a.year - b.year);
 
-  timelineSummary.textContent = `Parti: ${getPartyName(partyId)} · Emne: ${getTopicLabel(topicId)}`;
+  timelineSummary.textContent = `Parti: ${getPartyName(partyId)} · Emne: ${getTopicLabel(
+    topicId
+  )} · ${getPeriodLabel(periodId)}`;
 
   if (programs.length === 0) {
     timelineView.innerHTML = '<div class="empty">Ingen uddrag for valgt emne og parti.</div>';
@@ -596,8 +722,10 @@ function renderTimeline(topicId, partyId) {
       (program) => `
       <article class="timeline-item">
         <div class="timeline-marker" aria-hidden="true"></div>
-        <div class="timeline-content">
-          <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
+        <div class="timeline-content party-accent-card" style="${partyStyle(program.partyId)}">
+          <h3>${renderPartySwatchById(program.partyId)}${program.year} · ${escapeHtml(
+        program.title
+      )} ${renderProgramStatus(program)}</h3>
           ${renderProgramType(program)}
           ${renderContext(program)}
           ${renderExcerpts(program.topicSuggestions, topicId, 3)}
@@ -611,7 +739,7 @@ function renderTimeline(topicId, partyId) {
     .join("");
 }
 
-function renderPartyOverview(partyId) {
+function renderPartyOverview(partyId, periodId) {
   partyView.innerHTML = "";
 
   if (!partyId) {
@@ -621,11 +749,11 @@ function renderPartyOverview(partyId) {
   }
 
   const programs = state.programs
-    .filter((program) => program.partyId === partyId)
+    .filter((program) => program.partyId === partyId && isInPeriod(program.year, periodId))
     .sort((a, b) => a.year - b.year);
 
   const programLabel = programs.length === 1 ? "program" : "programmer";
-  partySummary.textContent = `${getPartyName(partyId)} · ${programs.length} ${programLabel} er tilgængelige.`;
+  partySummary.textContent = `${getPartyName(partyId)} · ${getPeriodLabel(periodId)} · ${programs.length} ${programLabel} er tilgængelige.`;
 
   if (programs.length === 0) {
     partyView.innerHTML = '<div class="empty">Ingen programmer lagt ind for dette parti endnu.</div>';
@@ -657,9 +785,11 @@ function renderPartyOverview(partyId) {
   const cards = programs
     .map(
       (program) => `
-      <article class="overview-card">
+      <article class="overview-card party-accent-card" style="${partyStyle(program.partyId)}">
         <div class="overview-head">
-          <h3>${program.year} · ${escapeHtml(program.title)} ${renderProgramStatus(program)}</h3>
+          <h3>${renderPartySwatchById(program.partyId)}${program.year} · ${escapeHtml(
+        program.title
+      )} ${renderProgramStatus(program)}</h3>
         </div>
         ${renderProgramType(program)}
         ${renderContext(program)}
@@ -685,21 +815,27 @@ function renderPartyOverview(partyId) {
   `;
 }
 
-function renderGovernmentOverview(governmentId, topicId) {
+function renderGovernmentOverview(governmentId, topicId, periodId) {
   if (!governmentView) return;
-  const government = state.governments.find((item) => item.id === governmentId) ?? state.governments[0];
+  const governmentsInPeriod = state.governments
+    .filter((item) => isInPeriod(item.year, periodId))
+    .sort((a, b) => b.year - a.year);
+  const selectedGovernment = state.governments.find((item) => item.id === governmentId);
+  const government =
+    selectedGovernment && isInPeriod(selectedGovernment.year, periodId)
+      ? selectedGovernment
+      : governmentsInPeriod[0];
   if (!government) {
-    governmentView.innerHTML = '<div class="empty">Ingen regeringsgrundlag er lagt ind endnu.</div>';
+    governmentView.innerHTML = '<div class="empty">Ingen regeringsgrundlag i den valgte periode.</div>';
     governmentSummary.textContent = "";
     return;
   }
 
   const suggestions = getProgramTopicSuggestions(government.id, topicId);
   const topicLabel = getTopicLabel(topicId);
-  governmentSummary.textContent = `${government.year} · ${government.title} · ${topicLabel}`;
+  governmentSummary.textContent = `${government.year} · ${government.title} · ${topicLabel} · ${getPeriodLabel(periodId)}`;
 
-  const archiveLinks = [...state.governments]
-    .sort((a, b) => b.year - a.year)
+  const archiveLinks = governmentsInPeriod
     .map(
       (item) => `
         <a class="mini-timeline-item" href="${getGovernmentUrl(item)}">
@@ -782,11 +918,11 @@ function renderSimilarityBars(governmentId, topicId) {
           return `
             <div class="similarity-row">
               <div class="similarity-row-head">
-                <span><strong>${escapeHtml(score.party_name)}</strong> · ${escapeHtml(score.role)}</span>
+                <span>${renderPartySwatchById(score.party_id)}<strong>${escapeHtml(score.party_name)}</strong> · ${escapeHtml(score.role)}</span>
                 <span>Relativ nærhed ${pct}</span>
               </div>
               <div class="similarity-bar" aria-label="${escapeHtml(score.party_name)} ${pct}">
-                <span style="width: ${pct}"></span>
+                <span style="width: ${pct}; background: ${escapeHtml(getPartyMeta(score.party_id).color || '#14583f')}"></span>
               </div>
               <p class="meta">Cosinus ${formatSimilarity(score.similarity)} · Sammenlignet med ${score.program_year} · ${escapeHtml(score.program_title)}${
             score.has_topic_text ? "" : " · ingen emnetekst fundet i programmet"

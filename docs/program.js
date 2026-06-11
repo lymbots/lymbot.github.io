@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-final-topics";
+const dataVersion = "2026-06-11-period-colors";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -66,6 +66,30 @@ function renderProgramStatus(program, programs) {
 function renderProgramType(program) {
   if (!program.programTypeLabel) return "";
   return `<p class="meta"><strong>Dokumenttype:</strong> ${escapeHtml(program.programTypeLabel)}</p>`;
+}
+
+function getPartyMeta(parties, partyId) {
+  return parties.find((party) => party.id === partyId) ?? {
+    id: partyId,
+    name: partyId,
+    color: "#14583f",
+    colorSoft: "#e0f0e9",
+    shortName: partyId,
+  };
+}
+
+function partyStyle(parties, partyId) {
+  const meta = getPartyMeta(parties, partyId);
+  return `--party-color: ${escapeHtml(meta.color || "#14583f")}; --party-soft: ${escapeHtml(
+    meta.colorSoft || "#e0f0e9"
+  )};`;
+}
+
+function renderPartySwatch(parties, partyId) {
+  const meta = getPartyMeta(parties, partyId);
+  return `<span class="party-swatch" style="${partyStyle(parties, partyId)}" aria-hidden="true">${escapeHtml(
+    meta.shortName || partyId
+  )}</span>`;
 }
 
 function getGovernmentStatus(government, governments) {
@@ -185,7 +209,10 @@ function renderPartyTags(ids, parties, emptyText = "Ikke særskilt registreret")
   return ids
     .map((id) => {
       const name = parties.find((party) => party.id === id)?.name ?? id;
-      return `<span class="tag">${escapeHtml(name)}</span>`;
+      return `<span class="tag party-tag" style="${partyStyle(parties, id)}">${renderPartySwatch(
+        parties,
+        id
+      )}${escapeHtml(name)}</span>`;
     })
     .join("");
 }
@@ -254,10 +281,10 @@ async function renderProgramSource(programId, data, taxonomy, suggestions) {
   const partyName = data.parties.find((party) => party.id === program.partyId)?.name ?? program.partyId;
 
   root.innerHTML = `
-    <header class="source-header">
+    <header class="source-header source-header-party" style="${partyStyle(data.parties, program.partyId)}">
       <p class="section-kicker">Programtekst</p>
       <h1>${escapeHtml(program.title)}</h1>
-      <p class="lead">${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(program, data.programs)}</p>
+      <p class="lead">${renderPartySwatch(data.parties, program.partyId)}${escapeHtml(partyName)} · ${program.year} ${renderProgramStatus(program, data.programs)}</p>
       ${renderProgramType(program)}
       <p class="context">${escapeHtml(program.context || "")}</p>
       <p class="meta">Kildefil: ${escapeHtml(program.sourceFile || "Ukendt kildefil")}</p>

@@ -20,51 +20,87 @@
   "parties": [
     {
       "id": "S",
-      "name": "Socialdemokratiet"
+      "name": "Socialdemokratiet",
+      "color": "#C8102E",
+      "colorSoft": "#FBE8EC",
+      "shortName": "S"
     },
     {
       "id": "V",
-      "name": "Venstre"
+      "name": "Venstre",
+      "color": "#005AA9",
+      "colorSoft": "#E5F0FA",
+      "shortName": "V"
     },
     {
       "id": "K",
-      "name": "Det Konservative Folkeparti"
+      "name": "Det Konservative Folkeparti",
+      "color": "#006B3F",
+      "colorSoft": "#E5F3EC",
+      "shortName": "K"
     },
     {
       "id": "SF",
-      "name": "Socialistisk Folkeparti"
+      "name": "Socialistisk Folkeparti",
+      "color": "#E40046",
+      "colorSoft": "#FDE6EE",
+      "shortName": "SF"
     },
     {
       "id": "RV",
-      "name": "Radikale Venstre"
+      "name": "Radikale Venstre",
+      "color": "#7A1B78",
+      "colorSoft": "#F1E6F1",
+      "shortName": "RV"
     },
     {
       "id": "DF",
-      "name": "Dansk Folkeparti"
+      "name": "Dansk Folkeparti",
+      "color": "#003B79",
+      "colorSoft": "#E5ECF4",
+      "shortName": "DF"
     },
     {
       "id": "EL",
-      "name": "Enhedslisten"
+      "name": "Enhedslisten",
+      "color": "#D71920",
+      "colorSoft": "#FBE7E8",
+      "shortName": "EL"
     },
     {
       "id": "Z",
-      "name": "Fremskridtspartiet"
+      "name": "Fremskridtspartiet",
+      "color": "#F28C00",
+      "colorSoft": "#FFF0DA",
+      "shortName": "Z"
     },
     {
       "id": "LA",
-      "name": "Liberal Alliance"
+      "name": "Liberal Alliance",
+      "color": "#00AEEF",
+      "colorSoft": "#DFF6FD",
+      "shortName": "LA"
     },
     {
       "id": "KrF",
-      "name": "Kristeligt Folkeparti"
+      "name": "Kristeligt Folkeparti",
+      "color": "#7A5A2B",
+      "colorSoft": "#F2EBDD",
+      "shortName": "KrF"
     },
     {
       "id": "VS",
-      "name": "Venstresocialisterne"
+      "name": "Venstresocialisterne",
+      "color": "#8B0000",
+      "colorSoft": "#F2E2E2",
+      "shortName": "VS"
     },
     {
       "id": "DD",
-      "name": "Danmarksdemokraterne"
+      "name": "Danmarksdemokraterne",
+      "color": "#21409A",
+      "colorSoft": "#E7EAF5",
+      "shortName": "DD"
     }
   ],
   "programs": [
