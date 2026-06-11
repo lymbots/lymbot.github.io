@@ -1,9 +1,10 @@
-const dataVersion = "2026-06-07-programs";
+const dataVersion = "2026-06-11-final-topics";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
 const topicSelect = document.getElementById("analysis-topic-select");
 const partySelect = document.getElementById("analysis-party-select");
+const matchSelect = document.getElementById("analysis-match-select");
 const topicCards = document.getElementById("analysis-topic-cards");
 const resultsView = document.getElementById("analysis-results");
 const resultsSummary = document.getElementById("analysis-results-summary");
@@ -48,6 +49,7 @@ async function init() {
 
   topicSelect.addEventListener("change", renderAll);
   partySelect.addEventListener("change", renderAll);
+  matchSelect.addEventListener("change", renderAll);
 
   renderAll();
 }
@@ -106,12 +108,13 @@ function getTopicLabel(topicId) {
 function filterSuggestions() {
   const selectedTopic = topicSelect.value;
   const selectedParty = partySelect.value;
+  const matchMode = matchSelect.value;
 
   return state.suggestions.filter((item) => {
     const topicMatch =
       selectedTopic === "all" ||
       item.primary_topic_id === selectedTopic ||
-      item.secondary_topic_id === selectedTopic;
+      (matchMode === "primary_secondary" && item.secondary_topic_id === selectedTopic);
     const partyMatch = selectedParty === "all" || item.party_name === selectedParty;
 
     return topicMatch && partyMatch;
@@ -122,13 +125,17 @@ function renderAll() {
   const items = filterSuggestions();
   const selectedTopic = topicSelect.value;
   const selectedParty = partySelect.value;
+  const matchMode = matchSelect.value;
 
   const topicLabel = selectedTopic === "all" ? "Alle emner" : getTopicLabel(selectedTopic);
   const partyLabel = selectedParty === "all" ? "alle kilder" : selectedParty;
 
   filterTitle.textContent = topicLabel;
   filterSummary.textContent = `Viser ${items.length} tekststykker for ${partyLabel}.`;
-  resultsSummary.textContent = `Viser ${items.length} tekstforslag. Primært emne vises først, sekundært emne vises som supplerende signal.`;
+  resultsSummary.textContent =
+    matchMode === "primary_secondary"
+      ? `Viser ${items.length} tekstforslag. Sekundære emner er medtaget som supplerende signaler.`
+      : `Viser ${items.length} tekstforslag, hvor det valgte emne er det primære emne.`;
 
   if (items.length === 0) {
     resultsView.innerHTML = '<div class="empty">Ingen tekststykker matcher den aktuelle filtrering.</div>';
@@ -146,10 +153,10 @@ function renderAll() {
               <p class="meta">${item.title} · Tekst-id ${item.chunk_id}</p>
             </div>
             <div class="analysis-badges">
-              <span class="tag">${item.primary_topic_label}</span>
+              <span class="tag">Primært: ${item.primary_topic_label}</span>
               ${
                 item.secondary_topic_label
-                  ? `<span class="tag analysis-tag-alt">${item.secondary_topic_label}</span>`
+                  ? `<span class="tag analysis-tag-alt">Sekundært: ${item.secondary_topic_label}</span>`
                   : ""
               }
             </div>

@@ -5,10 +5,10 @@ men arbejdshypoteser til at opbygge en stabil redaktionel emnetaksonomi.
 
 ## Datagrundlag
 
-- Programmer: 42
-- Chunks: 1488
-- Klynger: 16
-- Silhouette score: 0.003
+- Programmer: 43
+- Chunks: 2066
+- Klynger: 18
+- Silhouette score: 0.002
 
 ### Programmer pr. parti
 
@@ -17,9 +17,9 @@ men arbejdshypoteser til at opbygge en stabil redaktionel emnetaksonomi.
 - Venstre: 6
 - Socialdemokratiet: 5
 - Radikale Venstre: 4
+- Dansk Folkeparti: 4
 - Kristeligt Folkeparti: 3
 - Enhedslisten: 3
-- Dansk Folkeparti: 3
 - Venstresocialisterne: 2
 - Fremskridtspartiet: 2
 - Liberal Alliance: 1
@@ -27,231 +27,257 @@ men arbejdshypoteser til at opbygge en stabil redaktionel emnetaksonomi.
 
 ### Chunks pr. parti
 
-- Socialistisk Folkeparti: 309
-- Dansk Folkeparti: 289
-- Det Konservative Folkeparti: 200
-- Enhedslisten: 185
-- Venstre: 140
-- Venstresocialisterne: 93
-- Kristeligt Folkeparti: 83
-- Socialdemokratiet: 64
-- Fremskridtspartiet: 58
-- Radikale Venstre: 49
-- Danmarksdemokraterne: 15
-- Liberal Alliance: 3
+- Dansk Folkeparti: 574
+- Socialistisk Folkeparti: 321
+- Det Konservative Folkeparti: 232
+- Enhedslisten: 199
+- Venstre: 192
+- Venstresocialisterne: 139
+- Fremskridtspartiet: 122
+- Kristeligt Folkeparti: 108
+- Socialdemokratiet: 78
+- Radikale Venstre: 67
+- Danmarksdemokraterne: 27
+- Liberal Alliance: 7
 
 ## Forslag til brug
 
 1. Læs klyngerne som rå mønstre, ikke som endelige emner.
-2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 16-emne-taksonomi.
+2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 18-emne-taksonomi.
 3. Brug chunk-filen til manuel eller halvautomatisk tagging i næste trin.
 
 ## Klynger
 
-### Klynge 12: dansk_folkeparti / dansk / folkeparti
+### Klynge 10: dansk / dansk_folkeparti / folkeparti
 
-- Størrelse: 170 chunks
-- År: 1993-2024 (median 2001)
-- Topord: dansk folkeparti, dansk, folkeparti, folkeparti ønsker, ønsker, danmark, danske, bør, derfor, mener
-- Partier: Dansk Folkeparti (167), Fremskridtspartiet (1), Danmarksdemokraterne (1), Det Konservative Folkeparti (1)
-
-Eksempeluddrag:
-
-- `DF_2001_chunk_049` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Hvis tekniske eller økonomiske forhold umuliggør at yde alle en given behandling, må prioriteringen gøres til genstand for en åben beslutning, der træffes af fagligt og politisk ansvarlige mennesker.
-- `DF_1997_chunk_025` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · EUs fiskekvoter er vedtaget af folk, der aldrig har sat deres ben på et fiskefartøj.
-- `DF_1997_chunk_005` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · I en periode på 10 år efter tildeling af indfødsret vil statsborgerskabet blive frataget den pågældende, såfremt vedkommende begår kriminalitet, som medfører fængselsstraf.
-
-### Klynge 5: lande / samarbejde / danmark
-
-- Størrelse: 142 chunks
-- År: 1955-2025 (median 1997)
-- Topord: lande, samarbejde, danmark, internationale, europa, verden, nato, europæiske, udvikling, fattige
-- Partier: Socialistisk Folkeparti (31), Enhedslisten (23), Det Konservative Folkeparti (20), Dansk Folkeparti (20), Kristeligt Folkeparti (13), Venstre (11), Socialdemokratiet (10), Radikale Venstre (9)
+- Størrelse: 288 chunks
+- År: 1955-2025 (median 2001)
+- Topord: dansk, dansk folkeparti, folkeparti, offentlige, bør, ønsker, folkeparti ønsker, danske, danmark, virksomheder
+- Partier: Dansk Folkeparti (188), Det Konservative Folkeparti (38), Fremskridtspartiet (21), Venstre (20), Kristeligt Folkeparti (5), Radikale Venstre (4), Socialistisk Folkeparti (4), Socialdemokratiet (3)
 
 Eksempeluddrag:
 
-- `K_1992_chunk_012` · Det Konservative Folkeparti 1992 · Frihed i fællesskab · Princippet om “hjælp til selvhjælp” må i videst muligt omfang præge den danske indsats, og skabelsen af et lokalt selvbærende erhvervsliv i u-landene skal være en væsentlig målsætning for vor u-landspolitik.
-- `KrF_1973_chunk_008` · Kristeligt Folkeparti 1973 · Principprogram · Udviklingsbistanden bør ske både som tosidig og flersidig bistand.
-- `DF_2001_chunk_022` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Dansk Folkeparti tager afstand fra denne fordrejning af virkningerne af den internationale udvikling.
+- `DF_1997_chunk_029` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · ERHVERVSPOLTIK Dansk Folkeparti ønsker et frit erhvervsliv helt uden statsstøtte.
+- `DF_1997_chunk_025` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · FISKERI Fiskerierhvervet skal kunne fungere som et frit og uafhængigt erhverv.
+- `DF_1997_chunk_040` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · Landsbysamfund Dansk Folkeparti er tilhænger af, at den førte politik fremmer en god og sund udvikling i Danmarks landsbysamfund.
 
-### Klynge 8: offentlige / private / virksomheder
+### Klynge 3: økologisk / forbrug / økologiske
 
-- Størrelse: 121 chunks
-- År: 1955-2025 (median 1991)
-- Topord: offentlige, private, virksomheder, sektor, bør, offentlige sektor, større, privat, offentlig, sikre
-- Partier: Det Konservative Folkeparti (35), Venstre (27), Socialistisk Folkeparti (20), Fremskridtspartiet (16), Enhedslisten (6), Socialdemokratiet (5), Kristeligt Folkeparti (4), Dansk Folkeparti (4)
-
-Eksempeluddrag:
-
-- `K_1981_chunk_012` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Et frit og produktivt erhvervsliv er forudsætningen for vækst.
-- `S_1992_chunk_008` · Socialdemokratiet 1992 · Det Ny Århundrede · Samspillet mellem en stærk og velfungerende offentlig sektor og det private erhvervsliv er nødvendigt for fuld beskæftigelse og en rimelig fordeling af velstanden.
-- `SF_1991_chunk_059` · Socialistisk Folkeparti 1991 · Mod nye tider · I 90erne vil skellet mellem den offentlige og den private sektor blive nedbrudt.
-
-### Klynge 1: ansvar / mennesket / mennesker
-
-- Størrelse: 120 chunks
+- Størrelse: 159 chunks
 - År: 1955-2025 (median 1996)
-- Topord: ansvar, mennesket, mennesker, enkelte, menneske, venstre, muligheder, fællesskabet, enkelte menneske, liv
-- Partier: Venstre (27), Kristeligt Folkeparti (24), Socialdemokratiet (23), Det Konservative Folkeparti (14), Radikale Venstre (11), Enhedslisten (9), Socialistisk Folkeparti (6), Venstresocialisterne (4)
+- Topord: økologisk, forbrug, økologiske, energi, produktion, forurening, udvikling, produkter, vækst, vedvarende
+- Partier: Enhedslisten (45), Socialistisk Folkeparti (43), Kristeligt Folkeparti (14), Det Konservative Folkeparti (13), Venstre (12), Dansk Folkeparti (11), Socialdemokratiet (7), Fremskridtspartiet (5)
 
 Eksempeluddrag:
 
-- `S_1992_chunk_000` · Socialdemokratiet 1992 · Det Ny Århundrede · Tillid til mennesket - tro på fremtidenSocialdemokraternes idégrundlag er den demokratiske socialisme.
+- `SF_1991_chunk_052` · Socialistisk Folkeparti 1991 · Mod nye tider · Demokratisk styring af produktionen Folketinget skal spille en langt mere aktiv rolle i udformningen af de overordnede målsætninger og i den generelle styring.
+- `SF_2003_chunk_043` · Socialistisk Folkeparti 2003 · Princip- og perspektivprogram · Og det stiller krav om an ansvarlig global indsats til fordel for miljøet.
+- `EL_1996_chunk_015` · Enhedslisten 1996 · Et rødt-grønt alternativ · Benzinafgifter kan anvendes til at billiggøre og øge den kollektive trafik.
+
+### Klynge 13: offentlige / enkelte / udvikling
+
+- Størrelse: 140 chunks
+- År: 1955-2024 (median 1980)
+- Topord: bør, offentlige, enkelte, udvikling, mellem, muligt, indflydelse, større, muligheder, sikres
+- Partier: Venstre (28), Det Konservative Folkeparti (27), Kristeligt Folkeparti (16), Socialdemokratiet (13), Socialistisk Folkeparti (13), Radikale Venstre (12), Fremskridtspartiet (8), Enhedslisten (8)
+
+Eksempeluddrag:
+
+- `V_1970_chunk_062` · Venstre 1970 · Frem mod år 2000 · Nærdemokrati Decentralisering er et grundlæggende princip i et liberalt demokrati, fordi det placerer afgørelser nærmest muligt mennesket – nærdemokrati – og fordi det giver mangfoldighed og den enkelte de videste muligheder for at vælge.
+- `RV_1997_chunk_003` · Radikale Venstre 1997 · Principprogram 1997 · FOLKESTYRET Det enkelte menneske skal have størst mulig indflydelse på sine egne livsvilkår og på samfundet.
+- `K_1970_chunk_005` · Det Konservative Folkeparti 1970 · 70'ernes folkeparti · Det åbne samfundSamfundsudviklingen efter den anden verdenskrig har gjort det vanskeligere at bevare den nære forbindelse mellem befolkningen og folkestyrets organer.
+
+### Klynge 5: socialistisk / socialistiske / politik
+
+- Størrelse: 137 chunks
+- År: 1963-2017 (median 1996)
+- Topord: socialistisk, socialistiske, politik, demokrati, demokratiske, politiske, bevægelser, demokratisk, socialisme, socialismen
+- Partier: Socialistisk Folkeparti (75), Enhedslisten (42), Venstresocialisterne (11), Socialdemokratiet (7), Kristeligt Folkeparti (2)
+
+Eksempeluddrag:
+
+- `SF_1991_chunk_024` · Socialistisk Folkeparti 1991 · Mod nye tider · demokrati, selvforvaltning og reel ligestilling føre til en voksende interesse for en rødgrøn - dvs.
+- `SF_1980_chunk_006` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · For SF betyder socialisme: et samfund, der er baseret på samfundseje af de vigtigste produktionsmidler, solidaritet og planøkonomi, decentralisering og selvforvaltning.
+- `EL_2003_chunk_066` · Enhedslisten 2003 · Kapitalisme og socialisme i det 21. århundrede · 8.
+
+### Klynge 16: kapitalistiske / kapitalismen / mellem
+
+- Størrelse: 136 chunks
+- År: 1969-2024 (median 1980)
+- Topord: kapitalistiske, kapitalismen, mellem, magt, kapitalen, kamp, økonomiske, kapital, disse, politiske
+- Partier: Venstresocialisterne (52), Enhedslisten (42), Socialistisk Folkeparti (34), Socialdemokratiet (6), Fremskridtspartiet (1), Dansk Folkeparti (1)
+
+Eksempeluddrag:
+
+- `SF_1980_chunk_022` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · De væsentligste modsætninger i det kapitalistiske samfund er klassemodsætningerne, der udspringer af produktionsforholdene.
+- `SF_1980_chunk_015` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · 1.
+- `SF_2003_chunk_011` · Socialistisk Folkeparti 2003 · Princip- og perspektivprogram · 3.
+
+### Klynge 12: hovedbestyrelsen / fremskridtspartiet / partiets
+
+- Størrelse: 135 chunks
+- År: 1955-2024 (median 1980)
+- Topord: hovedbestyrelsen, fremskridtspartiet, partiets, partiet, medlemmer, folketinget, bør, politiske, radio, partier
+- Partier: Venstresocialisterne (45), Fremskridtspartiet (30), Dansk Folkeparti (19), Socialistisk Folkeparti (17), Radikale Venstre (5), Kristeligt Folkeparti (5), Det Konservative Folkeparti (4), Enhedslisten (4)
+
+Eksempeluddrag:
+
+- `SF_1963_chunk_022` · Socialistisk Folkeparti 1963 · Politik her og nu · 9.
+- `VS_1980_chunk_050` · Venstresocialisterne 1980 · Program og love for Venstresocialisterne · Pa hovedbestyrelsesmedeme skal hovedbestyrelsens aktuelle politik pa grundiag af de af kongressen vedtagne kommisorier diskuteres, Hovedbestyrelsens moder er principlelt Sbne for pantiets medlammer.
+- `VS_1980_chunk_062` · Venstresocialisterne 1980 · Program og love for Venstresocialisterne · - at partiet udgiver alt politisk stof fra medlemmer, partiafdelinger og sagpolitiske udvalg, 84 ethvert medlem kan abonnere pi det til kostprisen.
+
+### Klynge 4: ældre / behandling / dansk_folkeparti
+
+- Størrelse: 126 chunks
+- År: 1955-2024 (median 2001)
+- Topord: ældre, behandling, dansk folkeparti, folkeparti, dansk, offentlige, bør, plejehjem, sikres, handicappede
+- Partier: Dansk Folkeparti (64), Det Konservative Folkeparti (14), Fremskridtspartiet (12), Socialistisk Folkeparti (7), Venstre (7), Enhedslisten (7), Kristeligt Folkeparti (5), Radikale Venstre (4)
+
+Eksempeluddrag:
+
+- `DF_1997_chunk_011` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · Plejehjem og hjemmehjælp Plejehjemspladser og ældreboliger udbygges, og det skal være et retskrav at kunne få en behovsbestemt pleje, som skal iværksættes med meget kort varsel.
+- `DF_2009_chunk_066` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · skaberne ved overgang til pension.
+- `DF_2024_chunk_009` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · Retskrav Enhver ældre med et plejebehov skal have et retskrav på at få den passende hjælp.
+
+### Klynge 15: danmark / dansk / dansk_folkeparti
+
+- Størrelse: 114 chunks
+- År: 1969-2025 (median 2009)
+- Topord: danmark, dansk, dansk folkeparti, folkeparti, verden, danske, lande, tredje, tredje verden, flygtninge
+- Partier: Dansk Folkeparti (89), Socialdemokratiet (5), Det Konservative Folkeparti (4), Socialistisk Folkeparti (3), Venstre (3), Enhedslisten (3), Venstresocialisterne (2), Kristeligt Folkeparti (2)
+
+Eksempeluddrag:
+
+- `DF_2024_chunk_055` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · Mere nordisk samarbejde Dansk Folkeparti støtter et tæt samarbejde mellem de nordiske lande gennem Nordisk Råd.
+- `DF_2009_chunk_023` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · 5.
+- `DF_2024_chunk_003` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · FRA ISLAMISKE LANDE Indvandringen fra den muslimske verden har været og er en belastning for Danmark.
+
+### Klynge 7: offentlige / ansvar / enkelte
+
+- Størrelse: 112 chunks
+- År: 1955-2025 (median 1995)
+- Topord: offentlige, ansvar, enkelte, mulighed, venstre, mennesker, liv, sikre, hjælp, frit
+- Partier: Venstre (40), Det Konservative Folkeparti (22), Socialistisk Folkeparti (11), Fremskridtspartiet (8), Socialdemokratiet (7), Radikale Venstre (6), Dansk Folkeparti (5), Enhedslisten (4)
+
+Eksempeluddrag:
+
+- `V_1986_chunk_000` · Venstre 1986 · Et trygt liv i frihed · Venstre vil, at vi alle skal kunne bestemme mere over vores liv og vores hverdag.
+- `V_2025_chunk_017` · Venstre 2025 · Principprogram · Fremtidens velfærdssamfund: Venstre ønsker et velfærdssamfund og ikke en velfærdsstat.
+- `K_2000_chunk_014` · Det Konservative Folkeparti 2000 · Fornuft og fornyelse · Uddannelse må dog aldrig blive fællesskabets ansvar alene.
+
+### Klynge 1: danmark / danske / indvandrere
+
+- Størrelse: 105 chunks
+- År: 1969-2025 (median 2004)
+- Topord: danmark, danske, indvandrere, kvinder, værdier, udlændinge, mennesker, derfor, dansk, mænd
+- Partier: Dansk Folkeparti (41), Det Konservative Folkeparti (13), Fremskridtspartiet (12), Danmarksdemokraterne (9), Enhedslisten (7), Kristeligt Folkeparti (7), Socialistisk Folkeparti (6), Venstre (5)
+
+Eksempeluddrag:
+
+- `DF_2009_chunk_244` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · Blandt de kommende årtiers store og afgørende samfundsopgaver er vellykket integration.
+- `DF_2009_chunk_184` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · 24.
+- `DF_2009_chunk_021` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · Samtidig skal offentlige myndigheder naturligvis kun lægge beslag på den nødvendige arbejdskraft for at løse de opgaver, der påhviler det offentlige.
+
+### Klynge 8: uddannelse / uddannelser / folkeskolen
+
+- Størrelse: 105 chunks
+- År: 1955-2025 (median 2001)
+- Topord: uddannelse, uddannelser, folkeskolen, undervisning, undervisningen, elever, dansk, unge, fag, eleverne
+- Partier: Dansk Folkeparti (49), Det Konservative Folkeparti (20), Venstre (7), Enhedslisten (7), Radikale Venstre (5), Socialistisk Folkeparti (5), Kristeligt Folkeparti (4), Fremskridtspartiet (4)
+
+Eksempeluddrag:
+
+- `DF_2009_chunk_115` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · Folkeparti støtter, at gymnasieelever kommer i brobygning/praktik på de videregående uddannelser i kortere perioder, så eleverne kan få et indtryk af de forskellige uddannelsesmuligheder og dermed et bedre grundlag for at træffe beslutning
+- `SF_1991_chunk_049` · Socialistisk Folkeparti 1991 · Mod nye tider · rammer skal de ansatte gennem virksomhedsråd efterhånden have ret til at bestemme over egne arbejdsforhold.
+- `K_1970_chunk_028` · Det Konservative Folkeparti 1970 · 70'ernes folkeparti · Den offentlige skole må baseres på en enhedsskole med tilvalg.
+
+### Klynge 14: mennesket / enkelte / ansvar
+
+- Størrelse: 99 chunks
+- År: 1955-2025 (median 2004)
+- Topord: mennesket, enkelte, ansvar, menneske, mennesker, venstre, enkelte menneske, fællesskaber, fællesskab, dets
+- Partier: Venstre (22), Kristeligt Folkeparti (22), Det Konservative Folkeparti (19), Radikale Venstre (12), Socialdemokratiet (7), Socialistisk Folkeparti (5), Venstresocialisterne (4), Fremskridtspartiet (3)
+
+Eksempeluddrag:
+
+- `V_1979_chunk_000` · Venstre 1979 · Det mener Venstre · Program for Venstre, Danmarks liberale Parti.
 - `V_1995_chunk_000` · Venstre 1995 · Mennesket frem for systemet · Frihed betyder fravær af tvang – men også, at mennesket er frit til at tage ansvar for sit eget liv og medansvar for det andet menneske og fællesskabet.
-- `RV_1997_chunk_000` · Radikale Venstre 1997 · Principprogram 1997 · Principprogram 1997 Det Radikale Venstres mål er et samfund, hvor mennesker kan leve værdigt sammen i balance med naturen.
+- `KrF_1996_chunk_002` · Kristeligt Folkeparti 1996 · Værdier for fremtiden · Naestehwerligheds budet Mennesket er skabt til ftellesskab.
 
-### Klynge 4: enkelte / offentlige / konservative
+### Klynge 17: lande / samarbejde / europa
 
-- Størrelse: 111 chunks
-- År: 1955-2024 (median 1992)
-- Topord: enkelte, offentlige, konservative, bør, ansvar, hovedbestyrelsen, konservative folkeparti, mulig, mellem, muligt
-- Partier: Det Konservative Folkeparti (31), Venstresocialisterne (19), Socialistisk Folkeparti (15), Venstre (14), Fremskridtspartiet (10), Enhedslisten (10), Kristeligt Folkeparti (5), Socialdemokratiet (3)
-
-Eksempeluddrag:
-
-- `K_1992_chunk_007` · Det Konservative Folkeparti 1992 · Frihed i fællesskab · Nærhed For at den enkelte skal kunne tage stilling og få mest mulig del i beslutningerne, må der til stadighed tilstræbes åbenhed, enkelhed og overskuelighed i vores politiske beslutningsproces.
-- `K_2000_chunk_017` · Det Konservative Folkeparti 2000 · Fornuft og fornyelse · Det Konservative Folkeparti ønsker at værne om det repræsentative demokrati som fundamentet for vort samfund.
-- `SF_2012_chunk_003` · Socialistisk Folkeparti 2012 · Principprogram · Derfor afviser SF et samfund med store forskelle i formuer og indtægter, fordi det betyder at muligheder og livskvalitet bliver ulige fordelt.
-
-### Klynge 13: socialistisk / socialistiske / demokratiske
-
-- Størrelse: 103 chunks
-- År: 1955-2025 (median 1991)
-- Topord: socialistisk, socialistiske, demokratiske, politik, folkelige, magt, socialisme, demokratisk, flertal, politiske
-- Partier: Socialistisk Folkeparti (62), Enhedslisten (23), Venstresocialisterne (10), Socialdemokratiet (3), Radikale Venstre (2), Kristeligt Folkeparti (1), Det Konservative Folkeparti (1), Venstre (1)
+- Størrelse: 97 chunks
+- År: 1955-2025 (median 1997)
+- Topord: lande, samarbejde, europa, nordiske, fælles, europæiske, danmark, mellem, internationale, nationale
+- Partier: Det Konservative Folkeparti (28), Socialistisk Folkeparti (19), Dansk Folkeparti (17), Socialdemokratiet (8), Venstre (8), Kristeligt Folkeparti (6), Radikale Venstre (5), Enhedslisten (4)
 
 Eksempeluddrag:
 
-- `SF_1991_chunk_025` · Socialistisk Folkeparti 1991 · Mod nye tider · Man kan ikke forvente, at de giver magt og privilegier fra sig uden omfattende politiske, faglige og sociale kampe.
-- `EL_2003_chunk_056` · Enhedslisten 2003 · Kapitalisme og socialisme i det 21. århundrede · Socialismen bliver dermed grundlaget for en mere lige fordeling, også på internationalt plan.
-- `SF_1980_chunk_018` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · Det verdenskapitalistiske system har imidlertid også mødt modgående træk, i første række to store brud.
+- `K_1992_chunk_017` · Det Konservative Folkeparti 1992 · Frihed i fællesskab · Vi betragter ikke det nuværende EF som et mål i sig selv, men som det vigtigste middel til et nært politisk og økonomisk samarbejde mellem selvstændige, demokratiske lande i Europa.
+- `RV_1955_chunk_005` · Radikale Venstre 1955 · Det Radikale Venstres program af 1955 · 1.
+- `K_1981_chunk_004` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Danmark skal være aktiv i det nordiske samarbejde, medvirke til harmonisering af lovgivning, hvor det er praktisk muligt, og styrke forståelsen for de øvrige nordiske landes synspunkter, når vigtige beslutninger træffes i EF.
 
-### Klynge 14: energi / økologisk / vedvarende
+### Klynge 11: fagbevægelsen / fagbevægelsens / muligheder
 
-- Størrelse: 95 chunks
+- Størrelse: 94 chunks
+- År: 1963-2025 (median 1999)
+- Topord: fagbevægelsen, fagbevægelsens, muligheder, arbejdsmarkedet, udvikling, nye, uddannelse, viden, stadig, derfor
+- Partier: Socialistisk Folkeparti (56), Dansk Folkeparti (8), Det Konservative Folkeparti (7), Enhedslisten (7), Venstre (5), Socialdemokratiet (4), Venstresocialisterne (3), Radikale Venstre (1)
+
+Eksempeluddrag:
+
+- `SF_1999_chunk_030` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Nutidens unge stiller store krav til deres fremtidige arbejdsliv.
+- `SF_1999_chunk_017` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Gode muligheder Fagbevægelsen har gode muligheder for en sådan udvidelse og fornyelse af sit værdigrundlag.
+- `SF_1999_chunk_019` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Bredde: Uddannelserne skal give den enkelte evner og viden, som både giver bedre muligheder på arbejdsmarkedet og personlig udvikling.
+
+### Klynge 2: børn_unge / forældre / forældrene
+
+- Størrelse: 72 chunks
+- År: 1955-2025 (median 2002)
+- Topord: børn, børn unge, unge, forældre, forældrene, familien, dansk folkeparti, dansk, folkeparti, børnene
+- Partier: Dansk Folkeparti (36), Socialistisk Folkeparti (9), Det Konservative Folkeparti (7), Kristeligt Folkeparti (5), Radikale Venstre (3), Venstre (3), Enhedslisten (3), Socialdemokratiet (2)
+
+Eksempeluddrag:
+
+- `K_1981_chunk_020` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Familien er grundlaget for samfundet.
+- `DF_2024_chunk_027` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · Børn Børn er forældrenes børn – ikke statens og samfundets børn.
+- `DF_1997_chunk_014` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · Revselsesret Forældrenes revselsesret bør genindføres.
+
+### Klynge 9: udfoldelse / trivsel / mennesker
+
+- Størrelse: 61 chunks
+- År: 1955-2024 (median 1979)
+- Topord: udfoldelse, trivsel, mennesker, muligheder, menneskers, bedre, fællesskabets, enkelte, videre, frie
+- Partier: Venstre (20), Socialistisk Folkeparti (8), Kristeligt Folkeparti (7), Venstresocialisterne (6), Fremskridtspartiet (5), Radikale Venstre (4), Dansk Folkeparti (4), Det Konservative Folkeparti (3)
+
+Eksempeluddrag:
+
+- `V_1970_chunk_003` · Venstre 1970 · Frem mod år 2000 · Denne tankegang har også bærekraft for andre dele af en fremadrettet samfundspolitik.
+- `V_1970_chunk_005` · Venstre 1970 · Frem mod år 2000 · Det er en politisk opgave at sikre, at det bliver et bedre samfund.
+- `V_1970_chunk_000` · Venstre 1970 · Frem mod år 2000 · Frem mod år 2000 udtrykker principper og sigtelinjer, som Venstre vil arbejde for i samfundets videre udvikling.
+
+### Klynge 6: forsvar / forsvaret / danmark
+
+- Størrelse: 49 chunks
 - År: 1955-2025 (median 1996)
-- Topord: energi, økologisk, vedvarende, produktion, økologiske, vedvarende energi, forbrug, anvendes, udvikling, omstilling
-- Partier: Enhedslisten (34), Socialistisk Folkeparti (31), Venstre (9), Det Konservative Folkeparti (6), Kristeligt Folkeparti (4), Dansk Folkeparti (4), Fremskridtspartiet (3), Radikale Venstre (2)
+- Topord: nato, forsvar, forsvaret, danmark, sikkerhed, danmarks, militære, dansk, sikkerhedspolitik, samarbejde
+- Partier: Det Konservative Folkeparti (12), Venstre (7), Dansk Folkeparti (7), Enhedslisten (6), Socialistisk Folkeparti (5), Kristeligt Folkeparti (5), Fremskridtspartiet (5), Radikale Venstre (1)
 
 Eksempeluddrag:
 
-- `EL_1996_chunk_013` · Enhedslisten 1996 · Et rødt-grønt alternativ · Samtidig foregøgler et stadig mere kompliceret regel-og kontrolsystem befolkningen, at samfundet via statsmagten styrer produktionen og samfundsudviklingen i en mere miljørigtig retning.
-- `EL_1996_chunk_017` · Enhedslisten 1996 · Et rødt-grønt alternativ · - Der indføres bindende standarder på el-apparatur i såvel husholdning som industri, og der indføres forbud mod import af produkter, som ikke overholder de danske standarder også selvom dette er i modstrid med EU's indre markedsregler.
-- `SF_1991_chunk_053` · Socialistisk Folkeparti 1991 · Mod nye tider · Det skal ske i samarbejde med grupper af virksomheder og det offentlige.
+- `K_1981_chunk_003` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Danmarks sikkerhedspolitik skal bevare og sikre vor frihed politisk, økonomisk og kulturelt.
+- `DF_2009_chunk_171` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · 21.
+- `K_1992_chunk_013` · Det Konservative Folkeparti 1992 · Frihed i fællesskab · DANMARKS FORHOLD TIL OMVERDENEN Det Konservative Folkeparti blev skabt på forsvarsviljen og på tanken om det enkelte menneskes frihed.
 
-### Klynge 10: uddannelse / højere / beskæftigelse
+### Klynge 0: kriminalitet / dansk_folkeparti / folkeparti
 
-- Størrelse: 87 chunks
-- År: 1955-2025 (median 1980)
-- Topord: uddannelse, højere, beskæftigelse, bør, får, større, sikre, mellem, arbejdsmarkedet, derfor
-- Partier: Det Konservative Folkeparti (30), Venstre (14), Socialistisk Folkeparti (12), Enhedslisten (7), Venstresocialisterne (6), Dansk Folkeparti (6), Socialdemokratiet (5), Radikale Venstre (3)
-
-Eksempeluddrag:
-
-- `K_1970_chunk_057` · Det Konservative Folkeparti 1970 · 70'ernes folkeparti · Arbejdsmarkedspolitikken bliver et hovedspor: mobiliteten skal øges betydeligt gennem et omfattende system for omskoling og videreuddannelse, hvor alle, der mister arbejde – arbejdere, funktionærer og selvstændige – hurtigt går i uddannelse
-- `K_1970_chunk_055` · Det Konservative Folkeparti 1970 · 70'ernes folkeparti · Den firedobbelte målsætning for den økonomiske politik – høj vækstrate, fuld beskæftigelse, stabilt prisniveau og ligevægt på betalingsbalancen – har siden den anden verdenskrig vist sig vanskelig at realisere samtidigt.
-- `V_1979_chunk_008` · Venstre 1979 · Det mener Venstre · Økonomien: Den økonomiske politik skal bygge på det liberale markedsøkonomiske system, fordi dette er bedst egnet til at skabe økonomisk fremgang og sikre det frie forbrugsvalg.
-
-### Klynge 11: mulighed / forældre / uddannelse
-
-- Størrelse: 87 chunks
-- År: 1955-2025 (median 1996)
-- Topord: børn, mulighed, forældre, uddannelse, sikres, børnene, forældrene, offentlige, gode, give
-- Partier: Socialistisk Folkeparti (15), Det Konservative Folkeparti (12), Venstre (12), Kristeligt Folkeparti (12), Radikale Venstre (9), Enhedslisten (8), Dansk Folkeparti (7), Socialdemokratiet (6)
+- Størrelse: 37 chunks
+- År: 1969-2024 (median 2001)
+- Topord: kriminalitet, dansk folkeparti, folkeparti, dansk, forbrydelser, europæiske, lande, kriminelle, landes, europa
+- Partier: Dansk Folkeparti (27), Fremskridtspartiet (2), Venstre (2), Enhedslisten (2), Venstresocialisterne (1), Socialistisk Folkeparti (1), Det Konservative Folkeparti (1), Kristeligt Folkeparti (1)
 
 Eksempeluddrag:
 
-- `S_1992_chunk_009` · Socialdemokratiet 1992 · Det Ny Århundrede · Socialdemokraterne kæmper for et velfærdssamfund for alleSocialdemokraterne vil gå i spidsen for fornyelse og forandring af fællesskabets indsats.
-- `K_1981_chunk_018` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Familien er grundlaget for samfundet.
-- `K_2024_chunk_005` · Det Konservative Folkeparti 2024 · Stærke rødder i en omskiftelig tid · Ansvarsfølelse, respekt for andre, tolerance, kærlighed, omsorg og selve evnen til at være en del af et fællesskab opstår bedst i opvæksten og i det daglige samliv med ens nærmeste.
-
-### Klynge 0: uddannelser / undervisning / folkeskolen
-
-- Størrelse: 80 chunks
-- År: 1955-2024 (median 1993)
-- Topord: uddannelser, undervisning, bør, folkeskolen, dansk, støtte, uddannelse, eleverne, kunst, skoler
-- Partier: Dansk Folkeparti (21), Det Konservative Folkeparti (18), Socialistisk Folkeparti (9), Venstre (9), Kristeligt Folkeparti (9), Fremskridtspartiet (7), Radikale Venstre (3), Socialdemokratiet (2)
-
-Eksempeluddrag:
-
-- `DF_2001_chunk_084` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Undervisning i kulturhistorie i folkeskolen og de gymnasiale uddannelser er en forudsætning for en bredere kulturforståelse.
-- `DF_1997_chunk_019` · Dansk Folkeparti 1997 · Arbejdsprogram / principprogram · Det offentlige betaler for al undervisning og uddannelse af børn og unge.
-- `K_1981_chunk_022` · Det Konservative Folkeparti 1981 · En fremtid i frihed · Uddannelse er en investering for både den enkelte og samfundet, og det offentlige skal stille et system til rådighed, hvor alle tilbydes den bedst mulige undervisning.
-
-### Klynge 3: kapitalistiske / kampen / arbejderklassen
-
-- Størrelse: 79 chunks
-- År: 1969-2024 (median 1996)
-- Topord: kamp, kapitalistiske, kampen, arbejderklassen, kapitalismen, socialismen, kvinder, mellem, socialistisk, mænd
-- Partier: Enhedslisten (35), Socialistisk Folkeparti (21), Venstresocialisterne (20), Dansk Folkeparti (3)
-
-Eksempeluddrag:
-
-- `EL_2003_chunk_061` · Enhedslisten 2003 · Kapitalisme og socialisme i det 21. århundrede · Gang på gang, når »nytænkende« (borgerlige) filosoffer har erklæret arbejderklassen for ikke-eksisterende og klassekampen for død, er netop den samme, fundamentale klassekamp mellem arbejdere og kapitalejere blusset op på ny få år efter.
-- `EL_2003_chunk_002` · Enhedslisten 2003 · Kapitalisme og socialisme i det 21. århundrede · Vi er helt uenige.
-- `EL_1996_chunk_005` · Enhedslisten 1996 · Et rødt-grønt alternativ · Arbejderklassen er præget af en lang række modsætninger.
-
-### Klynge 6: blevet / kapitalistiske / lønarbejderne
-
-- Størrelse: 73 chunks
-- År: 1969-2014 (median 1980)
-- Topord: blevet, kapitalistiske, lønarbejderne, mellem, kapital, kapitalen, kapitalisme, internationale, økonomiske, udvikling
-- Partier: Socialistisk Folkeparti (35), Venstresocialisterne (22), Enhedslisten (10), Dansk Folkeparti (4), Fremskridtspartiet (2)
-
-Eksempeluddrag:
-
-- `SF_1991_chunk_008` · Socialistisk Folkeparti 1991 · Mod nye tider · Den internationale kapitalisme er også blevet styrket, bl.a.
-- `SF_1980_chunk_023` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · kontor, altså de erhvervsgrupper, der i hovedsagen er organiseret under LO-området.
-- `SF_1980_chunk_031` · Socialistisk Folkeparti 1980 · Princip- og handlingsprogram · En sådan tendens har ikke mindst vist sig indenfor de sidste 10 år i form af indkomstpolitik, trepartsforhandlinger, Marienborg-møder m.v., noget som er af afgørende fare for fagbevægelsens slagkraft og uafhængighed.
-
-### Klynge 2: danmark / kultur / danske
-
-- Størrelse: 70 chunks
-- År: 1955-2025 (median 2008)
-- Topord: danmark, kultur, danske, flygtninge, sprog, indvandrere, dansk, værdier, fælles, historie
-- Partier: Det Konservative Folkeparti (23), Dansk Folkeparti (17), Venstre (7), Fremskridtspartiet (5), Kristeligt Folkeparti (4), Danmarksdemokraterne (4), Radikale Venstre (3), Enhedslisten (3)
-
-Eksempeluddrag:
-
-- `V_1995_chunk_006` · Venstre 1995 · Mennesket frem for systemet · Udviklingslandene skal have fri adgang til verdensmarkedet uden told og andre forhindringer for deres varer.
-- `K_2000_chunk_016` · Det Konservative Folkeparti 2000 · Fornuft og fornyelse · Vi ønsker, at danske værdier sætter deres præg på udviklingen andre steder.
-- `K_2024_chunk_011` · Det Konservative Folkeparti 2024 · Stærke rødder i en omskiftelig tid · Historien har i de senere år ofte udviklet sig til en politisk kampplads, hvor rimelige krav til respekt for fakta og dokumentation ofte bliver glemt.
-
-### Klynge 9: fagbevægelsen / fagbevægelsens / fagbevægelsen_bør
-
-- Størrelse: 58 chunks
-- År: 1963-2017 (median 1999)
-- Topord: fagbevægelsen, fagbevægelsens, fagbevægelsen bør, derfor, politiske, solidaritet, medlemmernes, faglige, fagbevægelse, sociale
-- Partier: Socialistisk Folkeparti (41), Venstresocialisterne (5), Enhedslisten (5), Socialdemokratiet (3), Dansk Folkeparti (3), Kristeligt Folkeparti (1)
-
-Eksempeluddrag:
-
-- `SF_1999_chunk_000` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Fagbevægelsen som social reformbevægelse Fagligt principprogram vedtaget af SF’s landsmøde 22.-24.
-- `SF_1999_chunk_028` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Nutidens unge stiller store krav til deres fremtidige arbejdsliv.
-- `SF_1999_chunk_029` · Socialistisk Folkeparti 1999 · Fagligt principprogram · Fagbevægelsen må selv trække i førertrøjen.
-
-### Klynge 15: kriminalitet / folketinget / kriminelle
-
-- Størrelse: 52 chunks
-- År: 1955-2025 (median 1996)
-- Topord: kriminalitet, folketinget, kriminelle, dansk, enhedslisten, venstre, sikres, politiske, politiet, domstolene
-- Partier: Dansk Folkeparti (12), Enhedslisten (8), Fremskridtspartiet (7), Venstre (7), Socialistisk Folkeparti (7), Radikale Venstre (3), Kristeligt Folkeparti (3), Det Konservative Folkeparti (2)
-
-Eksempeluddrag:
-
-- `EL_1996_chunk_082` · Enhedslisten 1996 · Et rødt-grønt alternativ · Magtfordelingen mellem folketinget, domstolene og regeringen skal gøres forfatningsmæssig sikret.
-- `DF_2024_chunk_037` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · 10: Lov og orden: FOR EN HÅRD OG RETFÆRDIG RETSPOLITIK Mere politi, hurtigere domfældelse, udvisning og hårdere straffe; skærpet disciplin og restriktioner i fængslerne for de værste og mest farlige vaneforbrydere  Der skal ansættes flere
-- `DF_2001_chunk_092` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Derudover er det nødvendigt, at Folketinget gennem øgede bevillinger stiller de nødvendige ressourcer til rådighed for politi, 67 71 anklagemyndighed, domstole og kriminalforsorg.
-
-### Klynge 7: ældre / plejehjem / psykiske
-
-- Størrelse: 40 chunks
-- År: 1970-2024 (median 2001)
-- Topord: ældre, plejehjem, psykiske, behov, mennesker, hjælp, pleje, hjemmehjælp, muligt, bør
-- Partier: Dansk Folkeparti (20), Det Konservative Folkeparti (7), Kristeligt Folkeparti (3), Fremskridtspartiet (2), Venstre (2), Socialistisk Folkeparti (2), Enhedslisten (2), Socialdemokratiet (1)
-
-Eksempeluddrag:
-
-- `DF_2001_chunk_074` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Straffe for tyveri og vold bør automatisk medføre, at hjemmehjælperen ikke bliver ansat, heller ikke som vikar.
-- `DF_2024_chunk_009` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · Generationsmødet Der er alt for lidt interaktion mellem børn og unge og ældre i dag.
-- `DF_2024_chunk_008` · Dansk Folkeparti 2024 · Arbejdsprogram for Dansk Folkeparti 2024 · Der skal ikke kun gives hjælp til de ældre, der er alvorligt syge eller har et ekstremt behov for pleje.
+- `DF_2009_chunk_091` · Dansk Folkeparti 2009 · Arbejdsprogram 2009 · Samarbejde mod terror og kriminalitet Udviklingen af Den Europæiske Union med åbne, indre grænser har skabt uanede muligheder for den grænseoverskridende kriminalitet og for den internationale terrorisme.
+- `DF_2001_chunk_042` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Schengen Dansk Folkeparti ønsker, at Danmark udtræder af det Schengen-samarbejde, der forbyder Danmark at have personkontrol ved de danske grænser.
+- `DF_2001_chunk_124` · Dansk Folkeparti 2001 · Fælles værdier - fælles ansvar · Minimumsstraffe Det har vist sig, at domstolene ofte er ude af trit med befolkningens holdning til straffe, og at forhøjelse af strafferammerne ikke i sig selv forer til mere effektive strafsanktioner.

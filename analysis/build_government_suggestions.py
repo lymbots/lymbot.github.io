@@ -18,11 +18,12 @@ PROGRAMS_PATH = ROOT / "docs" / "data" / "programs.json"
 TAXONOMY_PATH = ROOT / "analysis" / "topic_taxonomy.json"
 OUTPUT_DIR = ROOT / "analysis" / "output"
 PARTY_SUGGESTIONS_PATH = OUTPUT_DIR / "topic_suggestions.json"
+PARTY_CHUNKS_PATH = OUTPUT_DIR / "chunks.json"
 DOCS_ANALYSIS_DIR = ROOT / "docs" / "data" / "analysis"
 
-MIN_WORDS = 120
-TARGET_WORDS = 220
-MAX_WORDS = 320
+MIN_WORDS = 45
+TARGET_WORDS = 180
+MAX_WORDS = 340
 MIN_PRIMARY_SCORE = 0.26
 
 STOP_WORDS = {
@@ -33,22 +34,24 @@ STOP_WORDS = {
 }
 
 EXTRA_TOPIC_KEYWORDS = {
-    "oekonomi_skat_finans": ["finanspolitik", "økonomisk", "skattelettelser", "skattestop", "produktivitet", "råderum", "offentlige finanser"],
+    "oekonomi_skat_finans": ["finanspolitik", "økonomisk", "skattelettelser", "skattestop", "produktivitet", "råderum", "offentlige finanser", "moms"],
     "erhverv_arbejdsmarked_beskaeftigelse": ["konkurrenceevne", "erhvervsliv", "virksomhed", "virksomheder", "iværksætteri", "rammevilkår", "beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster", "dagpenge"],
     "offentlig_sektor_velfaerd_forvaltning": ["offentlig sektor", "kommuner", "regioner", "bureaukrati", "decentralisering", "forvaltning", "service", "velfærdssamfund"],
-    "sundhed_aeldre_omsorg": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger", "ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension"],
-    "boern_familie_socialpolitik": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel", "social", "udsatte", "fattigdom", "handicap", "hjemløse", "misbrug", "social arv"],
-    "uddannelse_forskning_unge": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse", "gymnasier", "studerende"],
-    "klima_miljoe_landbrug_energi": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet", "landbrug", "fødevarer", "dyrevelfærd", "kvælstof", "vandmiljø", "fiskeri", "økologi"],
-    "udlaendinge_integration_statsborgerskab": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab", "flygtninge"],
-    "retspolitik_politi_kriminalitet": ["politi", "kriminalitet", "straf", "domstole", "retssikkerhed", "fængsler", "bander"],
-    "forsvar_sikkerhed_beredskab": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler", "militær"],
-    "eu_udenrig_globalt": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik", "udviklingsbistand"],
-    "demokrati_retsstat_forfatning": ["grundlov", "folketing", "folkestyre", "magtens tredeling", "forfatning", "borgerrettigheder"],
-    "bolig_transport_landdistrikter": ["almene boliger", "lejeboliger", "landdistrikter", "yderområder", "byudvikling", "boligpolitik", "kollektiv trafik", "jernbane", "tog", "veje", "infrastruktur", "pendlere"],
-    "kultur_religion_medier_vaerdier": ["kulturarv", "medier", "idræt", "foreninger", "folkekirke", "religion", "etik", "værdier", "ytringsfrihed"],
-    "ligestilling_minoriteter_rettigheder": ["ligestilling", "kvinder", "minoritet", "minoriteter", "rettigheder", "diskrimination", "handicapkonvention"],
-    "ideologi_parti_samfundssyn": ["liberalisme", "socialisme", "konservatisme", "national", "solidaritet", "frihed", "fællesskab", "partiet", "bevægelse", "medlemmer"],
+    "sundhed_psykiatri": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger", "folkesundhed"],
+    "aeldre_pension_omsorg": ["ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension", "pensionister", "arnepension"],
+    "boern_familie_socialpolitik": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel", "social", "udsatte", "fattigdom", "handicap", "hjemløse", "social arv"],
+    "uddannelse_forskning_unge": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse", "gymnasier", "studerende", "historieundervisning"],
+    "klima_miljoe_energi": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet", "energipolitik", "forsyning"],
+    "landbrug_foedevarer_dyrevelfaerd": ["landbrug", "fødevarer", "dyrevelfærd", "kvælstof", "vandmiljø", "fiskeri", "økologi", "pesticider", "husdyr"],
+    "udlaendinge_integration_statsborgerskab": ["udlændingepolitik", "indvandring", "integration", "asyl", "ophold", "statsborgerskab", "flygtninge", "familiesammenføring", "parallelsamfund"],
+    "retspolitik_politi_kriminalitet": ["politi", "kriminalitet", "straf", "domstole", "retssikkerhed", "fængsler", "bander", "terror"],
+    "forsvar_sikkerhed_beredskab": ["sikkerhedspolitik", "forsvaret", "cyber", "beredskab", "nato", "trusler", "militær", "totalforsvar"],
+    "eu_udenrig_globalt": ["europa", "eu", "ukraine", "norden", "rigsfællesskab", "udenrigspolitik", "udviklingsbistand", "fn"],
+    "demokrati_retsstat_forfatning": ["grundlov", "folketing", "folkestyre", "magtens tredeling", "forfatning", "borgerrettigheder", "folkeafstemning"],
+    "bolig_transport_by_land": ["almene boliger", "lejeboliger", "landdistrikter", "yderområder", "byudvikling", "boligpolitik", "kollektiv trafik", "jernbane", "tog", "veje", "infrastruktur", "pendlere", "landkommuner"],
+    "kultur_religion_medier_vaerdier": ["kulturarv", "medier", "idræt", "foreninger", "folkekirke", "religion", "etik", "værdier", "ytringsfrihed", "danske værdier"],
+    "ligestilling_minoriteter_rettigheder": ["ligestilling", "kvinder", "minoritet", "minoriteter", "rettigheder", "diskrimination", "handicapkonvention", "ligeværd"],
+    "ideologi_parti_samfundssyn": ["liberalisme", "socialisme", "konservatisme", "national", "solidaritet", "frihed", "fællesskab", "partiet", "bevægelse", "medlemmer", "værdigrundlag"],
 }
 
 
@@ -56,6 +59,8 @@ def normalize_text(raw_text: str) -> str:
     text = raw_text.replace("\ufeff", "\n").replace("\f", "\n\n")
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
+    text = re.sub(r"(?<=\S)\n(?=\d{1,2}\.\s+[A-ZÆØÅ])", "\n\n", text)
+    text = re.sub(r"(?<=\S)\n(?=[A-ZÆØÅ][A-Za-zÆØÅæøå ,/&-]{2,64}\n)", "\n\n", text)
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
@@ -70,6 +75,16 @@ def paragraph_like_blocks(text: str) -> list[str]:
     for block in re.split(r"\n\s*\n", text):
         lines = [line.strip() for line in block.splitlines() if line.strip()]
         combined = re.sub(r"\s+", " ", " ".join(lines)).strip()
+        combined = re.sub(
+            r"\s+(?=(?:\d{1,2}|[A-ZÆØÅ])\.\s+[A-ZÆØÅ])",
+            r"\n\n",
+            combined,
+        )
+        combined = re.sub(
+            r"\s+(?=[A-ZÆØÅ][A-Za-zÆØÅæøå ,/&-]{2,64}:)",
+            r"\n\n",
+            combined,
+        )
         combined = re.sub(
             r"(?<=[.!?])\s+([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}:)",
             r"\n\n\1",
@@ -88,6 +103,10 @@ def is_noise_block(block: str) -> bool:
         return True
     if re.fullmatch(r"\d{1,3}", cleaned):
         return True
+    if cleaned.count(".") > 20 and len(cleaned) < 900:
+        return True
+    if re.search(r"ISBN\s+\d", cleaned, re.IGNORECASE):
+        return True
     noise_patterns = [
         r"Digitaliseret af",
         r"Digitised by",
@@ -97,11 +116,18 @@ def is_noise_block(block: str) -> bool:
         r"Ressourcetype:",
         r"Opstilling:",
         r"Relateret:",
+        r"Henvendelse om udgivelsen",
+        r"Publikationen kan hentes",
+        r"Elektronisk publikation",
     ]
     return any(re.search(pattern, cleaned, re.IGNORECASE) for pattern in noise_patterns)
 
 
 def looks_like_heading(block: str) -> bool:
+    if re.fullmatch(r"\d{1,2}\.\s+\S.{2,120}", block):
+        return True
+    if re.fullmatch(r"[A-ZÆØÅ]\.\s+\S.{2,120}", block):
+        return True
     if len(block.split()) > 12:
         return False
     if re.fullmatch(r"[A-ZÆØÅ0-9 .,:;()'\"/-]+", block):
@@ -110,6 +136,10 @@ def looks_like_heading(block: str) -> bool:
 
 
 def starts_with_inline_heading(block: str) -> bool:
+    if re.match(r"^\d{1,2}\.\s+[A-ZÆØÅ]", block):
+        return True
+    if re.match(r"^[A-ZÆØÅ]\.\s+[A-ZÆØÅ]", block):
+        return True
     match = re.match(r"^([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}):", block)
     return bool(match and len(match.group(1).split()) <= 8)
 
@@ -170,7 +200,7 @@ def rebalance_short_chunks(chunks: list[dict]) -> list[dict]:
                 index += 1
                 continue
 
-        if current["word_count"] >= max(35, MIN_WORDS // 2):
+        if current["word_count"] >= max(18, MIN_WORDS // 2):
             balanced.append(current)
         index += 1
 
@@ -267,7 +297,7 @@ def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, 
         score = 0.18 * len(set(hits))
         if len(set(hits)) >= 2:
             score += 0.25
-        if topic["id"] in {"forsvar_sikkerhed_beredskab", "klima_miljoe_landbrug_energi"} and hits:
+        if topic["id"] in {"forsvar_sikkerhed_beredskab", "klima_miljoe_energi"} and hits:
             score += 0.12
         scored.append((topic["id"], score, hits[:4]))
         reasons_by_topic[topic["id"]] = [f"keyword:{hit}" for hit in hits[:4]]
@@ -370,6 +400,7 @@ def main() -> None:
     programs["parties_by_id"] = {party["id"]: party["name"] for party in programs["parties"]}
     taxonomy = json.loads(TAXONOMY_PATH.read_text(encoding="utf-8"))
     raw_party_suggestions = json.loads(PARTY_SUGGESTIONS_PATH.read_text(encoding="utf-8"))
+    party_chunks = json.loads(PARTY_CHUNKS_PATH.read_text(encoding="utf-8"))
     party_suggestions = [
         item for item in raw_party_suggestions if item.get("source_type", "party_program") == "party_program"
     ]
@@ -409,14 +440,17 @@ def main() -> None:
         })
 
     combined = party_suggestions + suggestions
+    combined_chunks = party_chunks + chunks
     similarity = build_similarity(combined, programs, governments_payload["governments"], topics)
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     DOCS_ANALYSIS_DIR.mkdir(parents=True, exist_ok=True)
     (OUTPUT_DIR / "government_chunks.json").write_text(json.dumps(chunks, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (OUTPUT_DIR / "combined_chunks.json").write_text(json.dumps(combined_chunks, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUTPUT_DIR / "government_topic_suggestions.json").write_text(json.dumps(suggestions, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (OUTPUT_DIR / "government_similarity.json").write_text(json.dumps(similarity, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (DOCS_ANALYSIS_DIR / "topic_suggestions.json").write_text(json.dumps(combined, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (DOCS_ANALYSIS_DIR / "chunks.json").write_text(json.dumps(combined_chunks, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     (DOCS_ANALYSIS_DIR / "government_similarity.json").write_text(json.dumps(similarity, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     lines = [
@@ -435,7 +469,7 @@ def main() -> None:
         "## Metode",
         "",
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
-        "Emneforslagene bruger den samme realpolitiske 16-emne-taksonomi som partiprogrammerne.",
+        "Emneforslagene bruger den samme realpolitiske 18-emne-taksonomi som partiprogrammerne.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
         "Den viste procent er en relativ normalisering af cosinus-scorerne inden for ét regeringsgrundlag og ét emne. Den er ikke en måling af kausal politisk indflydelse.",
     ])
@@ -468,7 +502,7 @@ def main() -> None:
         "",
         "## Metode",
         "",
-        "Partiprogrammer og regeringsgrundlag er genkørt med automatisk tekstopdeling, TF-IDF/KMeans-klyngekontrol og en stabil realpolitisk 16-emne-taksonomi.",
+        "Partiprogrammer og regeringsgrundlag er genkørt med automatisk tekstopdeling, TF-IDF/KMeans-klyngekontrol og en stabil realpolitisk 18-emne-taksonomi.",
         "KMeans-klyngerne bruges som teknisk kontrol og dokumentation; sitet viser de forklarlige emneforslag fra taksonomien.",
         "Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifikke nøgleord, så brede enkeltord ikke alene placerer et tekststykke under et emne.",
         "Tekstopdelingen filtrerer side-/biblioteksstøj, samler korte fragmenter og forsøger at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.",
@@ -487,6 +521,7 @@ def main() -> None:
         "government_chunks": len(chunks),
         "government_suggestions": len(suggestions),
         "combined_suggestions": len(combined),
+        "combined_chunks": len(combined_chunks),
         "similarity_rows": len(similarity),
     }, ensure_ascii=False, indent=2))
 

@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-07-programs" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-11-final-topics" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -30,7 +30,7 @@
       <div class="intro-note">
         <p>
           Emnerne er dannet med automatisk tekstopdeling, eksplorativ klyngeanalyse og en
-          redaktionel realpolitisk taksonomi. De fungerer som navigationshjælp til at finde
+          redaktionel realpolitisk 18-emne-taksonomi. De fungerer som navigationshjælp til at finde
           relevante passager i de fulde programtekster.
         </p>
       </div>
@@ -47,9 +47,10 @@
     <main class="shell">
       <section class="panel method-panel" aria-labelledby="analysis-method-title">
         <h2 id="analysis-method-title">Sådan læses siden</h2>
-        <p>
-          Hvert tekststykke har et primært emneforslag og eventuelt et sekundært forslag. Hovedsitet
-          bruger de primære emner, mens denne analysevisning også viser de sekundære signaler.
+          <p>
+          Hvert tekststykke har ét primært emneforslag og eventuelt et sekundært signal.
+          Primære emner er det, der bruges til programlæsning på hovedsitet. Sekundære signaler
+          kan slås til her som analytisk supplement.
         </p>
         <p>
           Klassifikationen er automatisk beregnet og skal læses som en indgang til kilderne,
@@ -84,6 +85,11 @@
           <label for="analysis-party-select">Kilde</label>
           <select id="analysis-party-select"></select>
 
+          <label for="analysis-match-select">Emnematch</label>
+          <select id="analysis-match-select">
+            <option value="primary" selected>Kun primære emner</option>
+            <option value="primary_secondary">Primære + sekundære signaler</option>
+          </select>
 
           <div class="analysis-summary-box">
             <p class="section-kicker">Valgt udsnit</p>
@@ -118,6 +124,6 @@
       </p>
     </footer>
 
-    <script src="./analysis.js?v=2026-06-07-programs" type="module"></script>
+    <script src="./analysis.js?v=2026-06-11-final-topics" type="module"></script>
   </body>
 </html>

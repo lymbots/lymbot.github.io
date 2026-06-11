@@ -1,9 +1,10 @@
-const dataVersion = "2026-06-07-programs";
+const dataVersion = "2026-06-11-final-topics";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 const similarityUrl = "./data/analysis/government_similarity.json";
+const chunksUrl = "./data/analysis/chunks.json";
 
 const compareTopicSelect = document.getElementById("compare-topic-select");
 const comparePartyCheckboxes = document.getElementById("compare-party-checkboxes");
@@ -13,15 +14,20 @@ const timelineTopicSelect = document.getElementById("timeline-topic-select");
 const partyOverviewSelect = document.getElementById("party-overview-select");
 const governmentSelect = document.getElementById("government-select");
 const governmentTopicSelect = document.getElementById("government-topic-select");
+const searchInput = document.getElementById("search-input");
+const searchSourceSelect = document.getElementById("search-source-select");
+const searchPartySelect = document.getElementById("search-party-select");
 
 const compareView = document.getElementById("compare-view");
 const timelineView = document.getElementById("timeline-view");
 const partyView = document.getElementById("party-view");
 const governmentView = document.getElementById("government-view");
+const searchView = document.getElementById("search-view");
 const compareSummary = document.getElementById("compare-summary");
 const timelineSummary = document.getElementById("timeline-summary");
 const partySummary = document.getElementById("party-summary");
 const governmentSummary = document.getElementById("government-summary");
+const searchSummary = document.getElementById("search-summary");
 const modeButtons = Array.from(document.querySelectorAll(".mode-button"));
 const modePanels = Array.from(document.querySelectorAll(".mode-panel"));
 const statusParties = document.getElementById("status-parties");
@@ -37,6 +43,7 @@ let state = {
   governmentParties: [],
   suggestions: [],
   similarities: [],
+  chunks: [],
 };
 
 function withVersion(url) {
@@ -45,13 +52,14 @@ function withVersion(url) {
 }
 
 async function init() {
-  const [dataResponse, governmentsResponse, taxonomyResponse, suggestionsResponse, similarityResponse] =
+  const [dataResponse, governmentsResponse, taxonomyResponse, suggestionsResponse, similarityResponse, chunksResponse] =
     await Promise.all([
       fetch(withVersion(dataUrl)),
       fetch(withVersion(governmentsUrl)),
       fetch(withVersion(taxonomyUrl)),
       fetch(withVersion(suggestionsUrl)),
       fetch(withVersion(similarityUrl)),
+      fetch(withVersion(chunksUrl)),
     ]);
 
   if (
@@ -59,7 +67,8 @@ async function init() {
     !governmentsResponse.ok ||
     !taxonomyResponse.ok ||
     !suggestionsResponse.ok ||
-    !similarityResponse.ok
+    !similarityResponse.ok ||
+    !chunksResponse.ok
   ) {
     throw new Error("Kunne ikke hente alle datafiler.");
   }
@@ -69,6 +78,7 @@ async function init() {
   const taxonomy = await taxonomyResponse.json();
   const suggestions = await suggestionsResponse.json();
   const similarities = await similarityResponse.json();
+  const chunks = await chunksResponse.json();
 
   state = {
     ...data,
@@ -77,6 +87,7 @@ async function init() {
     governmentParties: governmentsData.parties,
     suggestions,
     similarities,
+    chunks,
   };
 
   renderStatusStrip();
@@ -88,6 +99,7 @@ async function init() {
   renderPartyOptions(timelinePartySelect);
   renderPartyOptions(partyOverviewSelect);
   renderGovernmentOptions(governmentSelect);
+  renderSearchPartyOptions();
 
   compareTopicSelect.addEventListener("change", renderAll);
   timelinePartySelect.addEventListener("change", renderAll);
@@ -95,6 +107,9 @@ async function init() {
   partyOverviewSelect.addEventListener("change", renderAll);
   governmentSelect.addEventListener("change", renderAll);
   governmentTopicSelect.addEventListener("change", renderAll);
+  searchInput.addEventListener("input", renderAll);
+  searchSourceSelect.addEventListener("change", renderAll);
+  searchPartySelect.addEventListener("change", renderAll);
   comparePartyCheckboxes.addEventListener("change", renderAll);
   compareGovernmentCheckboxes.addEventListener("change", renderAll);
 
@@ -150,6 +165,16 @@ function renderGovernmentOptions(selectElement) {
       )}</option>`;
     })
     .join("");
+}
+
+function renderSearchPartyOptions() {
+  const names = Array.from(new Set(state.chunks.map((chunk) => chunk.party_name))).sort((a, b) =>
+    a.localeCompare(b, "da")
+  );
+  searchPartySelect.innerHTML = [
+    '<option value="all" selected>Alle partier og regeringsgrundlag</option>',
+    ...names.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`),
+  ].join("");
 }
 
 function renderPartyCheckboxes() {
@@ -334,6 +359,96 @@ function renderExcerpts(suggestions, topicId, limit = 2) {
     .join("");
 }
 
+function getSourceTitle(chunk) {
+  if (chunk.source_type === "government_basis") {
+    const government = state.governments.find((item) => item.id === chunk.program_id);
+    return government ? `${government.year} · ${government.title}` : `${chunk.year} · ${chunk.title}`;
+  }
+  const program = state.programs.find((item) => item.id === chunk.program_id);
+  return program ? `${program.year} · ${program.title}` : `${chunk.year} · ${chunk.title}`;
+}
+
+function getSourceUrlById(sourceId, sourceType) {
+  if (sourceType === "government_basis") {
+    return `./program.html?government=${encodeURIComponent(sourceId)}`;
+  }
+  return `./program.html?program=${encodeURIComponent(sourceId)}`;
+}
+
+function getChunkSuggestion(chunkId) {
+  return state.suggestions.find((item) => item.chunk_id === chunkId);
+}
+
+function highlightSearch(text, query) {
+  const escapedText = escapeHtml(text);
+  const cleaned = String(query || "").trim();
+  if (cleaned.length < 2) return escapedText;
+  const escapedQuery = cleaned.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return escapedText.replace(new RegExp(`(${escapedQuery})`, "gi"), "<mark>$1</mark>");
+}
+
+function renderSearch() {
+  if (!searchView) return;
+  const query = searchInput.value.trim();
+  const sourceType = searchSourceSelect.value;
+  const partyName = searchPartySelect.value;
+
+  if (query.length < 2) {
+    searchSummary.textContent = "Skriv mindst to tegn for at søge i alle tekststykker.";
+    searchView.innerHTML = '<div class="empty">Søg fx på Folkeskole, ældrepleje, udlændinge eller landdistrikter.</div>';
+    return;
+  }
+
+  const normalizedQuery = query.toLocaleLowerCase("da-DK");
+  const matches = state.chunks
+    .filter((chunk) => {
+      const typeMatch = sourceType === "all" || chunk.source_type === sourceType;
+      const partyMatch = partyName === "all" || chunk.party_name === partyName;
+      const textMatch = chunk.text.toLocaleLowerCase("da-DK").includes(normalizedQuery);
+      return typeMatch && partyMatch && textMatch;
+    })
+    .sort((a, b) => a.year - b.year || a.party_name.localeCompare(b.party_name, "da") || a.chunk_index - b.chunk_index);
+
+  searchSummary.textContent = `${matches.length} tekststykker matcher "${query}". Viser de første 80.`;
+
+  if (matches.length === 0) {
+    searchView.innerHTML = '<div class="empty">Ingen tekststykker matcher søgningen.</div>';
+    return;
+  }
+
+  searchView.innerHTML = matches
+    .slice(0, 80)
+    .map((chunk) => {
+      const suggestion = getChunkSuggestion(chunk.chunk_id);
+      const sourceLabel = chunk.source_type === "government_basis" ? "Regeringsgrundlag" : "Partiprogram";
+      return `
+        <article class="analysis-card search-card">
+          <div class="analysis-card-head">
+            <div>
+              <p class="section-kicker">${escapeHtml(sourceLabel)}</p>
+              <h3>${escapeHtml(chunk.party_name)} · ${chunk.year}</h3>
+              <p class="meta">${escapeHtml(getSourceTitle(chunk))} · Tekst-id ${escapeHtml(chunk.chunk_id)}</p>
+            </div>
+            <div class="analysis-badges">
+              ${
+                suggestion
+                  ? `<span class="tag">Primært: ${escapeHtml(suggestion.primary_topic_label)}</span>${
+                      suggestion.secondary_topic_label
+                        ? `<span class="tag analysis-tag-alt">Sekundært: ${escapeHtml(suggestion.secondary_topic_label)}</span>`
+                        : ""
+                    }`
+                  : '<span class="tag analysis-tag-alt">Ikke emneklassificeret</span>'
+              }
+            </div>
+          </div>
+          <p class="context">${highlightSearch(chunk.text, query)}</p>
+          <p class="meta"><a href="${getSourceUrlById(chunk.program_id, chunk.source_type)}">Åbn fuld kilde</a></p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
 function formatPercent(value) {
   return `${Math.round((Number(value) || 0) * 100)}%`;
 }
@@ -362,6 +477,7 @@ function renderAll() {
   renderTimeline(timelineTopicSelect.value, timelinePartySelect.value);
   renderPartyOverview(partyOverviewSelect.value);
   renderGovernmentOverview(governmentSelect.value, governmentTopicSelect.value);
+  renderSearch();
 }
 
 function renderCompare(topicId, partyIds, governmentIds) {
@@ -696,9 +812,11 @@ init().catch((error) => {
   timelineView.innerHTML = message;
   partyView.innerHTML = message;
   if (governmentView) governmentView.innerHTML = message;
+  if (searchView) searchView.innerHTML = message;
   compareSummary.textContent = "";
   timelineSummary.textContent = "";
   partySummary.textContent = "";
   if (governmentSummary) governmentSummary.textContent = "";
+  if (searchSummary) searchSummary.textContent = "";
   console.error(error);
 });

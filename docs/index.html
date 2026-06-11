@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-07-programs" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-11-final-topics" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -39,17 +39,18 @@
       <section class="panel hero-panel">
         <div class="hero-grid">
           <article>
-            <p class="section-kicker">Fire indgange til kilderne</p>
+            <p class="section-kicker">Fem indgange til kilderne</p>
             <h2>Vælg en funktion</h2>
             <p class="hero-copy">
-              Brug samme datagrundlag på fire måder: sammenlign kilder, følg et parti over tid,
-              åbn en partiside eller læs regeringsgrundlag som politiske principtekster.
+              Brug samme datagrundlag på fem måder: sammenlign kilder, følg et parti over tid,
+              søg i alle tekststykker, åbn en partiside eller læs regeringsgrundlag som politiske principtekster.
             </p>
           </article>
           <nav class="mode-switch" aria-label="Hovedfunktioner">
             <button class="mode-button is-active" data-mode="compare">Sammenlign kilder</button>
             <button class="mode-button" data-mode="timeline">Følg et parti over tid</button>
             <button class="mode-button" data-mode="party">Partisider</button>
+            <button class="mode-button" data-mode="search">Søg i tekster</button>
             <button class="mode-button" data-mode="government">Regeringsgrundlag</button>
           </nav>
         </div>
@@ -137,6 +138,39 @@
         </div>
       </section>
 
+      <section id="mode-search" class="mode-panel" aria-labelledby="search-title">
+        <div class="layout two-col">
+          <aside class="panel controls" aria-label="Fritekstsøgning">
+            <h2 id="search-title">Søg i tekster</h2>
+            <p class="panel-intro">
+              Søg direkte i alle tekststykker fra programmer og regeringsgrundlag. Søgningen er
+              uafhængig af emneklassifikationen.
+            </p>
+
+            <label for="search-input">Søgeord eller frase</label>
+            <input id="search-input" type="search" placeholder="Fx Folkeskole, ældrepleje eller udlændinge" />
+
+            <label for="search-source-select">Kildetype</label>
+            <select id="search-source-select">
+              <option value="all" selected>Alle kilder</option>
+              <option value="party_program">Kun partiprogrammer</option>
+              <option value="government_basis">Kun regeringsgrundlag</option>
+            </select>
+
+            <label for="search-party-select">Parti/kilde</label>
+            <select id="search-party-select"></select>
+          </aside>
+
+          <section class="panel results" aria-live="polite">
+            <div class="view-header">
+              <h2>Fritekstsøgning</h2>
+              <p id="search-summary"></p>
+            </div>
+            <div id="search-view" class="analysis-results"></div>
+          </section>
+        </div>
+      </section>
+
       <section id="mode-government" class="mode-panel" aria-labelledby="government-title">
         <div class="layout two-col">
           <aside class="panel controls" aria-label="Regeringsgrundlag">
@@ -173,12 +207,14 @@
           </p>
           <p>
             Emnevisningen bygger på automatisk tekstopdeling og en fælles realpolitisk
-            16-emne-taksonomi. Et dokument vises kun under et emne, når analysen finder
-            tekststykker, der primært matcher emnet.
+            18-emne-taksonomi. Hovedsitet bruger primære emner til programlæsning; sekundære
+            emnesignaler vises kun som analytisk supplement.
           </p>
           <p>
             Manglende uddrag betyder derfor ikke nødvendigvis, at aktøren ikke har en holdning.
             Det betyder, at emnet ikke er tydeligt identificeret i den automatiske tekstanalyse.
+            Fritekstsøgningen søger direkte i alle tekststykker og kan bruges til konkrete ord,
+            navne og fraser, uanset emneklassifikation.
             <a href="./analysis.html">Åbn emnematrix og metodevisning</a>.
           </p>
           <p>
@@ -206,6 +242,6 @@
       </p>
     </footer>
 
-    <script src="./app.js?v=2026-06-07-programs" type="module"></script>
+    <script src="./app.js?v=2026-06-11-final-topics" type="module"></script>
   </body>
 </html>

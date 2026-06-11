@@ -203,10 +203,10 @@ class Program:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--clusters", type=int, default=12)
-    parser.add_argument("--min-words", type=int, default=120)
-    parser.add_argument("--target-words", type=int, default=220)
-    parser.add_argument("--max-words", type=int, default=320)
+    parser.add_argument("--clusters", type=int, default=18)
+    parser.add_argument("--min-words", type=int, default=45)
+    parser.add_argument("--target-words", type=int, default=180)
+    parser.add_argument("--max-words", type=int, default=340)
     return parser.parse_args()
 
 
@@ -241,6 +241,8 @@ def normalize_text(raw_text: str) -> str:
     text = text.replace("\f", "\n\n")
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
+    text = re.sub(r"(?<=\S)\n(?=\d{1,2}\.\s+[A-ZÆØÅ])", "\n\n", text)
+    text = re.sub(r"(?<=\S)\n(?=[A-ZÆØÅ][A-Za-zÆØÅæøå ,/&-]{2,64}\n)", "\n\n", text)
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
@@ -256,6 +258,16 @@ def paragraph_like_blocks(text: str) -> list[str]:
             continue
         combined = " ".join(lines)
         combined = re.sub(r"\s+", " ", combined).strip()
+        combined = re.sub(
+            r"\s+(?=(?:\d{1,2}|[A-ZÆØÅ])\.\s+[A-ZÆØÅ])",
+            r"\n\n",
+            combined,
+        )
+        combined = re.sub(
+            r"\s+(?=[A-ZÆØÅ][A-Za-zÆØÅæøå ,/&-]{2,64}:)",
+            r"\n\n",
+            combined,
+        )
         combined = re.sub(
             r"(?<=[.!?])\s+([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}:)",
             r"\n\n\1",
@@ -275,6 +287,10 @@ def is_noise_block(block: str) -> bool:
         return True
     if re.fullmatch(r"\d{1,3}", cleaned):
         return True
+    if cleaned.count(".") > 20 and len(cleaned) < 900:
+        return True
+    if re.search(r"ISBN\s+\d", cleaned, re.IGNORECASE):
+        return True
     noise_patterns = [
         r"Digitaliseret af",
         r"Digitised by",
@@ -284,6 +300,9 @@ def is_noise_block(block: str) -> bool:
         r"Ressourcetype:",
         r"Opstilling:",
         r"Relateret:",
+        r"Henvendelse om udgivelsen",
+        r"Publikationen kan hentes",
+        r"Elektronisk publikation",
     ]
     return any(re.search(pattern, cleaned, re.IGNORECASE) for pattern in noise_patterns)
 
@@ -329,6 +348,10 @@ def split_long_block(block: str, target_words: int, max_words: int) -> list[str]
 
 
 def looks_like_heading(block: str) -> bool:
+    if re.fullmatch(r"\d{1,2}\.\s+\S.{2,120}", block):
+        return True
+    if re.fullmatch(r"[A-ZÆØÅ]\.\s+\S.{2,120}", block):
+        return True
     if len(block.split()) > 12:
         return False
     if re.fullmatch(r"[A-ZÆØÅ0-9 .,:;()'\"/-]+", block):
@@ -339,6 +362,10 @@ def looks_like_heading(block: str) -> bool:
 
 
 def starts_with_inline_heading(block: str) -> bool:
+    if re.match(r"^\d{1,2}\.\s+[A-ZÆØÅ]", block):
+        return True
+    if re.match(r"^[A-ZÆØÅ]\.\s+[A-ZÆØÅ]", block):
+        return True
     match = re.match(r"^([A-ZÆØÅ][A-Za-zÆØÅæøå0-9 /,&-]{2,50}):", block)
     return bool(match and len(match.group(1).split()) <= 8)
 
@@ -380,7 +407,7 @@ def rebalance_short_chunks(chunks: list[dict], min_words: int, max_words: int) -
                 index += 1
                 continue
 
-        if current["word_count"] >= max(35, min_words // 2):
+        if current["word_count"] >= max(18, min_words // 2):
             balanced.append(current)
         index += 1
 
@@ -416,6 +443,7 @@ def chunk_program(program: Program, min_words: int, target_words: int, max_words
             {
                 "chunk_id": f"{program.id}_chunk_{chunk_index:03d}",
                 "program_id": program.id,
+                "source_type": "party_program",
                 "party_id": program.party_id,
                 "party_name": program.party_name,
                 "year": program.year,
@@ -632,7 +660,7 @@ def write_report(programs: list[Program], chunks: list[dict], cluster_payload: d
             "## Forslag til brug",
             "",
             "1. Læs klyngerne som rå mønstre, ikke som endelige emner.",
-            "2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 16-emne-taksonomi.",
+            "2. Brug klyngerne som teknisk kontrol op mod den stabile realpolitiske 18-emne-taksonomi.",
             "3. Brug chunk-filen til manuel eller halvautomatisk tagging i næste trin.",
             "",
             "## Klynger",

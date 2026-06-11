@@ -553,12 +553,11 @@
       "year": 2009,
       "title": "Arbejdsprogram 2009",
       "sourceFile": "DF_2009.rtf",
-      "fullTextPath": "",
+      "fullTextPath": "./data/full_texts/DF_2009.txt",
       "externalUrl": "",
-      "context": "Dansk Folkepartis tredje arbejdsprogram. Kildefilen er registreret, men den aktuelle RTF-fil indeholder ikke tekst eller scannede sider; fuldtekst og emneanalyse tilføjes, når en læsbar kilde foreligger.",
+      "context": "Dansk Folkepartis tredje arbejdsprogram, vedtaget af folketingsgruppen. Programmet beskriver partiets konkrete politiske forslag efter perioden som parlamentarisk grundlag for VK-regeringen og kaldes af partiet selv et arbejdsprogram.",
       "topics": [],
-      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)",
-      "extractionStatus": "missing_source_text"
+      "programTypeLabel": "Arbejdsprogram (partiets egen betegnelse)"
     },
     {
       "id": "DF_2024",

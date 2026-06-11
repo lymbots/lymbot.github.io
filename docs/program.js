@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-07-programs";
+const dataVersion = "2026-06-11-final-topics";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -101,9 +101,13 @@ function renderTopicBlocks(sourceId, topics, suggestions) {
           (suggestion) => `
             <div class="excerpt-block">
               <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-              <p class="meta">Tekst-id ${escapeHtml(suggestion.chunk_id)} · ${escapeHtml(
+              <p class="meta">Tekst-id ${escapeHtml(suggestion.chunk_id)} · Primært: ${escapeHtml(
             suggestion.primary_topic_label
-          )}</p>
+          )}${
+            suggestion.secondary_topic_label
+              ? ` · Sekundært: ${escapeHtml(suggestion.secondary_topic_label)}`
+              : ""
+          }</p>
             </div>
           `
         )
@@ -121,7 +125,11 @@ function renderTopicBlocks(sourceId, topics, suggestions) {
 }
 
 function splitIntoParagraphs(rawText) {
-  const lines = rawText
+  const normalizedText = rawText
+    .replace(/(\p{L})-\r?\n(\p{L})/gu, "$1$2")
+    .replace(/\f/g, "\n\n");
+
+  const lines = normalizedText
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
@@ -260,18 +268,24 @@ async function renderProgramSource(programId, data, taxonomy, suggestions) {
       }
     </header>
 
-    <section class="source-section">
-      <h2>Emneforslag fra analysen</h2>
-      ${renderTopicBlocks(program.id, taxonomy.topics, suggestions)}
-    </section>
+    <nav class="source-jump-nav" aria-label="Kildesektioner">
+      <a href="#full-text">Fuld tekst</a>
+      <a href="#topic-suggestions">Emneforslag</a>
+    </nav>
 
-    <section class="source-section">
+    <section id="full-text" class="source-section">
       <h2>Fuld programtekst</h2>
       ${
         fullText
           ? `<article class="source-text">${renderFullText(fullText)}</article>`
           : '<div class="empty">Fuldtekst er endnu ikke tilgængelig for dette program.</div>'
       }
+    </section>
+
+    <section id="topic-suggestions" class="source-section">
+      <h2>Emneforslag fra analysen</h2>
+      <p class="meta">Emnerne er automatiske læseforslag. Primært emne bruges til navigation; sekundært emne er et supplerende signal.</p>
+      ${renderTopicBlocks(program.id, taxonomy.topics, suggestions)}
     </section>
   `;
 
@@ -307,18 +321,24 @@ async function renderGovernmentSource(governmentId, governmentsData, taxonomy, s
       ${renderMetadataLink(government)}
     </header>
 
-    <section class="source-section">
-      <h2>Emneforslag fra analysen</h2>
-      ${renderTopicBlocks(government.id, taxonomy.topics, suggestions)}
-    </section>
+    <nav class="source-jump-nav" aria-label="Kildesektioner">
+      <a href="#full-text">Fuld tekst</a>
+      <a href="#topic-suggestions">Emneforslag</a>
+    </nav>
 
-    <section class="source-section">
+    <section id="full-text" class="source-section">
       <h2>Fuld dokumenttekst</h2>
       ${
         fullText
           ? `<article class="source-text">${renderFullText(fullText)}</article>`
           : '<div class="empty">Fuldtekst er ikke tekstudtrukket endnu. Den originale PDF kan åbnes via linket ovenfor.</div>'
       }
+    </section>
+
+    <section id="topic-suggestions" class="source-section">
+      <h2>Emneforslag fra analysen</h2>
+      <p class="meta">Emnerne er automatiske læseforslag. Primært emne bruges til navigation; sekundært emne er et supplerende signal.</p>
+      ${renderTopicBlocks(government.id, taxonomy.topics, suggestions)}
     </section>
   `;
 

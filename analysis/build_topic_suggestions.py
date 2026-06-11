@@ -158,7 +158,7 @@ def main() -> None:
     lines = [
         "# Emneforslag for partiprogrammer",
         "",
-        "Forslagene bygger på den realpolitiske 16-emne-taksonomi og bruges som primære emner på sitet.",
+        "Forslagene bygger på den realpolitiske 18-emne-taksonomi og bruges som primære emner på sitet.",
         "",
         f"- Tekststykker med emneforslag: {len(suggestion_rows)}",
         f"- Tekststykker uden tydeligt emnesignal: {skipped}",
