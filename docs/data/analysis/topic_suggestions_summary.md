@@ -37,7 +37,9 @@ KMeans-klyngerne bruges som teknisk kontrol og dokumentation; sitet viser de for
 Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifikke nøgleord, så brede enkeltord ikke alene placerer et tekststykke under et emne.
 Tekstopdelingen filtrerer side-/biblioteksstøj, samler korte fragmenter og forsøger at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.
 Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.
-Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer inden for ét regeringsgrundlag og ét emne. Den må ikke læses som kausal politisk indflydelse.
+Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer mellem partier med identificeret emnetekst. Primær emnetekst bruges direkte; sekundære emnesignaler indgår med lavere vægt.
+Partier uden primær eller sekundær emnetekst vises særskilt og tæller ikke som 0%.
+Indikatoren må ikke læses som kausal politisk indflydelse.
 1994- og 2001-regeringsgrundlagene samt Fremskridtspartiets 1993-program er OCR-behandlet lokalt, fordi de originale PDF'er er billedbaserede.
-DF_2009 er registreret som arbejdsprogram uden fuldtekst, fordi den aktuelle RTF-kildefil er tom.
+Dansk Folkepartis 2009-tekst er registreret som arbejdsprogram, fordi partiet selv bruger den betegnelse.
 2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.

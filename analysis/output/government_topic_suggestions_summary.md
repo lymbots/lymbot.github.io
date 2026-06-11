@@ -28,5 +28,7 @@
 
 Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.
 Emneforslagene bruger den samme realpolitiske 18-emne-taksonomi som partiprogrammerne.
-Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.
-Den viste procent er en relativ normalisering af cosinus-scorerne inden for ét regeringsgrundlag og ét emne. Den er ikke en måling af kausal politisk indflydelse.
+Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets primære emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.
+Partier indgår med primær emnetekst, når den findes. Hvis et emne kun er identificeret som sekundært signal, indgår teksten med lavere vægt.
+Den viste procent er en relativ normalisering mellem de partier, hvor der faktisk er identificeret emnetekst. Partier uden emnetekst indgår ikke som 0%, men vises som ikke beregnet.
+Indikatoren er en læsehjælp til tekstlig nærhed, ikke en måling af kausal politisk indflydelse.

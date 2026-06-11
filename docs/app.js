@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-current-program-scope";
+const dataVersion = "2026-06-11-method-similarity-v2";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -543,7 +543,7 @@ function renderSearch() {
   )}. Viser de første 80.`;
 
   if (matches.length === 0) {
-    searchView.innerHTML = '<div class="empty">Ingen tekststykker matcher søgningen.</div>';
+    searchView.innerHTML = '<div class="empty">Ingen tekststykker matcher søgningen. Prøv et kortere ord eller fjern et filter.</div>';
     return;
   }
 
@@ -668,7 +668,7 @@ function renderPartyCompareCard(partyId, topicId, periodId, programScope) {
     return `
       <article class="party-card party-accent-card" style="${partyStyle(partyId)}">
         <h3>${renderPartySwatchById(partyId)}${escapeHtml(getPartyName(partyId))}</h3>
-        <p class="empty">Ingen uddrag for emnet ${escapeHtml(getTopicLabel(topicId))} i det valgte programudsnit.</p>
+        <p class="empty">Ingen primære emneuddrag for ${escapeHtml(getTopicLabel(topicId))} i det valgte programudsnit. Prøv alle programmer eller brug fritekstsøgning.</p>
       </article>
     `;
   }
@@ -710,7 +710,7 @@ function renderGovernmentCompareCard(governmentId, topicId) {
       <h3>${government.year} · ${escapeHtml(government.title)} ${renderGovernmentStatus(government)}</h3>
       <p class="meta">${escapeHtml(government.typeLabel)} · ${escapeHtml(government.governmentName)}</p>
       ${renderGovernmentMeta(government)}
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen uddrag for dette emne i dokumentet.</p>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen primære emneuddrag for dette emne i dokumentet.</p>'}
       ${renderGovernmentFullTextLink(government)}
       ${renderPdfLink(government)}
       ${renderMetadataLink(government)}
@@ -741,7 +741,7 @@ function renderTimeline(topicId, partyId, periodId) {
   )} · ${getPeriodLabel(periodId)}`;
 
   if (programs.length === 0) {
-    timelineView.innerHTML = '<div class="empty">Ingen uddrag for valgt emne og parti.</div>';
+    timelineView.innerHTML = '<div class="empty">Ingen primære emneuddrag for valgt emne og parti.</div>';
     return;
   }
 
@@ -893,14 +893,14 @@ function renderGovernmentOverview(governmentId, topicId, periodId) {
         <h3>${escapeHtml(topicLabel)}</h3>
         <p class="meta">Tekststykker hvor regeringsgrundlaget primært matcher emnet.</p>
       </div>
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen uddrag for dette emne i dokumentet.</div>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen primære emneuddrag for dette emne i dokumentet.</div>'}
     </section>
 
     <section class="program-detail-section">
       <div class="program-detail-head">
         <p class="section-kicker">Metodisk indikator</p>
         <h3>Relativ tekstlig nærhed til partier</h3>
-        <p class="meta">Procenten normaliserer TF-IDF/cosinus-scorerne inden for dette regeringsgrundlag og emne. Den viser relativ tekstlig nærhed, ikke emnefylde eller dokumenteret politisk indflydelse.</p>
+        <p class="meta">Indikatoren sammenligner regeringstekstens emnepassager med aktuelle partiprogrammer. Primære emnetekster bruges direkte; sekundære emnesignaler kan indgå med lavere vægt. Manglende emnetekst vises særskilt.</p>
       </div>
       ${renderSimilarityBars(government.id, topicId)}
     </section>
@@ -933,8 +933,17 @@ function renderSimilarityBars(governmentId, topicId) {
   const row = state.similarities.find(
     (item) => item.government_id === governmentId && item.topic_id === topicId
   );
-  if (!row || row.scores.length === 0) {
-    return `<div class="empty">${escapeHtml(row?.note || "Ingen beregning for dette udsnit endnu.")}</div>`;
+  if (!row) {
+    return '<div class="empty">Ingen beregning for dette udsnit endnu.</div>';
+  }
+
+  const unavailable = row.unavailable_topic_parties || [];
+  if (row.scores.length === 0) {
+    return `
+      <div class="empty">${escapeHtml(row.note || "Ingen beregning for dette udsnit endnu.")}</div>
+      ${renderUnavailableTopicParties(unavailable)}
+      ${renderMissingParties(row.missing_party_ids)}
+    `;
   }
 
   return `
@@ -943,6 +952,7 @@ function renderSimilarityBars(governmentId, topicId) {
         .map((score) => {
           const share = Number(score.relative_similarity_share ?? score.share ?? 0);
           const pct = formatPercent(share);
+          const metricLabel = score.match_basis === "secondary" ? "Vægtet cosinus" : "Cosinus";
           return `
             <div class="similarity-row">
               <div class="similarity-row-head">
@@ -952,22 +962,43 @@ function renderSimilarityBars(governmentId, topicId) {
               <div class="similarity-bar" aria-label="${escapeHtml(score.party_name)} ${pct}">
                 <span style="width: ${pct}; background: ${escapeHtml(getPartyMeta(score.party_id).color || '#14583f')}"></span>
               </div>
-              <p class="meta">Cosinus ${formatSimilarity(score.similarity)} · Sammenlignet med ${score.program_year} · ${escapeHtml(score.program_title)}${
-            score.has_topic_text ? "" : " · ingen emnetekst fundet i programmet"
-          }</p>
+              <p class="meta">${escapeHtml(score.match_label || "Primært emne")} · ${metricLabel} ${formatSimilarity(score.similarity)} · Sammenlignet med ${score.program_year} · ${escapeHtml(score.program_title)}</p>
             </div>
           `;
         })
         .join("")}
-      ${
-        row.missing_party_ids?.length
-          ? `<p class="meta">Ikke med i beregningen, fordi der ikke ligger aktuelle principprogrammer i datagrundlaget: ${row.missing_party_ids
-              .map((id) => escapeHtml(getGovernmentPartyName(id)))
-              .join(", ")}.</p>`
-          : ""
-      }
+      <p class="meta method-note">${escapeHtml(row.note || "")}</p>
+      ${renderUnavailableTopicParties(unavailable)}
+      ${renderMissingParties(row.missing_party_ids)}
     </div>
   `;
+}
+
+function renderUnavailableTopicParties(items = []) {
+  if (!items.length) return "";
+  return `
+    <div class="missing-topic-box">
+      <p class="section-kicker">Ikke beregnet</p>
+      <p class="meta">Disse partiers aktuelle program har hverken primær eller sekundær emnetekst for dette emne og indgår derfor ikke som 0% i fordelingen.</p>
+      <div class="tag-row compact-tags">
+        ${items
+          .map(
+            (item) =>
+              `<span class="tag party-tag" style="${partyStyle(item.party_id)}">${renderPartySwatchById(
+                item.party_id
+              )}${escapeHtml(item.party_name)} · ${item.program_year}</span>`
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderMissingParties(ids = []) {
+  if (!ids?.length) return "";
+  return `<p class="meta">Ikke med i beregningen, fordi der ikke ligger aktuelle principprogrammer i datagrundlaget: ${ids
+    .map((id) => escapeHtml(getGovernmentPartyName(id)))
+    .join(", ")}.</p>`;
 }
 
 init().catch((error) => {

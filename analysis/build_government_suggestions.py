@@ -25,6 +25,7 @@ MIN_WORDS = 45
 TARGET_WORDS = 180
 MAX_WORDS = 340
 MIN_PRIMARY_SCORE = 0.26
+SECONDARY_TOPIC_WEIGHT = 0.65
 
 STOP_WORDS = {
     "af", "alle", "at", "da", "de", "dem", "den", "der", "det", "en", "er", "et",
@@ -320,9 +321,12 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
             latest_by_party[pid] = program
 
     by_program_topic = defaultdict(list)
+    by_program_secondary_topic = defaultdict(list)
     for item in combined_suggestions:
         if item.get("primary_topic_id") and item.get("primary_topic_id") != "ukendt":
             by_program_topic[(item["program_id"], item["primary_topic_id"])].append(item["text"])
+        if item.get("secondary_topic_id") and item.get("secondary_topic_id") != "ukendt":
+            by_program_secondary_topic[(item["program_id"], item["secondary_topic_id"])].append(item["text"])
 
     rows = []
     for government in governments:
@@ -337,23 +341,69 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     "topic_id": topic["id"],
                     "topic_label": topic["label"],
                     "scores": [],
+                    "unavailable_topic_parties": [],
                     "missing_party_ids": missing,
                     "note": "Ikke nok emnetekst til beregning." if not gov_text else "Ingen partiprogrammer i datagrundlaget.",
                 })
                 continue
-            docs = [gov_text]
             parties = []
             for pid in available:
                 program = latest_by_party[pid]
                 party_text = " ".join(by_program_topic.get((program["id"], topic["id"]), []))
-                parties.append((pid, program, party_text))
-                docs.append(party_text or "")
-            if all(not text for _pid, _program, text in parties):
-                sims = [0.0] * len(parties)
-            else:
-                vectorizer = TfidfVectorizer(lowercase=True, stop_words=list(STOP_WORDS), ngram_range=(1, 2), min_df=1)
-                matrix = vectorizer.fit_transform(docs)
-                sims = cosine_similarity(matrix[0], matrix[1:]).ravel().tolist()
+                secondary_text = " ".join(by_program_secondary_topic.get((program["id"], topic["id"]), []))
+                if party_text:
+                    comparison_text = party_text
+                    match_basis = "primary"
+                    match_label = "Primært emne"
+                    match_weight = 1.0
+                elif secondary_text:
+                    comparison_text = secondary_text
+                    match_basis = "secondary"
+                    match_label = "Sekundært emnesignal"
+                    match_weight = SECONDARY_TOPIC_WEIGHT
+                else:
+                    comparison_text = ""
+                    match_basis = ""
+                    match_label = ""
+                    match_weight = 0.0
+                parties.append((pid, program, comparison_text, match_basis, match_label, match_weight))
+            comparable_parties = [
+                (pid, program, text, match_basis, match_label, match_weight)
+                for pid, program, text, match_basis, match_label, match_weight in parties
+                if text
+            ]
+            unavailable_topic_parties = [
+                {
+                    "party_id": pid,
+                    "party_name": programs["parties_by_id"].get(pid, pid),
+                    "program_id": program["id"],
+                    "program_year": program["year"],
+                    "program_title": program["title"],
+                    "role": "Regeringsparti" if pid in government.get("governmentParties", []) else "Parlamentarisk grundlag",
+                }
+                for pid, program, text, _match_basis, _match_label, _match_weight in parties
+                if not text
+            ]
+            if not comparable_parties:
+                rows.append({
+                    "government_id": government["id"],
+                    "topic_id": topic["id"],
+                    "topic_label": topic["label"],
+                    "scores": [],
+                    "unavailable_topic_parties": unavailable_topic_parties,
+                    "missing_party_ids": missing,
+                    "calculation": "tfidf_cosine_relative",
+                    "note": "Regeringsgrundlaget har emnetekst, men ingen af de relevante aktuelle partiprogrammer har identificeret primær eller sekundær emnetekst for dette emne.",
+                })
+                continue
+            docs = [gov_text] + [party_text for _pid, _program, party_text, _basis, _label, _weight in comparable_parties]
+            vectorizer = TfidfVectorizer(lowercase=True, stop_words=list(STOP_WORDS), ngram_range=(1, 2), min_df=1)
+            matrix = vectorizer.fit_transform(docs)
+            raw_sims = cosine_similarity(matrix[0], matrix[1:]).ravel().tolist()
+            sims = [
+                raw_score * match_weight
+                for raw_score, (_pid, _program, _text, _basis, _label, match_weight) in zip(raw_sims, comparable_parties)
+            ]
             total = sum(max(score, 0.0) for score in sims)
             if total <= 0:
                 rows.append({
@@ -361,13 +411,14 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     "topic_id": topic["id"],
                     "topic_label": topic["label"],
                     "scores": [],
+                    "unavailable_topic_parties": unavailable_topic_parties,
                     "missing_party_ids": missing,
                     "calculation": "tfidf_cosine_relative",
-                    "note": "Der er emnetekst i regeringsgrundlaget, men ikke nok matchende emnetekst i de aktuelle principprogrammer til en relativ nærhedsberegning.",
+                    "note": "Der er emnetekst på begge sider, men den tekstlige lighed er for lav til en meningsfuld relativ fordeling.",
                 })
                 continue
             scores = []
-            for (pid, program, party_text), score in zip(parties, sims):
+            for (pid, program, _party_text, match_basis, match_label, match_weight), raw_score, score in zip(comparable_parties, raw_sims, sims):
                 share = float(score / total)
                 scores.append({
                     "party_id": pid,
@@ -375,10 +426,14 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     "program_id": program["id"],
                     "program_year": program["year"],
                     "program_title": program["title"],
+                    "match_basis": match_basis,
+                    "match_label": match_label,
+                    "match_weight": match_weight,
+                    "raw_similarity": round(float(raw_score), 4),
                     "similarity": round(float(score), 4),
                     "share": round(share, 4),
                     "relative_similarity_share": round(share, 4),
-                    "has_topic_text": bool(party_text),
+                    "has_topic_text": True,
                     "role": "Regeringsparti" if pid in government.get("governmentParties", []) else "Parlamentarisk grundlag",
                 })
             scores.sort(key=lambda item: (-item["share"], item["party_name"]))
@@ -387,9 +442,10 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                 "topic_id": topic["id"],
                 "topic_label": topic["label"],
                 "scores": scores,
+                "unavailable_topic_parties": unavailable_topic_parties,
                 "missing_party_ids": missing,
                 "calculation": "tfidf_cosine_relative",
-                "note": "Procenten er en normaliseret andel af TF-IDF/cosinus-scorerne inden for dette regeringsgrundlag, emne og de partier, der indgår. Den viser relativ tekstlig nærhed, ikke politisk indflydelse.",
+                "note": "Procenten fordeler kun mellem partier med identificeret primær eller sekundær emnetekst. Sekundære emnesignaler vægtes lavere; partier uden emnetekst vises separat og indgår ikke som 0%.",
             })
     return rows
 
@@ -470,8 +526,10 @@ def main() -> None:
         "",
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
         "Emneforslagene bruger den samme realpolitiske 18-emne-taksonomi som partiprogrammerne.",
-        "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
-        "Den viste procent er en relativ normalisering af cosinus-scorerne inden for ét regeringsgrundlag og ét emne. Den er ikke en måling af kausal politisk indflydelse.",
+        "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets primære emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
+        "Partier indgår med primær emnetekst, når den findes. Hvis et emne kun er identificeret som sekundært signal, indgår teksten med lavere vægt.",
+        "Den viste procent er en relativ normalisering mellem de partier, hvor der faktisk er identificeret emnetekst. Partier uden emnetekst indgår ikke som 0%, men vises som ikke beregnet.",
+        "Indikatoren er en læsehjælp til tekstlig nærhed, ikke en måling af kausal politisk indflydelse.",
     ])
     (OUTPUT_DIR / "government_topic_suggestions_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -507,9 +565,11 @@ def main() -> None:
         "Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifikke nøgleord, så brede enkeltord ikke alene placerer et tekststykke under et emne.",
         "Tekstopdelingen filtrerer side-/biblioteksstøj, samler korte fragmenter og forsøger at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.",
         "Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.",
-        "Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer inden for ét regeringsgrundlag og ét emne. Den må ikke læses som kausal politisk indflydelse.",
+        "Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer mellem partier med identificeret emnetekst. Primær emnetekst bruges direkte; sekundære emnesignaler indgår med lavere vægt.",
+        "Partier uden primær eller sekundær emnetekst vises særskilt og tæller ikke som 0%.",
+        "Indikatoren må ikke læses som kausal politisk indflydelse.",
         "1994- og 2001-regeringsgrundlagene samt Fremskridtspartiets 1993-program er OCR-behandlet lokalt, fordi de originale PDF'er er billedbaserede.",
-        "DF_2009 er registreret som arbejdsprogram uden fuldtekst, fordi den aktuelle RTF-kildefil er tom.",
+        "Dansk Folkepartis 2009-tekst er registreret som arbejdsprogram, fordi partiet selv bruger den betegnelse.",
         "2019-dokumentet er markeret som forståelsespapir, og 2000/2003 er markeret som supplerende regeringsgrundlag.",
     ])
     (DOCS_ANALYSIS_DIR / "topic_suggestions_summary.md").write_text(

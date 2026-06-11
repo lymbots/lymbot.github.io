@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-current-program-scope";
+const dataVersion = "2026-06-11-method-similarity-v2";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -311,7 +311,7 @@ async function renderProgramSource(programId, data, taxonomy, suggestions) {
 
     <section id="topic-suggestions" class="source-section">
       <h2>Emneforslag fra analysen</h2>
-      <p class="meta">Emnerne er automatiske læseforslag. Primært emne bruges til navigation; sekundært emne er et supplerende signal.</p>
+      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundært emne viser et svagere, men relevant signal.</p>
       ${renderTopicBlocks(program.id, taxonomy.topics, suggestions)}
     </section>
   `;
@@ -364,7 +364,7 @@ async function renderGovernmentSource(governmentId, governmentsData, taxonomy, s
 
     <section id="topic-suggestions" class="source-section">
       <h2>Emneforslag fra analysen</h2>
-      <p class="meta">Emnerne er automatiske læseforslag. Primært emne bruges til navigation; sekundært emne er et supplerende signal.</p>
+      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundært emne viser et svagere, men relevant signal.</p>
       ${renderTopicBlocks(government.id, taxonomy.topics, suggestions)}
     </section>
   `;

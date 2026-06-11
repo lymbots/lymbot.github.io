@@ -602,6 +602,19 @@ a { color: var(--accent); font-weight: 700; }
   gap: 0.9rem;
 }
 
+.method-note {
+  border-top: 1px solid var(--line);
+  margin-top: 0.35rem;
+  padding-top: 0.7rem;
+}
+
+.missing-topic-box {
+  border: 1px dashed color-mix(in srgb, var(--accent) 28%, var(--line));
+  border-radius: 12px;
+  background: #fbfaf5;
+  padding: 0.85rem;
+}
+
 .similarity-row {
   border: 1px solid var(--line);
   border-radius: 12px;

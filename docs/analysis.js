@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-current-program-scope";
+const dataVersion = "2026-06-11-method-similarity-v2";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
