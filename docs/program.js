@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-period-colors";
+const dataVersion = "2026-06-11-current-program-scope";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";

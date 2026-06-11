@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-period-colors";
+const dataVersion = "2026-06-11-current-program-scope";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -8,6 +8,7 @@ const chunksUrl = "./data/analysis/chunks.json";
 
 const compareTopicSelect = document.getElementById("compare-topic-select");
 const comparePeriodSelect = document.getElementById("compare-period-select");
+const compareProgramScopeSelect = document.getElementById("compare-program-scope-select");
 const comparePartyCheckboxes = document.getElementById("compare-party-checkboxes");
 const compareGovernmentCheckboxes = document.getElementById("compare-government-checkboxes");
 const timelinePartySelect = document.getElementById("timeline-party-select");
@@ -123,6 +124,7 @@ async function init() {
 
   compareTopicSelect.addEventListener("change", renderAll);
   comparePeriodSelect.addEventListener("change", renderAll);
+  compareProgramScopeSelect.addEventListener("change", renderAll);
   timelinePartySelect.addEventListener("change", renderAll);
   timelineTopicSelect.addEventListener("change", renderAll);
   timelinePeriodSelect.addEventListener("change", renderAll);
@@ -338,6 +340,24 @@ function getLatestProgramYear(partyId) {
 
 function getProgramStatus(program) {
   return Number(program.year) === getLatestProgramYear(program.partyId) ? "current" : "historical";
+}
+
+function getCurrentProgramForParty(partyId) {
+  return [...state.programs]
+    .filter((program) => program.partyId === partyId)
+    .sort((a, b) => Number(b.year) - Number(a.year))[0];
+}
+
+function getProgramsForCompare(partyId, periodId, scope) {
+  const partyPrograms = state.programs.filter((program) => program.partyId === partyId);
+  if (scope === "current") {
+    const currentProgram = getCurrentProgramForParty(partyId);
+    return currentProgram ? [currentProgram] : [];
+  }
+  if (scope === "period") {
+    return partyPrograms.filter((program) => isInPeriod(program.year, periodId));
+  }
+  return partyPrograms;
 }
 
 function getProgramStatusLabel(program) {
@@ -588,7 +608,8 @@ function renderAll() {
     compareTopicSelect.value,
     getSelectedPartyIds(),
     getSelectedGovernmentIds(),
-    comparePeriodSelect.value
+    comparePeriodSelect.value,
+    compareProgramScopeSelect.value
   );
   renderTimeline(timelineTopicSelect.value, timelinePartySelect.value, timelinePeriodSelect.value);
   renderPartyOverview(partyOverviewSelect.value, partyPeriodSelect.value);
@@ -596,7 +617,7 @@ function renderAll() {
   renderSearch();
 }
 
-function renderCompare(topicId, partyIds, governmentIds, periodId) {
+function renderCompare(topicId, partyIds, governmentIds, periodId, programScope) {
   compareView.innerHTML = "";
 
   if (!topicId) {
@@ -615,20 +636,27 @@ function renderCompare(topicId, partyIds, governmentIds, periodId) {
     const government = state.governments.find((item) => item.id === governmentId);
     return government && isInPeriod(government.year, periodId);
   });
-  const partyCards = partyIds.map((partyId) => renderPartyCompareCard(partyId, topicId, periodId)).join("");
+  const partyCards = partyIds
+    .map((partyId) => renderPartyCompareCard(partyId, topicId, periodId, programScope))
+    .join("");
   const governmentCards = visibleGovernmentIds
     .map((governmentId) => renderGovernmentCompareCard(governmentId, topicId))
     .join("");
 
-  compareSummary.textContent = `${getTopicLabel(topicId)} · ${getPeriodLabel(periodId)} · ${
+  const scopeLabel =
+    programScope === "current"
+      ? "aktuelle partiprogrammer"
+      : programScope === "period"
+      ? "partiprogrammer fra perioden"
+      : "alle partiprogrammer";
+  compareSummary.textContent = `${getTopicLabel(topicId)} · ${getPeriodLabel(periodId)} · ${scopeLabel} · ${
     partyIds.length
   } partier · ${visibleGovernmentIds.length} regeringsgrundlag`;
   compareView.innerHTML = partyCards + governmentCards;
 }
 
-function renderPartyCompareCard(partyId, topicId, periodId) {
-  const programs = state.programs
-    .filter((program) => program.partyId === partyId && isInPeriod(program.year, periodId))
+function renderPartyCompareCard(partyId, topicId, periodId, programScope) {
+  const programs = getProgramsForCompare(partyId, periodId, programScope)
     .map((program) => ({
       ...program,
       topicSuggestions: getProgramTopicSuggestions(program.id, topicId),
@@ -640,7 +668,7 @@ function renderPartyCompareCard(partyId, topicId, periodId) {
     return `
       <article class="party-card party-accent-card" style="${partyStyle(partyId)}">
         <h3>${renderPartySwatchById(partyId)}${escapeHtml(getPartyName(partyId))}</h3>
-        <p class="empty">Ingen uddrag for emnet ${escapeHtml(getTopicLabel(topicId))}.</p>
+        <p class="empty">Ingen uddrag for emnet ${escapeHtml(getTopicLabel(topicId))} i det valgte programudsnit.</p>
       </article>
     `;
   }

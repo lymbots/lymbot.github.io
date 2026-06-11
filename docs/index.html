@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-11-period-colors" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-11-current-program-scope" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -74,6 +74,17 @@
 
             <label for="compare-period-select">Periode</label>
             <select id="compare-period-select"></select>
+            <p class="filter-note">
+              Perioden afgrænser regeringsgrundlag. Partier vises som udgangspunkt med deres
+              aktuelle program, så ældre aktuelle programmer stadig kan sammenlignes med nye kilder.
+            </p>
+
+            <label for="compare-program-scope-select">Partiprogrammer</label>
+            <select id="compare-program-scope-select">
+              <option value="current" selected>Aktuelle programmer</option>
+              <option value="period">Programmer fra perioden</option>
+              <option value="all">Alle programmer</option>
+            </select>
 
             <fieldset>
               <legend>Partier</legend>
@@ -261,6 +272,6 @@
       </p>
     </footer>
 
-    <script src="./app.js?v=2026-06-11-period-colors" type="module"></script>
+    <script src="./app.js?v=2026-06-11-current-program-scope" type="module"></script>
   </body>
 </html>
