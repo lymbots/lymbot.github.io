@@ -18,6 +18,8 @@ TAXONOMY_PATH = ROOT / "analysis" / "topic_taxonomy.json"
 PHRASE_BONUS = 0.1
 MULTI_HIT_BONUS = 0.22
 MIN_PRIMARY_SCORE = 0.26
+MIN_SIGNAL_SCORE = 0.16
+MAX_TOPIC_SIGNALS = 8
 
 # Broad value words are useful but too dominant unless dampened.
 BROAD_KEYWORDS = {
@@ -48,6 +50,16 @@ BROAD_KEYWORDS = {
     "grøn",
 }
 
+EXTRA_TOPIC_KEYWORDS = {
+    "oekonomi_skat_finans": ["skattepolitik", "skattebetaling", "økonomien", "økonomiske", "skatteindtægter"],
+    "offentlig_sektor_velfaerd_forvaltning": ["velfærdsydelser", "velfærdsgoder", "velfærden", "velfærdssamfundet"],
+    "sundhed_psykiatri": ["sundhedsvæsenet", "sundhedsydelser", "sygehusvæsen", "sygehusvæsenet"],
+    "aeldre_pension_omsorg": ["ældre", "ældreområdet", "ældres", "pension", "pensionen"],
+    "boern_familie_socialpolitik": ["børneinstitutioner", "børnefamilier", "daginstitutioner", "socialpolitik"],
+    "uddannelse_forskning_unge": ["uddannelsessystem", "uddannelsessystemet", "undervisning"],
+    "bolig_transport_by_land": ["boliger", "bolig", "transport", "infrastruktur", "landdistrikter"],
+}
+
 
 def normalize_text(value: str) -> str:
     return " ".join(value.lower().split())
@@ -76,7 +88,8 @@ def build_scores(chunk: dict, topics: dict) -> tuple[list[tuple[str, float]], li
     hit_counts = defaultdict(int)
 
     for topic_id, topic in topics.items():
-        for keyword in topic.get("keywords", []):
+        keywords = list(dict.fromkeys(topic.get("keywords", []) + EXTRA_TOPIC_KEYWORDS.get(topic_id, [])))
+        for keyword in keywords:
             matches = keyword_pattern(keyword).findall(text)
             if not matches:
                 continue
@@ -94,7 +107,7 @@ def build_scores(chunk: dict, topics: dict) -> tuple[list[tuple[str, float]], li
             reasons[topic_id].append("dense_topic_signal")
 
     ranked = sorted(
-        ((topic_id, score) for topic_id, score in scores.items() if score >= MIN_PRIMARY_SCORE),
+        ((topic_id, score) for topic_id, score in scores.items() if score >= MIN_SIGNAL_SCORE),
         key=lambda item: (-item[1], item[0]),
     )
     top_reasons = []
@@ -114,11 +127,20 @@ def main() -> None:
 
     for chunk in chunks:
         ranked, reasons = build_scores(chunk, topics)
-        if not ranked:
+        if not ranked or ranked[0][1] < MIN_PRIMARY_SCORE:
             skipped += 1
             continue
         primary_id, primary_score = ranked[0]
-        secondary_id, secondary_score = ranked[1] if len(ranked) > 1 else ("", 0.0)
+        secondary_id, secondary_score = ranked[1] if len(ranked) > 1 and ranked[1][1] >= MIN_PRIMARY_SCORE else ("", 0.0)
+        topic_signals = [
+            {
+                "topic_id": topic_id,
+                "topic_label": topics[topic_id]["label"],
+                "score": round(float(score), 2),
+                "rank": index + 1,
+            }
+            for index, (topic_id, score) in enumerate(ranked[:MAX_TOPIC_SIGNALS])
+        ]
         topic_totals[primary_id] += 1
 
         suggestion_rows.append(
@@ -136,6 +158,7 @@ def main() -> None:
                 "secondary_topic_id": secondary_id,
                 "secondary_topic_label": topics.get(secondary_id, {}).get("label", secondary_id),
                 "secondary_confidence": f"{secondary_score:.2f}" if secondary_id else "",
+                "topic_signals": topic_signals,
                 "review_status": "needs_review",
                 "reasons": ", ".join(reasons[:6]),
                 "text": chunk["text"],
@@ -151,14 +174,15 @@ def main() -> None:
 
     fieldnames = list(suggestion_rows[0].keys())
     with csv_path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(suggestion_rows)
 
     lines = [
         "# Emneforslag for partiprogrammer",
         "",
-        "Forslagene bygger på den realpolitiske 18-emne-taksonomi og bruges som primære emner på sitet.",
+        "Forslagene bygger på den realpolitiske 18-emne-taksonomi. Hvert tekststykke får ét primært emne og op til otte tydelige emnesignaler.",
+        "Primære emner bruges som strengeste læseindgang. Brede emnesignaler bruges som supplement, når programmer samler flere politikområder i samme afsnit.",
         "",
         f"- Tekststykker med emneforslag: {len(suggestion_rows)}",
         f"- Tekststykker uden tydeligt emnesignal: {skipped}",

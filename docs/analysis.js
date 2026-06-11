@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-method-similarity-v2";
+const dataVersion = "2026-06-11-topic-signals-v1";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
@@ -83,6 +83,10 @@ function countByPrimaryTopic(topicId) {
   return state.suggestions.filter((item) => item.primary_topic_id === topicId).length;
 }
 
+function hasTopicSignal(item, topicId) {
+  return (item.topic_signals || []).some((signal) => signal.topic_id === topicId);
+}
+
 function renderTopicCards() {
   topicCards.innerHTML = state.topics
     .map((topic) => {
@@ -114,7 +118,8 @@ function filterSuggestions() {
     const topicMatch =
       selectedTopic === "all" ||
       item.primary_topic_id === selectedTopic ||
-      (matchMode === "primary_secondary" && item.secondary_topic_id === selectedTopic);
+      (matchMode === "primary_secondary" && item.secondary_topic_id === selectedTopic) ||
+      (matchMode === "topic_signals" && hasTopicSignal(item, selectedTopic));
     const partyMatch = selectedParty === "all" || item.party_name === selectedParty;
 
     return topicMatch && partyMatch;
@@ -133,7 +138,9 @@ function renderAll() {
   filterTitle.textContent = topicLabel;
   filterSummary.textContent = `Viser ${items.length} tekststykker for ${partyLabel}.`;
   resultsSummary.textContent =
-    matchMode === "primary_secondary"
+    matchMode === "topic_signals"
+      ? `Viser ${items.length} tekstforslag. Alle tydelige emnesignaler er medtaget, så brede afsnit kan optræde under flere emner.`
+      : matchMode === "primary_secondary"
       ? `Viser ${items.length} tekstforslag. Sekundære emner er medtaget som supplerende signaler.`
       : `Viser ${items.length} tekstforslag, hvor det valgte emne er det primære emne.`;
 

@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-11-method-similarity-v2" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-11-topic-signals-v1" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -48,9 +48,9 @@
       <section class="panel method-panel" aria-labelledby="analysis-method-title">
         <h2 id="analysis-method-title">Sådan læses siden</h2>
         <p>
-          Hvert tekststykke har ét primært emneforslag og eventuelt et sekundært signal.
-          Primære emner bruges til programlæsning på hovedsitet. Sekundære signaler kan slås til
-          her som analytisk supplement og bruges med lavere vægt i nærhedsindikatoren.
+          Hvert tekststykke har ét primært emneforslag og kan samtidig have sekundære eller brede
+          emnesignaler. Primære emner er den strengeste læseindgang; de bredere signaler gør det
+          muligt at rumme programmer, hvor flere politikområder er skrevet sammen i samme afsnit.
         </p>
         <p>
           Klassifikationen er automatisk beregnet og skal læses som en dokumenteret indgang til
@@ -89,6 +89,7 @@
           <select id="analysis-match-select">
             <option value="primary" selected>Kun primære emner</option>
             <option value="primary_secondary">Primære + sekundære signaler</option>
+            <option value="topic_signals">Alle tydelige emnesignaler</option>
           </select>
 
           <div class="analysis-summary-box">
@@ -124,6 +125,6 @@
       </p>
     </footer>
 
-    <script src="./analysis.js?v=2026-06-11-method-similarity-v2" type="module"></script>
+    <script src="./analysis.js?v=2026-06-11-topic-signals-v1" type="module"></script>
   </body>
 </html>

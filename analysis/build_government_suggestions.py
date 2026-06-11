@@ -25,7 +25,10 @@ MIN_WORDS = 45
 TARGET_WORDS = 180
 MAX_WORDS = 340
 MIN_PRIMARY_SCORE = 0.26
+MIN_SIGNAL_SCORE = 0.16
 SECONDARY_TOPIC_WEIGHT = 0.65
+BROAD_TOPIC_SIGNAL_WEIGHT = 0.45
+MAX_TOPIC_SIGNALS = 8
 
 STOP_WORDS = {
     "af", "alle", "at", "da", "de", "dem", "den", "der", "det", "en", "er", "et",
@@ -38,8 +41,8 @@ EXTRA_TOPIC_KEYWORDS = {
     "oekonomi_skat_finans": ["finanspolitik", "økonomisk", "skattelettelser", "skattestop", "produktivitet", "råderum", "offentlige finanser", "moms"],
     "erhverv_arbejdsmarked_beskaeftigelse": ["konkurrenceevne", "erhvervsliv", "virksomhed", "virksomheder", "iværksætteri", "rammevilkår", "beskæftigelse", "arbejdsudbud", "arbejdspladser", "arbejdskraft", "løn", "overenskomster", "dagpenge"],
     "offentlig_sektor_velfaerd_forvaltning": ["offentlig sektor", "kommuner", "regioner", "bureaukrati", "decentralisering", "forvaltning", "service", "velfærdssamfund"],
-    "sundhed_psykiatri": ["sundhedsvæsen", "sygehusvæsen", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger", "folkesundhed"],
-    "aeldre_pension_omsorg": ["ældrepleje", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension", "pensionister", "arnepension"],
+    "sundhed_psykiatri": ["sundhedsvæsen", "sundhedsvæsenet", "sundhedsydelser", "sygehusvæsen", "sygehusvæsenet", "patienter", "psykiatrien", "behandling", "ventelister", "praktiserende læger", "folkesundhed"],
+    "aeldre_pension_omsorg": ["ældre", "ældrepleje", "ældreområdet", "ældres", "hjemmehjælp", "plejehjem", "værdig ældrepleje", "demens", "folkepension", "pensionister", "pension", "arnepension"],
     "boern_familie_socialpolitik": ["daginstitutioner", "børnefamilier", "børn", "unge", "familier", "forældre", "trivsel", "social", "udsatte", "fattigdom", "handicap", "hjemløse", "social arv"],
     "uddannelse_forskning_unge": ["folkeskole", "universiteter", "erhvervsuddannelser", "lærepladser", "forskning", "uddannelse", "gymnasier", "studerende", "historieundervisning"],
     "klima_miljoe_energi": ["grøn", "co2", "havmiljø", "drikkevand", "vind", "elektrificering", "biodiversitet", "energipolitik", "forsyning"],
@@ -281,7 +284,7 @@ def keyword_pattern(keyword: str) -> re.Pattern:
     return re.compile(rf"(?<![\wÆØÅæøå-]){escaped}(?![\wÆØÅæøå-])", re.IGNORECASE)
 
 
-def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, str]:
+def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, str, list[dict]]:
     normalized = " ".join(text.lower().split())
     scored = []
     reasons_by_topic = defaultdict(list)
@@ -302,15 +305,26 @@ def score_chunk(text: str, topics: list[dict]) -> tuple[str, float, str, float, 
             score += 0.12
         scored.append((topic["id"], score, hits[:4]))
         reasons_by_topic[topic["id"]] = [f"keyword:{hit}" for hit in hits[:4]]
+    scored = [item for item in scored if item[1] >= MIN_SIGNAL_SCORE]
     if not scored:
-        return "ukendt", 0.0, "", 0.0, "ingen klare nøgleord"
+        return "ukendt", 0.0, "", 0.0, "ingen klare nøgleord", []
     scored.sort(key=lambda item: (-item[1], item[0]))
     if scored[0][1] < MIN_PRIMARY_SCORE:
-        return "ukendt", 0.0, "", 0.0, "ingen stærke emnesignaler"
+        return "ukendt", 0.0, "", 0.0, "ingen stærke emnesignaler", []
     primary = scored[0]
-    secondary = scored[1] if len(scored) > 1 else ("", 0.0, [])
+    secondary = scored[1] if len(scored) > 1 and scored[1][1] >= MIN_PRIMARY_SCORE else ("", 0.0, [])
     reasons = reasons_by_topic.get(primary[0], []) + reasons_by_topic.get(secondary[0], [])
-    return primary[0], primary[1], secondary[0], secondary[1], ", ".join(reasons[:6])
+    topic_labels = {topic["id"]: topic["label"] for topic in topics}
+    topic_signals = [
+        {
+            "topic_id": topic_id,
+            "topic_label": topic_labels.get(topic_id, topic_id),
+            "score": round(float(score), 2),
+            "rank": index + 1,
+        }
+        for index, (topic_id, score, _hits) in enumerate(scored[:MAX_TOPIC_SIGNALS])
+    ]
+    return primary[0], primary[1], secondary[0], secondary[1], ", ".join(reasons[:6]), topic_signals
 
 
 def build_similarity(combined_suggestions: list[dict], programs: dict, governments: list[dict], topics: list[dict]) -> list[dict]:
@@ -322,11 +336,16 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
 
     by_program_topic = defaultdict(list)
     by_program_secondary_topic = defaultdict(list)
+    by_program_signal_topic = defaultdict(list)
     for item in combined_suggestions:
         if item.get("primary_topic_id") and item.get("primary_topic_id") != "ukendt":
             by_program_topic[(item["program_id"], item["primary_topic_id"])].append(item["text"])
         if item.get("secondary_topic_id") and item.get("secondary_topic_id") != "ukendt":
             by_program_secondary_topic[(item["program_id"], item["secondary_topic_id"])].append(item["text"])
+        for signal in item.get("topic_signals", []):
+            signal_topic_id = signal.get("topic_id")
+            if signal_topic_id and signal_topic_id != item.get("primary_topic_id") and signal_topic_id != item.get("secondary_topic_id"):
+                by_program_signal_topic[(item["program_id"], signal_topic_id)].append(item["text"])
 
     rows = []
     for government in governments:
@@ -351,6 +370,7 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                 program = latest_by_party[pid]
                 party_text = " ".join(by_program_topic.get((program["id"], topic["id"]), []))
                 secondary_text = " ".join(by_program_secondary_topic.get((program["id"], topic["id"]), []))
+                signal_text = " ".join(by_program_signal_topic.get((program["id"], topic["id"]), []))
                 if party_text:
                     comparison_text = party_text
                     match_basis = "primary"
@@ -361,6 +381,11 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     match_basis = "secondary"
                     match_label = "Sekundært emnesignal"
                     match_weight = SECONDARY_TOPIC_WEIGHT
+                elif signal_text:
+                    comparison_text = signal_text
+                    match_basis = "topic_signal"
+                    match_label = "Bredt emnesignal"
+                    match_weight = BROAD_TOPIC_SIGNAL_WEIGHT
                 else:
                     comparison_text = ""
                     match_basis = ""
@@ -393,7 +418,7 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                     "unavailable_topic_parties": unavailable_topic_parties,
                     "missing_party_ids": missing,
                     "calculation": "tfidf_cosine_relative",
-                    "note": "Regeringsgrundlaget har emnetekst, men ingen af de relevante aktuelle partiprogrammer har identificeret primær eller sekundær emnetekst for dette emne.",
+                    "note": "Regeringsgrundlaget har emnetekst, men ingen af de relevante aktuelle partiprogrammer har identificeret et tydeligt emnesignal for dette emne.",
                 })
                 continue
             docs = [gov_text] + [party_text for _pid, _program, party_text, _basis, _label, _weight in comparable_parties]
@@ -445,7 +470,7 @@ def build_similarity(combined_suggestions: list[dict], programs: dict, governmen
                 "unavailable_topic_parties": unavailable_topic_parties,
                 "missing_party_ids": missing,
                 "calculation": "tfidf_cosine_relative",
-                "note": "Procenten fordeler kun mellem partier med identificeret primær eller sekundær emnetekst. Sekundære emnesignaler vægtes lavere; partier uden emnetekst vises separat og indgår ikke som 0%.",
+                "note": "Procenten fordeler kun mellem partier med identificeret emnesignal. Primære emner bruges direkte, sekundære og brede emnesignaler vægtes lavere; partier uden emnetekst vises separat og indgår ikke som 0%.",
             })
     return rows
 
@@ -472,7 +497,7 @@ def main() -> None:
     suggestions = []
     topic_totals = Counter()
     for chunk in chunks:
-        primary_id, primary_score, secondary_id, secondary_score, reasons = score_chunk(chunk["text"], topics)
+        primary_id, primary_score, secondary_id, secondary_score, reasons, topic_signals = score_chunk(chunk["text"], topics)
         if primary_id not in topic_by_id:
             continue
         topic_totals[primary_id] += 1
@@ -490,6 +515,7 @@ def main() -> None:
             "secondary_topic_id": secondary_id,
             "secondary_topic_label": topic_by_id.get(secondary_id, {}).get("label", secondary_id),
             "secondary_confidence": f"{secondary_score:.2f}" if secondary_id else "",
+            "topic_signals": topic_signals,
             "review_status": "needs_review",
             "reasons": reasons,
             "text": chunk["text"],
@@ -527,7 +553,7 @@ def main() -> None:
         "Regeringsgrundlagene er opdelt med samme tekststykke-størrelser som partiprogrammerne.",
         "Emneforslagene bruger den samme realpolitiske 18-emne-taksonomi som partiprogrammerne.",
         "Tekstlig nærhed er TF-IDF/cosinus mellem regeringsgrundlagets primære emnetekst og de seneste principprogrammer for partier i regering/parlamentarisk grundlag.",
-        "Partier indgår med primær emnetekst, når den findes. Hvis et emne kun er identificeret som sekundært signal, indgår teksten med lavere vægt.",
+        "Partier indgår med primær emnetekst, når den findes. Hvis emnet kun er identificeret som sekundært eller bredt emnesignal, indgår teksten med lavere vægt.",
         "Den viste procent er en relativ normalisering mellem de partier, hvor der faktisk er identificeret emnetekst. Partier uden emnetekst indgår ikke som 0%, men vises som ikke beregnet.",
         "Indikatoren er en læsehjælp til tekstlig nærhed, ikke en måling af kausal politisk indflydelse.",
     ])
@@ -565,8 +591,8 @@ def main() -> None:
         "Emneklassifikationen kræver enten et stærkt frase-hit eller flere emnespecifikke nøgleord, så brede enkeltord ikke alene placerer et tekststykke under et emne.",
         "Tekstopdelingen filtrerer side-/biblioteksstøj, samler korte fragmenter og forsøger at splitte interne overskrifter i OCR-tekst, så uddrag starter tættere på det emne, de matcher.",
         "Et dokument vises kun under et emne, når der er fundet tekststykker, som primært matcher emnet. Manglende visning betyder derfor ikke nødvendigvis manglende politisk stillingtagen.",
-        "Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer mellem partier med identificeret emnetekst. Primær emnetekst bruges direkte; sekundære emnesignaler indgår med lavere vægt.",
-        "Partier uden primær eller sekundær emnetekst vises særskilt og tæller ikke som 0%.",
+        "Procentvis partinærhed beregnes som en relativ normalisering af TF-IDF/cosinus-scorer mellem partier med identificeret emnetekst. Primær emnetekst bruges direkte; sekundære og brede emnesignaler indgår med lavere vægt.",
+        "Partier uden identificeret emnesignal vises særskilt og tæller ikke som 0%.",
         "Indikatoren må ikke læses som kausal politisk indflydelse.",
         "1994- og 2001-regeringsgrundlagene samt Fremskridtspartiets 1993-program er OCR-behandlet lokalt, fordi de originale PDF'er er billedbaserede.",
         "Dansk Folkepartis 2009-tekst er registreret som arbejdsprogram, fordi partiet selv bruger den betegnelse.",

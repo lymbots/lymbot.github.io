@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-method-similarity-v2";
+const dataVersion = "2026-06-11-topic-signals-v1";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -103,6 +103,14 @@ function renderGovernmentStatus(government, governments) {
   return `<span class="program-status program-status-${status}">${label}</span>`;
 }
 
+function getTopicMatchInfo(item, topicId) {
+  if (item.primary_topic_id === topicId) return { label: "Primært emne", order: 1 };
+  if (item.secondary_topic_id === topicId) return { label: "Sekundært emnesignal", order: 2 };
+  const signal = (item.topic_signals || []).find((entry) => entry.topic_id === topicId);
+  if (signal) return { label: "Bredt emnesignal", order: 3 };
+  return null;
+}
+
 function renderTopicBlocks(sourceId, topics, suggestions) {
   const sourceSuggestions = suggestions.filter((item) => item.program_id === sourceId);
 
@@ -113,7 +121,13 @@ function renderTopicBlocks(sourceId, topics, suggestions) {
   const grouped = topics
     .map((topic) => ({
       ...topic,
-      suggestions: sourceSuggestions.filter((item) => item.primary_topic_id === topic.id),
+      suggestions: sourceSuggestions
+        .filter((item) => getTopicMatchInfo(item, topic.id))
+        .sort((a, b) => {
+          const matchA = getTopicMatchInfo(a, topic.id);
+          const matchB = getTopicMatchInfo(b, topic.id);
+          return (matchA.order - matchB.order) || a.chunk_id.localeCompare(b.chunk_id, "da");
+        }),
     }))
     .filter((topic) => topic.suggestions.length > 0);
 
@@ -121,11 +135,14 @@ function renderTopicBlocks(sourceId, topics, suggestions) {
     .map((topicEntry) => {
       const excerpts = topicEntry.suggestions
         .slice(0, 4)
-        .map(
-          (suggestion) => `
+        .map((suggestion) => {
+          const match = getTopicMatchInfo(suggestion, topicEntry.id);
+          return `
             <div class="excerpt-block">
               <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-              <p class="meta">Tekst-id ${escapeHtml(suggestion.chunk_id)} · Primært: ${escapeHtml(
+              <p class="meta">Tekst-id ${escapeHtml(suggestion.chunk_id)} · Match: ${escapeHtml(
+            match?.label || "Emnematch"
+          )} · Primært: ${escapeHtml(
             suggestion.primary_topic_label
           )}${
             suggestion.secondary_topic_label
@@ -133,8 +150,8 @@ function renderTopicBlocks(sourceId, topics, suggestions) {
               : ""
           }</p>
             </div>
-          `
-        )
+          `;
+        })
         .join("");
 
       return `
@@ -311,7 +328,7 @@ async function renderProgramSource(programId, data, taxonomy, suggestions) {
 
     <section id="topic-suggestions" class="source-section">
       <h2>Emneforslag fra analysen</h2>
-      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundært emne viser et svagere, men relevant signal.</p>
+      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundære og brede emnesignaler viser relevant indhold i bredere programafsnit.</p>
       ${renderTopicBlocks(program.id, taxonomy.topics, suggestions)}
     </section>
   `;
@@ -364,7 +381,7 @@ async function renderGovernmentSource(governmentId, governmentsData, taxonomy, s
 
     <section id="topic-suggestions" class="source-section">
       <h2>Emneforslag fra analysen</h2>
-      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundært emne viser et svagere, men relevant signal.</p>
+      <p class="meta">Emnerne er automatiske læseindgange. Primært emne styrer navigationen; sekundære og brede emnesignaler viser relevant indhold i bredere dokumentafsnit.</p>
       ${renderTopicBlocks(government.id, taxonomy.topics, suggestions)}
     </section>
   `;

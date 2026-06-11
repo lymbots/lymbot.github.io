@@ -1,4 +1,4 @@
-const dataVersion = "2026-06-11-method-similarity-v2";
+const dataVersion = "2026-06-11-topic-signals-v1";
 const dataUrl = "./data/programs.json";
 const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
@@ -408,15 +408,34 @@ function escapeHref(value) {
 
 function getProgramTopicSuggestions(programId, topicId) {
   return state.suggestions
-    .filter((item) => item.program_id === programId && item.primary_topic_id === topicId)
-    .sort((a, b) => a.chunk_id.localeCompare(b.chunk_id, "da"));
+    .filter((item) => item.program_id === programId && getTopicMatchInfo(item, topicId))
+    .sort((a, b) => {
+      const matchA = getTopicMatchInfo(a, topicId);
+      const matchB = getTopicMatchInfo(b, topicId);
+      return (matchA.order - matchB.order) || a.chunk_id.localeCompare(b.chunk_id, "da");
+    });
+}
+
+function getTopicMatchInfo(item, topicId) {
+  if (item.primary_topic_id === topicId) {
+    return { basis: "primary", label: "Primært emne", order: 1 };
+  }
+  if (item.secondary_topic_id === topicId) {
+    return { basis: "secondary", label: "Sekundært emnesignal", order: 2 };
+  }
+  const signal = (item.topic_signals || []).find((entry) => entry.topic_id === topicId);
+  if (signal) {
+    return { basis: "topic_signal", label: "Bredt emnesignal", order: 3 };
+  }
+  return null;
 }
 
 function getTopicLabelsForProgram(program) {
   const topicIds = new Set(
-    state.suggestions
-      .filter((item) => item.program_id === program.id)
-      .map((item) => item.primary_topic_id)
+    state.suggestions.flatMap((item) => {
+      if (item.program_id !== program.id) return [];
+      return (item.topic_signals?.length ? item.topic_signals.map((signal) => signal.topic_id) : [item.primary_topic_id]);
+    })
   );
 
   return Array.from(topicIds)
@@ -475,14 +494,18 @@ function renderExcerpts(suggestions, topicId, limit = 2) {
 
   return suggestions
     .slice(0, limit)
-    .map(
-      (suggestion) => `
+    .map((suggestion) => {
+      const match = getTopicMatchInfo(suggestion, topicId);
+      const primaryLabel = suggestion.primary_topic_label && suggestion.primary_topic_id !== topicId
+        ? ` · Primært klassificeret som ${escapeHtml(suggestion.primary_topic_label)}`
+        : "";
+      return `
         <div class="excerpt-block">
           <p class="excerpt">${escapeHtml(suggestion.text)}</p>
-          <p class="meta">${escapeHtml(topicLabel)} · Tekst-id ${escapeHtml(suggestion.chunk_id)}</p>
+          <p class="meta">${escapeHtml(topicLabel)} · ${escapeHtml(match?.label || "Emnematch")}${primaryLabel} · Tekst-id ${escapeHtml(suggestion.chunk_id)}</p>
         </div>
-      `
-    )
+      `;
+    })
     .join("");
 }
 
@@ -668,7 +691,7 @@ function renderPartyCompareCard(partyId, topicId, periodId, programScope) {
     return `
       <article class="party-card party-accent-card" style="${partyStyle(partyId)}">
         <h3>${renderPartySwatchById(partyId)}${escapeHtml(getPartyName(partyId))}</h3>
-        <p class="empty">Ingen primære emneuddrag for ${escapeHtml(getTopicLabel(topicId))} i det valgte programudsnit. Prøv alle programmer eller brug fritekstsøgning.</p>
+        <p class="empty">Ingen tydelige emnesignaler for ${escapeHtml(getTopicLabel(topicId))} i det valgte programudsnit. Prøv alle programmer eller brug fritekstsøgning.</p>
       </article>
     `;
   }
@@ -710,7 +733,7 @@ function renderGovernmentCompareCard(governmentId, topicId) {
       <h3>${government.year} · ${escapeHtml(government.title)} ${renderGovernmentStatus(government)}</h3>
       <p class="meta">${escapeHtml(government.typeLabel)} · ${escapeHtml(government.governmentName)}</p>
       ${renderGovernmentMeta(government)}
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen primære emneuddrag for dette emne i dokumentet.</p>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 3) : '<p class="empty">Ingen tydelige emnesignaler for dette emne i dokumentet.</p>'}
       ${renderGovernmentFullTextLink(government)}
       ${renderPdfLink(government)}
       ${renderMetadataLink(government)}
@@ -741,7 +764,7 @@ function renderTimeline(topicId, partyId, periodId) {
   )} · ${getPeriodLabel(periodId)}`;
 
   if (programs.length === 0) {
-    timelineView.innerHTML = '<div class="empty">Ingen primære emneuddrag for valgt emne og parti.</div>';
+    timelineView.innerHTML = '<div class="empty">Ingen tydelige emnesignaler for valgt emne og parti.</div>';
     return;
   }
 
@@ -891,16 +914,16 @@ function renderGovernmentOverview(governmentId, topicId, periodId) {
       <div class="program-detail-head">
         <p class="section-kicker">Emne</p>
         <h3>${escapeHtml(topicLabel)}</h3>
-        <p class="meta">Tekststykker hvor regeringsgrundlaget primært matcher emnet.</p>
+        <p class="meta">Tekststykker hvor regeringsgrundlaget matcher emnet som primært, sekundært eller bredt emnesignal.</p>
       </div>
-      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen primære emneuddrag for dette emne i dokumentet.</div>'}
+      ${suggestions.length ? renderExcerpts(suggestions, topicId, 5) : '<div class="empty">Ingen tydelige emnesignaler for dette emne i dokumentet.</div>'}
     </section>
 
     <section class="program-detail-section">
       <div class="program-detail-head">
         <p class="section-kicker">Metodisk indikator</p>
         <h3>Relativ tekstlig nærhed til partier</h3>
-        <p class="meta">Indikatoren sammenligner regeringstekstens emnepassager med aktuelle partiprogrammer. Primære emnetekster bruges direkte; sekundære emnesignaler kan indgå med lavere vægt. Manglende emnetekst vises særskilt.</p>
+        <p class="meta">Indikatoren sammenligner regeringstekstens emnepassager med aktuelle partiprogrammer. Primære emnetekster bruges direkte; sekundære og brede emnesignaler kan indgå med lavere vægt. Manglende emnetekst vises særskilt.</p>
       </div>
       ${renderSimilarityBars(government.id, topicId)}
     </section>
@@ -952,7 +975,7 @@ function renderSimilarityBars(governmentId, topicId) {
         .map((score) => {
           const share = Number(score.relative_similarity_share ?? score.share ?? 0);
           const pct = formatPercent(share);
-          const metricLabel = score.match_basis === "secondary" ? "Vægtet cosinus" : "Cosinus";
+          const metricLabel = score.match_basis === "primary" ? "Cosinus" : "Vægtet cosinus";
           return `
             <div class="similarity-row">
               <div class="similarity-row-head">
@@ -979,7 +1002,7 @@ function renderUnavailableTopicParties(items = []) {
   return `
     <div class="missing-topic-box">
       <p class="section-kicker">Ikke beregnet</p>
-      <p class="meta">Disse partiers aktuelle program har hverken primær eller sekundær emnetekst for dette emne og indgår derfor ikke som 0% i fordelingen.</p>
+      <p class="meta">Disse partiers aktuelle program har ikke et tydeligt emnesignal for dette emne og indgår derfor ikke som 0% i fordelingen.</p>
       <div class="tag-row compact-tags">
         ${items
           .map(
