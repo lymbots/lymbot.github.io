@@ -1,4 +1,6 @@
-const dataVersion = "2026-06-11-topic-signals-v1";
+const dataVersion = "2026-06-12-coverage-matrix-v1";
+const dataUrl = "./data/programs.json";
+const governmentsUrl = "./data/governments.json";
 const taxonomyUrl = "./data/analysis/topic_taxonomy.json";
 const suggestionsUrl = "./data/analysis/topic_suggestions.json";
 
@@ -6,6 +8,7 @@ const topicSelect = document.getElementById("analysis-topic-select");
 const partySelect = document.getElementById("analysis-party-select");
 const matchSelect = document.getElementById("analysis-match-select");
 const topicCards = document.getElementById("analysis-topic-cards");
+const coverageMatrix = document.getElementById("coverage-matrix");
 const resultsView = document.getElementById("analysis-results");
 const resultsSummary = document.getElementById("analysis-results-summary");
 const filterTitle = document.getElementById("analysis-filter-title");
@@ -17,6 +20,8 @@ const statusPrograms = document.getElementById("analysis-status-programs");
 let state = {
   topics: [],
   suggestions: [],
+  programsData: { parties: [], programs: [] },
+  governmentsData: { parties: [], governments: [] },
 };
 
 function withVersion(url) {
@@ -25,27 +30,34 @@ function withVersion(url) {
 }
 
 async function init() {
-  const [taxonomyResponse, suggestionsResponse] = await Promise.all([
+  const [taxonomyResponse, suggestionsResponse, programsResponse, governmentsResponse] = await Promise.all([
     fetch(withVersion(taxonomyUrl)),
     fetch(withVersion(suggestionsUrl)),
+    fetch(withVersion(dataUrl)),
+    fetch(withVersion(governmentsUrl)),
   ]);
 
-  if (!taxonomyResponse.ok || !suggestionsResponse.ok) {
+  if (!taxonomyResponse.ok || !suggestionsResponse.ok || !programsResponse.ok || !governmentsResponse.ok) {
     throw new Error("Kunne ikke hente analysefilerne.");
   }
 
   const taxonomy = await taxonomyResponse.json();
   const suggestions = await suggestionsResponse.json();
+  const programsData = await programsResponse.json();
+  const governmentsData = await governmentsResponse.json();
 
   state = {
     topics: taxonomy.topics,
     suggestions,
+    programsData,
+    governmentsData,
   };
 
   renderStatusStrip();
   renderTopicOptions();
   renderPartyOptions();
   renderTopicCards();
+  renderCoverageMatrix();
 
   topicSelect.addEventListener("change", renderAll);
   partySelect.addEventListener("change", renderAll);
@@ -55,10 +67,19 @@ async function init() {
 }
 
 function renderStatusStrip() {
-  const sourceCount = new Set(state.suggestions.map((item) => item.program_id)).size;
+  const sourceCount = state.programsData.programs.length + state.governmentsData.governments.length;
   statusTopics.textContent = String(state.topics.length);
   statusTexts.textContent = String(state.suggestions.length);
   statusPrograms.textContent = String(sourceCount);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function renderTopicOptions() {
@@ -109,6 +130,129 @@ function getTopicLabel(topicId) {
   return state.topics.find((topic) => topic.id === topicId)?.label ?? topicId;
 }
 
+function topicShortLabel(topic) {
+  const label = topic.label.split(",")[0].replace(" og ", " + ");
+  return label.length > 18 ? `${label.slice(0, 17)}…` : label;
+}
+
+function getPartyName(partyId) {
+  return state.programsData.parties.find((party) => party.id === partyId)?.name ?? partyId;
+}
+
+function getSourceRows() {
+  const programRows = state.programsData.programs.map((program) => ({
+    id: program.id,
+    type: "party_program",
+    typeLabel: "Program",
+    name: `${getPartyName(program.partyId)} ${program.year}`,
+    title: program.title,
+    year: Number(program.year),
+    group: getPartyName(program.partyId),
+    url: `./program.html?program=${encodeURIComponent(program.id)}`,
+  }));
+
+  const governmentRows = state.governmentsData.governments.map((government) => ({
+    id: government.id,
+    type: "government_basis",
+    typeLabel: "Regering",
+    name: `${government.year} · ${government.title}`,
+    title: government.governmentName || government.typeLabel,
+    year: Number(government.year),
+    group: "Regeringsgrundlag",
+    url: `./program.html?government=${encodeURIComponent(government.id)}`,
+  }));
+
+  return [...programRows, ...governmentRows].sort((a, b) => {
+    if (a.type !== b.type) return a.type === "party_program" ? -1 : 1;
+    return a.group.localeCompare(b.group, "da") || a.year - b.year || a.name.localeCompare(b.name, "da");
+  });
+}
+
+function getCoverageBySource() {
+  const coverage = new Map();
+  for (const item of state.suggestions) {
+    if (!coverage.has(item.program_id)) coverage.set(item.program_id, new Map());
+    const sourceCoverage = coverage.get(item.program_id);
+
+    for (const signal of item.topic_signals || []) {
+      if (!sourceCoverage.has(signal.topic_id)) {
+        sourceCoverage.set(signal.topic_id, { primary: 0, secondary: 0, broad: 0 });
+      }
+      const cell = sourceCoverage.get(signal.topic_id);
+      if (item.primary_topic_id === signal.topic_id) {
+        cell.primary += 1;
+      } else if (item.secondary_topic_id === signal.topic_id) {
+        cell.secondary += 1;
+      } else {
+        cell.broad += 1;
+      }
+    }
+  }
+  return coverage;
+}
+
+function coverageClass(cell) {
+  if (!cell) return "coverage-none";
+  const total = cell.primary + cell.secondary + cell.broad;
+  if (cell.primary >= 4 || total >= 8) return "coverage-strong";
+  if (cell.primary >= 2 || total >= 4) return "coverage-medium";
+  return "coverage-weak";
+}
+
+function renderCoverageCell(cell, topicLabel) {
+  if (!cell) {
+    return `<td class="coverage-cell coverage-none" title="${escapeHtml(topicLabel)}: ikke identificeret">·</td>`;
+  }
+  const supplemental = cell.secondary + cell.broad;
+  const label = `${topicLabel}: ${cell.primary} primære, ${cell.secondary} sekundære, ${cell.broad} brede`;
+  return `
+    <td class="coverage-cell ${coverageClass(cell)}" title="${escapeHtml(label)}">
+      <span class="coverage-primary">${cell.primary || ""}</span>
+      ${supplemental ? `<span class="coverage-supplement">+${supplemental}</span>` : ""}
+    </td>
+  `;
+}
+
+function renderCoverageMatrix() {
+  const rows = getSourceRows();
+  const coverage = getCoverageBySource();
+  const headers = state.topics
+    .map(
+      (topic) =>
+        `<th scope="col" title="${escapeHtml(topic.label)}"><span>${escapeHtml(topicShortLabel(topic))}</span></th>`
+    )
+    .join("");
+
+  coverageMatrix.innerHTML = `
+    <table class="coverage-table">
+      <thead>
+        <tr>
+          <th scope="col" class="coverage-source-head">Kilde</th>
+          ${headers}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows
+          .map((row) => {
+            const rowCoverage = coverage.get(row.id) || new Map();
+            return `
+              <tr>
+                <th scope="row" class="coverage-source">
+                  <a href="${row.url}">${escapeHtml(row.name)}</a>
+                  <span>${escapeHtml(row.typeLabel)} · ${escapeHtml(row.title)}</span>
+                </th>
+                ${state.topics
+                  .map((topic) => renderCoverageCell(rowCoverage.get(topic.id), topic.label))
+                  .join("")}
+              </tr>
+            `;
+          })
+          .join("")}
+      </tbody>
+    </table>
+  `;
+}
+
 function filterSuggestions() {
   const selectedTopic = topicSelect.value;
   const selectedParty = partySelect.value;
@@ -156,19 +300,19 @@ function renderAll() {
         <article class="analysis-card">
           <div class="analysis-card-head">
             <div>
-              <h3>${item.party_name} · ${item.year}</h3>
-              <p class="meta">${item.title} · Tekst-id ${item.chunk_id}</p>
+              <h3>${escapeHtml(item.party_name)} · ${escapeHtml(item.year)}</h3>
+              <p class="meta">${escapeHtml(item.title)} · Tekst-id ${escapeHtml(item.chunk_id)}</p>
             </div>
             <div class="analysis-badges">
-              <span class="tag">Primært: ${item.primary_topic_label}</span>
+              <span class="tag">Primært: ${escapeHtml(item.primary_topic_label)}</span>
               ${
                 item.secondary_topic_label
-                  ? `<span class="tag analysis-tag-alt">Sekundært: ${item.secondary_topic_label}</span>`
+                  ? `<span class="tag analysis-tag-alt">Sekundært: ${escapeHtml(item.secondary_topic_label)}</span>`
                   : ""
               }
             </div>
           </div>
-          <p class="context">${item.text}</p>
+          <p class="context">${escapeHtml(item.text)}</p>
         </article>
       `
     )

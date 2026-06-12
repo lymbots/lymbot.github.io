@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Literata:opsz,wght@7..72,500;7..72,700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2026-06-11-topic-signals-v1" />
+    <link rel="stylesheet" href="./styles.css?v=2026-06-12-coverage-matrix-v1" />
   </head>
   <body>
     <div class="bg-shape bg-shape-a" aria-hidden="true"></div>
@@ -72,6 +72,23 @@
         </p>
       </section>
 
+      <section class="panel coverage-panel" aria-labelledby="coverage-title">
+        <div class="view-header">
+          <h2 id="coverage-title">Emnedækning pr. kilde</h2>
+          <p>
+            Matrixen viser, hvilke emner der er identificeret i hvert program og regeringsgrundlag.
+            Tallet i cellen er primære tekststykker; den lille markering viser supplerende
+            sekundære eller brede emnesignaler.
+          </p>
+        </div>
+        <div class="coverage-legend" aria-label="Forklaring til emnematrix">
+          <span><strong>P</strong> primære tekststykker</span>
+          <span><strong>+</strong> sekundære/brede emnesignaler</span>
+          <span><strong>·</strong> ikke identificeret</span>
+        </div>
+        <div id="coverage-matrix" class="coverage-matrix-wrap"></div>
+      </section>
+
       <section class="layout two-col">
         <aside class="panel controls" aria-label="Filtre for analyse">
           <h2>Filtre</h2>
@@ -125,6 +142,6 @@
       </p>
     </footer>
 
-    <script src="./analysis.js?v=2026-06-11-topic-signals-v1" type="module"></script>
+    <script src="./analysis.js?v=2026-06-12-coverage-matrix-v1" type="module"></script>
   </body>
 </html>

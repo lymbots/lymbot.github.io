@@ -538,6 +538,153 @@ a { color: var(--accent); font-weight: 700; }
   padding: 0.85rem;
 }
 
+.coverage-panel {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.coverage-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.8rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.coverage-legend span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  padding: 0.25rem 0.65rem;
+}
+
+.coverage-matrix-wrap {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  max-height: 72vh;
+}
+
+.coverage-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.78rem;
+}
+
+.coverage-table th,
+.coverage-table td {
+  border-right: 1px solid #e5e1d8;
+  border-bottom: 1px solid #e5e1d8;
+}
+
+.coverage-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  min-width: 58px;
+  max-width: 58px;
+  height: 96px;
+  padding: 0.45rem 0.25rem;
+  background: #f8f5ed;
+  color: #34483d;
+  vertical-align: bottom;
+}
+
+.coverage-table thead th span {
+  display: block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  line-height: 1.05;
+}
+
+.coverage-source-head,
+.coverage-source {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  min-width: 260px;
+  max-width: 260px;
+  background: #fffdf8;
+  text-align: left;
+}
+
+.coverage-source-head {
+  vertical-align: bottom;
+}
+
+.coverage-source-head span {
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+}
+
+.coverage-source {
+  padding: 0.55rem 0.65rem;
+  font-weight: 800;
+}
+
+.coverage-source a {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.coverage-source a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.coverage-source span {
+  display: block;
+  margin-top: 0.12rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.coverage-cell {
+  min-width: 58px;
+  height: 38px;
+  padding: 0.25rem;
+  text-align: center;
+  vertical-align: middle;
+  color: #1e3328;
+}
+
+.coverage-primary {
+  font-weight: 900;
+}
+
+.coverage-supplement {
+  display: block;
+  margin-top: 0.05rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #4a6356;
+}
+
+.coverage-none {
+  background: #faf9f5;
+  color: #c6bfb1;
+}
+
+.coverage-weak {
+  background: #edf5ee;
+}
+
+.coverage-medium {
+  background: #cfe5d6;
+}
+
+.coverage-strong {
+  background: #8fc3a3;
+}
+
 .analysis-section-head {
   margin-top: 1.4rem;
 }
